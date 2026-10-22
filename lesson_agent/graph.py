@@ -1,6 +1,6 @@
 """The agent: a LangGraph state machine.
 
-    prepare -> generate -> evaluate --pass--------------------------> finalize -> learn -> END
+    prepare -> research -> generate -> evaluate --pass--------------------------> finalize -> learn -> END
                   ^           |                                         ^
                   |           +--fail, retries left, new failures--> revise --> evaluate
                   |           +--fail, same check failed twice-----> generate (fresh draft)
@@ -33,6 +33,7 @@ from .prompts import GENERATOR_SYSTEM, REVISER_SYSTEM, generate_prompt, revise_p
 from .report import append_learning, write_outputs
 from .rubric import build_rubric
 from .schemas import Revision
+from .web import research as web_research
 
 
 class LessonState(TypedDict, total=False):
@@ -79,6 +80,13 @@ def build_graph(settings: Settings, llm: LLM, memory: Memory, log: Callable[[str
             f"rubric: {len(rubric)} checks | learned guidelines in prompt: {len(guidelines)}")
         return {"run_id": run_id, "run_dir": str(run_dir), "reference": reference,
                 "guidelines": guidelines, "attempt": 0, "change_log": []}
+
+    def research(state: LessonState) -> LessonState:
+        """Fresh facts and verified learning resources from the web (best-effort, cached per day)."""
+        data = web_research(state["topic"], state["reference"], llm, settings, log)
+        reference = {**state["reference"], "resources": data["resources"], "web_facts": data["web_facts"],
+                     "web_sources": data["sources"]}
+        return {"reference": reference}
 
     def generate(state: LessonState) -> LessonState:
         attempt = state["attempt"] + 1
@@ -181,13 +189,15 @@ def build_graph(settings: Settings, llm: LLM, memory: Memory, log: Callable[[str
 
     g = StateGraph(LessonState)
     g.add_node("prepare", prepare)
+    g.add_node("research", research)
     g.add_node("generate", generate)
     g.add_node("revise", revise)
     g.add_node("evaluate", evaluate_node)
     g.add_node("finalize", finalize)
     g.add_node("learn", learn)
     g.set_entry_point("prepare")
-    g.add_edge("prepare", "generate")
+    g.add_edge("prepare", "research")
+    g.add_edge("research", "generate")
     g.add_edge("generate", "evaluate")
     g.add_edge("revise", "evaluate")
     g.add_conditional_edges("evaluate", route, {"finalize": "finalize", "revise": "revise", "generate": "generate"})

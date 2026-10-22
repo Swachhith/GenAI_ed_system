@@ -21,7 +21,9 @@ Writing rules (the lesson is checked against these automatically and rejected if
 2. Everyday words only. Write "use", not "utilise"; "find", not "identify"; "help", not "facilitate".
    No idioms or slang ("piece of cake", "under the hood", "in a nutshell").
 3. Every technical term (LLM, prompt, embedding, chunk, retrieval...) gets a simple meaning the FIRST
-   time it appears, right there in the sentence, e.g. "a prompt (the message you type to the AI)".
+   time it appears. Prefer its own short sentence right after: "You send the AI a prompt. A prompt is the
+   message you type." A short bracket is fine for a 2-4 word meaning, but at most ONE bracket per sentence
+   and never a bracket inside a bracket: packing meanings into brackets makes sentences too long (rule 1).
    Expand every acronym on first use. Introduce at most one new term per paragraph.
 4. Teach with examples from Indian daily life (open-book exam, library, kirana shop, railway enquiry,
    a college notice board). Map every part of the analogy to the real idea, and say where it stops working.
@@ -29,6 +31,12 @@ Writing rules (the lesson is checked against these automatically and rejected if
    model "learns" or "remembers" documents. Never promise RAG is always correct.
 6. Talk to the learner as "you". Be warm and encouraging. Use Markdown: headings, short paragraphs,
    numbered steps, and bold only for new terms.
+7. Links: only use links from the VERIFIED RESOURCES list, copied exactly. Never write any other URL,
+   not even one you are sure about. If the list is empty, leave out the "Learn more" section.
+   Choose for this learner: short beginner explainers first (the ones with a Note are hand-picked), one in
+   Hindi if the list has one, and no coding tutorials.
+8. If FRESH FACTS FROM THE WEB are given, you may add one short "today" example from them where it helps
+   (for example, how RAG is used now). Keep it simple and true; never let it contradict the reference facts.
 
 Required structure, using exactly these H2 headings in this order:
 # <lesson title>
@@ -42,6 +50,8 @@ Required structure, using exactly these H2 headings in this order:
 ## Quick recap                   (5-6 bullet points)
 ## Check yourself                (4 questions, each followed by "Answer: ...")
 ## Key words                     (each term with a one-line simple meaning)
+## Learn more                    (2-4 links from VERIFIED RESOURCES, at least one video; each as
+                                  "- [title](url) - source, N-minute video/article. One simple line on why to open it.")
 
 Length: 900-1400 words. Output only the lesson in Markdown, nothing before or after it."""
 
@@ -50,6 +60,7 @@ def generate_prompt(topic: str, reference: dict, guidelines: list[str], avoid: l
     parts = [f"Write the lesson. Topic: {topic}", "",
              "Reference sheet (facts you must stay consistent with, and points you must teach):",
              _reference_block(reference)]
+    parts += ["", _resources_block(reference)]
     if guidelines:
         parts += ["", "Lessons learned from reviews of earlier drafts (follow these, they fix past rejections):"]
         parts += [f"- {g}" for g in guidelines]
@@ -70,6 +81,8 @@ Rules for revising:
 - Change only what is needed. Keep everything that already works: structure, headings, good examples.
 - Do not break the checks that passed. In particular keep sentences short, words simple, and every
   technical term explained at first use (including any new words you add).
+- These two pull against each other. When you add a meaning, put it in a NEW short sentence ("A chunk is a
+  small piece of text."), not in brackets inside a long sentence. When you shorten a sentence, keep the meaning.
 - Return the full revised lesson, plus one change-log line per failure saying what you changed."""
 
 
@@ -85,7 +98,8 @@ def revise_prompt(lesson: str, failures: list[dict], passed_ids: list[str], refe
     lines += ["", f"PASSED CHECKS (must still pass after your edit): {', '.join(passed_ids) or 'none'}"]
     if guidelines:
         lines += ["", "Standing guidelines:"] + [f"- {g}" for g in guidelines]
-    lines += ["", "Reference sheet:", _reference_block(reference), "", "CURRENT LESSON:", lesson]
+    lines += ["", "Reference sheet:", _reference_block(reference), "", _resources_block(reference),
+              "", "CURRENT LESSON:", lesson]
     return "\n".join(lines)
 
 
@@ -155,4 +169,20 @@ well established and widely agreed. Do not include anything you are unsure of.""
 
 def _reference_block(reference: dict) -> str:
     view = {k: reference[k] for k in ("must_cover", "facts", "misconceptions") if k in reference}
+    if reference.get("web_facts"):
+        # Lower trust than the curated facts: from today's web search, each with its source.
+        view["fresh_facts_from_the_web"] = [f"{f['fact']} (source: {f['source_url']})" for f in reference["web_facts"]]
     return json.dumps(view, indent=1, ensure_ascii=False)
+
+
+def _resources_block(reference: dict) -> str:
+    res = reference.get("resources") or []
+    if not res:
+        return "VERIFIED RESOURCES: none available. Do not include any links."
+    lines = ["VERIFIED RESOURCES (every link checked live today; use only these, URLs copied exactly):"]
+    for r in res:
+        length = f", {r['minutes']}-minute" if r.get("minutes") else ""
+        note = f" Note: {r['why']}" if r.get("why") else ""
+        lang = f" [in {r['language']}]" if r.get("language") and r["language"] != "English" else ""
+        lines.append(f"- {r['title']} | {r.get('source', '')}{length} {r['type']}{lang} | {r['url']}{note}")
+    return "\n".join(lines)

@@ -1,0 +1,54 @@
+--- attempt_1.md
++++ attempt_2.md
+@@ -7,39 +7,17 @@
+ - Why RAG helps us get correct answers from private documents.
+ 
+ ## First, what is an LLM?
+-An LLM (large language model, an AI program trained on huge amounts of text to write like a human) is very powerful. 
+-You can chat with it like a friend on WhatsApp. 
+-It can write essays, explain science, and translate languages. 
+-However, an LLM has two big limits. 
+-First, its training data (the text used to teach the AI) stopped on a fixed date in the past. 
+-It does not know what happened yesterday. 
+-Second, it does not know your private college notes or your company files. 
+-When an LLM does not know a fact, it often guesses. 
+-It writes a fluent sentence that looks true, but is actually false. 
+-In AI, we call this a hallucination (a confident answer made up by the AI). 
++An LLM (large language model, an AI program trained on huge amounts of text to write like a human) is very powerful. Trained means the AI learned from reading text data. You can chat with it like a friend on WhatsApp. It can write essays, explain science, and translate languages. However, an LLM has two big limits. First, its training data (the text used to teach the AI) stopped on a fixed date in the past. This fixed date is called a knowledge cutoff. It does not know what happened yesterday. Second, it does not know your private college notes or your company files. When an LLM does not know a fact, it often guesses. It writes a fluent sentence that looks true, but is actually false. In AI, we call this a hallucination (a confident answer made up by the AI).
+ 
+ ## What is RAG?
+-RAG stands for Retrieval-Augmented Generation. 
+-Let us break down these three words one by one. 
+-Retrieval means to find the right information from a large set of files. 
+-Augmented means to add something to make it better. 
+-Generation means to create new text as an answer. 
+-Put them together, and you get RAG (Retrieval-Augmented Generation, a method that finds relevant documents, adds them to your question, and lets the LLM write the final answer). 
++Think of an open-book exam at college. In an open-book exam, you do not memorize every rule. Instead, you look up the exact rule in your textbook when a question comes. RAG works just like this open-book exam. RAG stands for Retrieval-Augmented Generation. Let us break down these three words one by one. Retrieval means to find the right information from a large set of files. Augmented means to add something to make it better. Generation means to create new text as an answer. Retrieval matches looking up the rulebook. Augmented matches adding the found rule to your paper. Generation matches writing the final answer. Put them together, and you get RAG.
+ 
+ ## Why does RAG matter?
+-Imagine you ask an LLM a question about your college fee rules. 
+-Without RAG, the LLM will guess because it has never read your college rulebook. 
+-With RAG, the system first finds the exact page about fees from your college rulebook. 
+-Then, it gives that page to the LLM. 
+-The LLM reads it and writes the correct answer. 
+-Your answers become up-to-date and use private files. 
+-You also see fewer made-up answers. 
+-Best of all, you do not need to retrain the AI model every time a rule changes. 
+-You only update your files. 
++Imagine you ask an AI model (a computer program trained to think and answer like a human) a question about your college fee rules. Without RAG, the LLM will guess because it has never read your college rulebook. With RAG, the system first finds the exact page about fees from your college rulebook. Then, it gives that page to the LLM. The LLM reads it and writes the correct answer. Your answers become up-to-date and use private files. You also see fewer made-up answers. Best of all, you do not need to retrain the AI model every time a rule changes. You only update your files.
+ 
+ ## How does RAG work?
+ RAG works in four main steps. 
+-1. Indexing (preparing documents before anyone asks a question): You collect your documents, split them into small parts called chunks (small pieces of text), and turn them into numbers. These numbers are called embeddings (a list of numbers that capture the meaning of text). You store these embeddings in a search index.
++1. Indexing: You collect your documents before anyone asks a question. You split them into small parts called chunks (small pieces of text). Then you turn them into numbers. These numbers are called embeddings (a list of numbers that capture the meaning of text). You store these embeddings in a search index.
+ 2. Retrieval: When a user asks a question, the system turns the question into embeddings. It compares these numbers with your stored chunks. It picks the few most relevant chunks.
+ 3. Augmentation: The system takes your original question and adds the retrieved chunks to it. This combined text becomes the prompt (the message you type to the AI).
+ 4. Generation: The LLM reads the prompt containing the retrieved chunks and writes a clear answer for you.
+@@ -95,4 +73,7 @@
+ - RAG: Retrieval-Augmented Generation, a method that adds searched documents to an LLM prompt.
+ - Chunk: A small piece of text split from a larger document.
+ - Embedding: A list of numbers that capture the meaning of text for searching.
+-- Prompt: The message you type to the AI.+- Prompt: The message you type to the AI.
++- Trained: The AI learned from reading text data.
++- AI model: A computer program trained to think and answer like a human.
++- Knowledge cutoff: A fixed date in the past when the AI training data stopped.

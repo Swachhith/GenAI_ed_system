@@ -74,6 +74,7 @@ def settings(tmp_path):
     s.memory_path = tmp_path / "memory.json"
     s.knowledge_dir = ROOT / "knowledge"
     s.max_retries, s.learn_min_failures = 2, 2
+    s.web_research, s.verify_links = False, False  # offline: no Tavily, no link checks
     return s
 
 

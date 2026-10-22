@@ -1,0 +1,85 @@
+--- attempt_1.md
++++ attempt_2.md
+@@ -7,33 +7,33 @@
+ - How to build smarter AI answers without changing the model.
+ 
+ ## First, what is an LLM?
+-You may have used ChatGPT to chat or write text. It is a type of AI called a large language model (an LLM is an AI model trained on a very large amount of text to predict and generate language). 
++You may have used ChatGPT to chat or write text. It is a type of AI called a large language model. An LLM is an AI model trained on a very large amount of text to predict and generate language.
+ 
+-An LLM reads your message and guesses the next best word. It has read books, articles, and websites to learn how humans talk. 
++An LLM reads your message and guesses the next best word. It has read books, articles, and websites to learn how humans talk.
+ 
+-However, an LLM has two big limits. First, its knowledge stops at a certain date. It does not know today's news or your college's secret fee rules. 
++However, an LLM has two big limits. First, its knowledge stops at a certain date. It does not know today's news or your college's secret fee rules.
+ 
+-Second, an LLM can make things up with great confidence. This false reply is called a hallucination (an AI statement that sounds true but is completely false). 
++Second, an LLM can make things up with great confidence. This false reply is called a hallucination (an AI statement that sounds true but is completely false).
+ 
+ ## What is RAG?
+ RAG stands for Retrieval-Augmented Generation. Let us look at what each word means for your AI helper.
+ 
+-First, **retrieval** means finding relevant information from a safe source. 
++First, **retrieval** means finding relevant information from a safe source.
+ 
+-Second, **augmented** means adding that found information to your question. 
++Second, **augmented** means adding that found information to your question.
+ 
+-Third, **generation** means the LLM writes the final answer using that added text. 
++Third, **generation** means the LLM writes the final answer using that added text.
+ 
+ Think of an open-book exam in your college. You do not try to remember every single rule in your head. You look up the exact page in your textbook, read it, and write the correct answer. RAG gives the AI a textbook to read before answering.
+ 
+ ## Why does RAG matter?
+ An LLM alone often guesses when it does not know the truth. RAG fixes this problem in four major ways.
+ 
+-First, answers can use fresh or private documents. 
++First, answers can use fresh or private documents.
+ 
+-Second, the AI makes fewer made-up answers because it reads real facts first. 
++Second, the AI makes fewer made-up answers because it reads real facts first.
+ 
+-Third, the answer can show the source link or page number so you can check it. 
++Third, the answer can show the source link or page number so you can check it.
+ 
+ Fourth, you update the knowledge simply by changing the source files. You do not need to retrain or rebuild the model.
+ 
+@@ -46,12 +46,12 @@
+ 2. **Split into chunks**: Break long documents into smaller parts called chunks (small pieces of text).
+ 3. **Turn into numbers**: Convert each chunk into an embedding (a list of numbers that capture meaning). This helps the system compare text mathematically.
+ 4. **Store in an index**: Save these embeddings in a searchable list or vector index (a database that stores number lists for fast searching).
+-5. **Search**: When you ask a question, the system converts your question into an embedding and searches the database to find the top few most similar chunks.
++5. **Search**: When you ask a question, the system converts your question into an embedding. Then it searches the database to find the top few most similar chunks.
+ 6. **Add to prompt**: The system places those retrieved chunks into a prompt (the message you type to the AI) along with your original question.
+ 7. **Generate**: The LLM reads the prompt with the text chunks and writes a correct answer.
+ 
+ ## Let's follow one example
+-Let us look at a college helpdesk bot. 
++Let us look at a college helpdesk bot.
+ 
+ Imagine your college has a 50-page rulebook about exam fees and dates. You want to ask when the last date for exam fee payment is.
+ 
+@@ -61,18 +61,18 @@
+ 
+ First, the system turns your question into numbers. It checks the database to find the chunk about exam fee dates. It ignores the chunks about sports or hostel food.
+ 
+-Second, the system takes that one matching chunk and adds it to your prompt. The prompt sent to the AI looks like this: "Answer the user question using only this text chunk: [Chunk text: Exam fee last date is 15th July]. Question: What is the last date to pay exam fees?"
++Second, the system takes that one matching chunk and adds it to your prompt. The system prepares the prompt for the AI. The text chunk says: Exam fee last date is 15th July.
+ 
+-Third, the LLM reads this neat package and writes the final answer: "The last date to pay exam fees is 15th July." 
++Third, the LLM reads this neat package and writes the final answer: "The last date to pay exam fees is 15th July."
+ 
+ The model did not need to know this date beforehand. It read the retrieved text right then.
+ 
+ ## What RAG cannot do
+-RAG is very powerful, but it is not magic. 
++RAG is very powerful, but it is not magic.
+ 
+-If the retrieval step finds the wrong text chunk, the LLM will write a wrong answer. The AI can still get confused if the source files have mistakes. 
++If the retrieval step finds the wrong text chunk, the LLM will write a wrong answer. The AI can still get confused if the source files have mistakes.
+ 
+-RAG reduces made-up answers, but it does not remove them completely. 
++RAG reduces made-up answers, but it does not remove them completely.
+ 
+ ## Quick recap
+ - An LLM predicts words but can miss private facts or hallucinate false answers.

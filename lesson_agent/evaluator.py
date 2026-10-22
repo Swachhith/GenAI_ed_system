@@ -23,7 +23,7 @@ from dataclasses import dataclass
 from .llm import LLM, LLMError
 from .prompts import JUDGE_SYSTEM, judge_prompt
 from .rubric import Check
-from .rules import (ABSOLUTE_RE, RULES, find_jargon, grounded, repeated_definitions, technical_claims,
+from .rules import (ABSOLUTE_RE, RULES, RULES_WITH_REFERENCE, find_jargon, grounded, repeated_definitions, technical_claims,
                     undefined_at_first_use)
 from .schemas import ItemCheck, JudgeVerdict
 
@@ -67,7 +67,7 @@ _STATIC_ITEMS = {
     ],
     "L6_FLOW": [
         Item("Sections follow the planned order: what you will learn -> the LLM prerequisite -> what is RAG -> why "
-             "-> how -> example -> limits -> recap -> check yourself -> key words. (This order is required; do not "
+             "-> how -> example -> limits -> recap -> check yourself -> key words -> learn more. (This order is required; do not "
              "fail it for having the LLM prerequisite first.)"),
         Item("Every idea or term is introduced before it is used (quote any used before being introduced)."),
         Item("Each section connects to the previous one; there are no abrupt jumps."),
@@ -223,7 +223,8 @@ def evaluate(lesson: str, rubric: list[Check], reference: dict, llm: LLM, concur
     results: dict[str, dict] = {}
     for check in rubric:
         if check.kind == "rule":
-            passed, evidence, fix, metrics = RULES[check.id](lesson)
+            fn = RULES_WITH_REFERENCE.get(check.id)
+            passed, evidence, fix, metrics = fn(lesson, reference) if fn else RULES[check.id](lesson)
             results[check.id] = _result(check, passed, evidence, fix, metrics=metrics)
 
     llm_checks = [c for c in rubric if c.kind == "llm"]

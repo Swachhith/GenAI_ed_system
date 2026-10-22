@@ -50,6 +50,11 @@ class Settings:
     # 1 is fine for strong judges; 3 steadies small or noisy models at 3x the judge cost.
     judge_votes: int = field(default_factory=lambda: int(os.getenv("JUDGE_VOTES", "1")))
     max_guidelines: int = 10
+    # Web research (Tavily): fresh facts + learning resources. On whenever a key is set.
+    tavily_api_key: str = field(default_factory=lambda: os.getenv("TAVILY_API_KEY", ""))
+    web_research: bool = field(default_factory=lambda: os.getenv("WEB_RESEARCH", "auto").lower() != "off")
+    # Live-check every resource link before the writer may use it (off only for offline tests).
+    verify_links: bool = field(default_factory=lambda: os.getenv("VERIFY_LINKS", "on").lower() != "off")
     # Claude only: server-side refusal fallback ("default" or "off").
     anthropic_fallbacks: str = field(default_factory=lambda: os.getenv("ANTHROPIC_FALLBACKS", "default"))
     memory_path: Path = field(default_factory=lambda: Path(os.getenv("MEMORY_PATH", ROOT / "memory" / "memory.json")))
@@ -70,3 +75,4 @@ class Settings:
             setattr(self, f"{role}_model", model)
         self.max_retries = max(0, min(self.max_retries, 3))
         self.judge_votes = max(1, min(self.judge_votes, 5))
+        self.web_research = self.web_research and bool(self.tavily_api_key)

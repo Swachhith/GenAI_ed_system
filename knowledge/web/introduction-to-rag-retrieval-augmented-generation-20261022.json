@@ -1,0 +1,131 @@
+{
+  "resources": [
+    {
+      "url": "https://www.youtube.com/watch?v=T-D1OfcDW1M",
+      "type": "video",
+      "title": "What is Retrieval-Augmented Generation (RAG)?",
+      "source": "IBM Technology",
+      "minutes": 7,
+      "language": "English",
+      "why": "A short video. An IBM scientist explains RAG on a board, with a simple story.",
+      "curated": true
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=LPZh9BOjkQs",
+      "type": "video",
+      "title": "Large Language Models explained briefly",
+      "source": "3Blue1Brown",
+      "minutes": 8,
+      "language": "English",
+      "why": "Very clear pictures of how an LLM works. Good before or after this lesson.",
+      "curated": true
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=zizonToFXDs",
+      "type": "video",
+      "title": "Introduction to large language models",
+      "source": "Google Cloud Tech",
+      "minutes": 16,
+      "language": "English",
+      "why": "A longer, slow introduction to LLMs from Google.",
+      "curated": true
+    },
+    {
+      "url": "https://aws.amazon.com/what-is/retrieval-augmented-generation/",
+      "type": "article",
+      "title": "What is RAG? - Retrieval-Augmented Generation AI Explained - AWS",
+      "source": "aws.amazon.com",
+      "language": "English",
+      "why": "A short written explanation with the main benefits of RAG.",
+      "curated": true
+    },
+    {
+      "url": "https://blogs.nvidia.com/blog/what-is-retrieval-augmented-generation/",
+      "type": "article",
+      "title": "What Is Retrieval-Augmented Generation aka RAG | NVIDIA Blogs",
+      "source": "blogs.nvidia.com",
+      "language": "English",
+      "why": "Explains RAG with a court-clerk example and real uses.",
+      "curated": true
+    },
+    {
+      "url": "https://www.ibm.com/think/topics/retrieval-augmented-generation",
+      "type": "article",
+      "title": "What is RAG (Retrieval Augmented Generation)? | IBM",
+      "source": "ibm.com",
+      "language": "English",
+      "why": "A longer article for when you want more detail.",
+      "curated": true
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=Q-7q1wPqIj4",
+      "type": "video",
+      "title": "RAG Tutorial for Beginners 2026 | Learn Retrieval-Augmented Generation from Scratch",
+      "source": "JOYATRES TECHNOLOGY",
+      "language": "English"
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=_HQ2H_0Ayy0",
+      "type": "video",
+      "title": "RAG Explained For Beginners",
+      "source": "KodeKloud",
+      "language": "English"
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=fZM3oX4xEyg",
+      "type": "video",
+      "title": "Introduction To Undertsanding RAG(Retrieval-Augmented Generation)",
+      "source": "Krish Naik",
+      "language": "English"
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=gweRh5Xtkq0",
+      "type": "video",
+      "title": "Retrieval-Augmented Generation (RAG) in 10 minutes (beginner-friendly)",
+      "source": "Prof. Ryan Ahmed",
+      "language": "English"
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=YLPNA1j7kmQ",
+      "type": "video",
+      "title": "Retrieval Augmented Generation (RAG) with Langchain: A Complete Tutorial",
+      "source": "Kody Simpson",
+      "language": "English"
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=DKg6XUnclm8",
+      "type": "video",
+      "title": "7-Introduction To RAG(Retrieval-Augmented Generation?) In Hindi",
+      "source": "Krish Naik Hindi",
+      "language": "Hindi"
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=dDkynerzV-Q",
+      "type": "video",
+      "title": "RAG Explained | All about RAG - Retrieval Augmented Generation",
+      "source": "codebasics",
+      "language": "English"
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=xPMQ2cVbUTI",
+      "type": "video",
+      "title": "What Is RAG? Retrieval-Augmented Generation Explained Simply",
+      "source": "Redis",
+      "language": "English"
+    }
+  ],
+  "web_facts": [
+    {
+      "fact": "The retriever converts the query into a vector embedding and searches a vector database to find top-k similar documents.",
+      "source_url": "https://pub.towardsai.net/rag-the-backbone-of-modern-ai-applications-what-why-how-and-the-latest-advancements-9620f407b2f7"
+    }
+  ],
+  "sources": [
+    "https://squirro.com/squirro-blog/state-of-rag-genai",
+    "https://pub.towardsai.net/rag-the-backbone-of-modern-ai-applications-what-why-how-and-the-latest-advancements-9620f407b2f7",
+    "https://arxiv.org/html/2501.09136v4",
+    "https://atlan.com/know/advanced-rag-techniques",
+    "https://www.promptingguide.ai/research/rag"
+  ],
+  "searched": "2026-10-22"
+}

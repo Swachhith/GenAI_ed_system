@@ -72,6 +72,15 @@ def h2_headings(md: str) -> list[str]:
     return [m.group(1).strip().lower() for m in re.finditer(r"^##\s+(.+)$", md, flags=re.M)]
 
 
+RESOURCE_KEYS = ["learn more", "resources", "watch and read"]
+
+
+def without_resources(md: str) -> str:
+    """The lesson minus its 'Learn more' link list: titles and URLs are not lesson prose."""
+    return re.sub(r"^##\s+(?:learn more|resources|watch and read)[^\n]*\n.*?(?=^##\s|\Z)", "", md,
+                  flags=re.M | re.I | re.S)
+
+
 def section_body(md: str, keywords: list[str]) -> str:
     """Text under the first H2 whose heading contains any keyword, up to the next H2."""
     parts = re.split(r"^##\s+", md, flags=re.M)
@@ -96,7 +105,7 @@ def check_structure(md: str):
 
 
 def check_sentences(md: str):
-    sents = sentences(md)
+    sents = sentences(without_resources(md))
     lengths = [len(words(s)) for s in sents]
     avg = round(sum(lengths) / len(lengths), 1) if lengths else 0.0
     cap = THRESHOLDS["sentence_words_max"]
@@ -111,6 +120,7 @@ def check_sentences(md: str):
 
 
 def check_readability(md: str):
+    md = without_resources(md)
     score = flesch_reading_ease(md)
     passed = score >= THRESHOLDS["flesch_min"]
     hard = sorted({w for s in sentences(md) for w in words(s) if syllables(w) >= 4 and not w.isupper()})
@@ -122,7 +132,7 @@ def check_readability(md: str):
 
 
 def check_length(md: str):
-    n = len(words(_strip_markdown(md)))
+    n = len(words(_strip_markdown(without_resources(md))))
     lo, hi = THRESHOLDS["word_count_min"], THRESHOLDS["word_count_max"]
     passed = lo <= n <= hi
     fix = "" if passed else (f"Expand to at least {lo} words by adding explanation and examples."
@@ -140,6 +150,43 @@ def check_quiz(md: str):
     fix = "" if passed else f"Add a 'Check yourself' section with at least {need} short questions, each followed by its answer."
     return passed, evidence, fix, {"quiz_questions": q, "quiz_has_answers": has_answers}
 
+
+_URL = re.compile(r"https?://[^\s)\]>\"']+")
+_YT_ID = re.compile(r"(?:youtube\.com/watch\?v=|youtu\.be/)([\w-]{11})")
+
+
+def _canon(url: str) -> str:
+    m = _YT_ID.search(url)
+    return f"youtube:{m.group(1)}" if m else url.rstrip("/.,").lower()
+
+
+def check_resources(md: str, resources: list[dict]):
+    """Every link must be on the live-verified list; the lesson must point to 2+ of them, incl. a video."""
+    allowed = {_canon(r["url"]): r for r in resources}
+    urls = _URL.findall(md)
+    unverified = [u for u in urls if _canon(u) not in allowed]
+    if not resources:
+        # Nothing verified for this topic (offline or no sources): links are not required, but none may appear.
+        return (not urls, [f"Link not on the verified list: {u}" for u in urls],
+                "Remove every link: no verified resources are available." if urls else "",
+                {"links": len(urls), "verified_available": 0})
+    used = {_canon(u) for u in urls} & set(allowed)
+    videos = [k for k in used if allowed[k]["type"] == "video"]
+    body = section_body(md, RESOURCE_KEYS)
+    evidence = [f"Link not on the verified list (possibly invented): {u}" for u in unverified]
+    if not body.strip():
+        evidence.append("No 'Learn more' section.")
+    if len(used) < 2:
+        evidence.append(f"Only {len(used)} verified resource(s) linked (need at least 2).")
+    if not videos:
+        evidence.append("No video among the linked resources (need at least 1).")
+    fix = ("Use only links from the VERIFIED RESOURCES list, copied exactly; add a '## Learn more' section with "
+           "2-4 of them, at least one video.") if evidence else ""
+    return not evidence, evidence, fix, {"links": len(urls), "verified_used": len(used), "videos": len(videos)}
+
+
+# Rule checks that also need the reference sheet.
+RULES_WITH_REFERENCE = {"R6_RESOURCES": lambda md, ref: check_resources(md, ref.get("resources") or [])}
 
 RULES = {
     "R1_STRUCTURE": check_structure,
@@ -254,7 +301,7 @@ def technical_claims(md: str, limit: int = 120) -> list[tuple[str, bool]]:
     skip a sentence. Absolute-wording claims are kept first if the list must be cut.
     """
     seen, out = set(), []
-    for s in sentences(md):
+    for s in sentences(without_resources(md)):
         if s.endswith("?") or s in seen or not _CLAIM_HINT.search(s) or len(words(s)) < 4:
             continue
         seen.add(s)

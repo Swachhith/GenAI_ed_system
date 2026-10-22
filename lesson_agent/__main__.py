@@ -2,6 +2,7 @@
 
   python -m lesson_agent run [--topic T] [--inject factual|jargon|long-sentence] [--max-retries N]
   python -m lesson_agent evaluate path/to/lesson.md [--topic T]
+  python -m lesson_agent research [--topic T]
   python -m lesson_agent calibrate [--lesson FILE] [--modes factual,idiom]
   python -m lesson_agent feedback "comment" [--as-check]
   python -m lesson_agent memory show|reset
@@ -43,6 +44,9 @@ def main(argv: list[str] | None = None) -> int:
     e = sub.add_parser("evaluate", help="run the rubric on an existing lesson file (no regeneration)")
     e.add_argument("file")
     e.add_argument("--topic", default=DEFAULT_TOPIC)
+
+    w = sub.add_parser("research", help="web research only: fresh facts + live-verified learning resources")
+    w.add_argument("--topic", default=DEFAULT_TOPIC)
 
     c = sub.add_parser("calibrate", help="plant known defects in a good lesson and measure what the rubric catches")
     c.add_argument("--lesson", default=str(Path(__file__).resolve().parent.parent / "tests" / "fixtures" / "good_lesson.md"))
@@ -90,6 +94,20 @@ def main(argv: list[str] | None = None) -> int:
         msg = add_human_feedback(memory, args.text, args.as_check, llm)
         memory.save()
         print(msg)
+        return 0
+
+    if args.cmd == "research":
+        from .knowledge import load_reference
+        from .web import research
+        data = research(args.topic, load_reference(args.topic, settings.knowledge_dir, llm), llm, settings)
+        print("\nVerified resources:")
+        for r in data["resources"]:
+            length = f", {r['minutes']} min" if r.get("minutes") else ""
+            print(f"  [{r['type']}{length}, {r.get('language', 'English')}] {r['title']} ({r.get('source', '')})\n"
+                  f"      {r['url']}")
+        print("\nFresh facts from the web:")
+        for f in data["web_facts"]:
+            print(f"  - {f['fact']}\n      source: {f['source_url']}")
         return 0
 
     if args.cmd == "calibrate":

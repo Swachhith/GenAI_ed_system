@@ -66,6 +66,9 @@ CORE_CHECKS: list[Check] = [
           "(~10-15 minutes of reading for a slow reader)."),
     Check("R5_QUIZ", "teaches by example", "Self-check with answers", "rule",
           f"The quiz section has at least {THRESHOLDS['quiz_questions_min']} questions and gives the answers."),
+    Check("R6_RESOURCES", "teaches by example", "Verified links to learn more", "rule",
+          "A 'Learn more' section links 2-4 resources, at least one a video, and EVERY link in the lesson is on "
+          "the list verified live during research (no invented or broken URLs)."),
     # ---- LLM judges -----------------------------------------------------------------
     Check("L1_ACCURACY", "accurate & grounded", "No false or misleading claims", "llm",
           "Every technical claim agrees with the reference facts. No listed misconception is stated or "

@@ -1,18 +1,50 @@
 {
   "topic": "Introduction to RAG (Retrieval-Augmented Generation)",
-  "aliases": ["rag", "retrieval-augmented generation", "retrieval augmented generation", "introduction to rag"],
+  "aliases": [
+    "rag",
+    "retrieval-augmented generation",
+    "retrieval augmented generation",
+    "introduction to rag"
+  ],
   "trust": "curated",
   "notes": "Hand-written reference sheet. The accuracy and coverage judges grade the lesson against this, so 'accurate' means 'consistent with a source we control', not 'whatever the judge model believes'.",
   "must_cover": [
-    {"id": "M1", "point": "What a large language model (LLM) is, in simple terms, and its limits: it only knows what was in its training data up to a cutoff date, it does not know private or very recent information, and it can confidently make things up (hallucinate)."},
-    {"id": "M2", "point": "A plain definition of RAG that explains all three words: Retrieval (find relevant information), Augmented (add that information to the question/prompt), Generation (the LLM writes the answer)."},
-    {"id": "M3", "point": "Why RAG matters: answers can use up-to-date or private information, fewer made-up answers, answers can point to their sources, and knowledge can be updated without retraining the model."},
-    {"id": "M4", "point": "The preparation (indexing) step: documents are collected, split into small pieces (chunks), and stored in a searchable form. At a simple level, chunks are turned into embeddings (numbers that capture meaning) so similar text can be found."},
-    {"id": "M5", "point": "The retrieval step: when a question comes in, the system searches the stored chunks and picks the few most relevant ones."},
-    {"id": "M6", "point": "The augmentation step: the retrieved chunks are added to the prompt together with the user's question (and an instruction to use them)."},
-    {"id": "M7", "point": "The generation step: the LLM writes the answer using the provided information."},
-    {"id": "M8", "point": "Limits: if retrieval finds the wrong or missing information, the answer can still be wrong. RAG reduces made-up answers but does not remove them completely."},
-    {"id": "M9", "point": "At least one realistic use case (for example: a college helpdesk bot answering from the college rulebook, or a company support bot answering from product manuals)."}
+    {
+      "id": "M1",
+      "point": "What a large language model (LLM) is, in simple terms, and its limits: it only knows what was in its training data up to a cutoff date, it does not know private or very recent information, and it can confidently make things up (hallucinate)."
+    },
+    {
+      "id": "M2",
+      "point": "A plain definition of RAG that explains all three words: Retrieval (find relevant information), Augmented (add that information to the question/prompt), Generation (the LLM writes the answer)."
+    },
+    {
+      "id": "M3",
+      "point": "Why RAG matters: answers can use up-to-date or private information, fewer made-up answers, answers can point to their sources, and knowledge can be updated without retraining the model."
+    },
+    {
+      "id": "M4",
+      "point": "The preparation (indexing) step: documents are collected, split into small pieces (chunks), and stored in a searchable form. At a simple level, chunks are turned into embeddings (numbers that capture meaning) so similar text can be found."
+    },
+    {
+      "id": "M5",
+      "point": "The retrieval step: when a question comes in, the system searches the stored chunks and picks the few most relevant ones."
+    },
+    {
+      "id": "M6",
+      "point": "The augmentation step: the retrieved chunks are added to the prompt together with the user's question (and an instruction to use them)."
+    },
+    {
+      "id": "M7",
+      "point": "The generation step: the LLM writes the answer using the provided information."
+    },
+    {
+      "id": "M8",
+      "point": "Limits: if retrieval finds the wrong or missing information, the answer can still be wrong. RAG reduces made-up answers but does not remove them completely."
+    },
+    {
+      "id": "M9",
+      "point": "At least one realistic use case (for example: a college helpdesk bot answering from the college rulebook, or a company support bot answering from product manuals)."
+    }
   ],
   "facts": [
     "A large language model (LLM) is an AI model trained on a very large amount of text to predict and generate language.",
@@ -30,21 +62,135 @@
     "RAG reduces hallucination but does not eliminate it; answer quality depends heavily on retrieval quality."
   ],
   "misconceptions": [
-    {"wrong": "RAG retrains or fine-tunes the model on your documents.", "right": "RAG adds retrieved text to the prompt at question time; the model itself is not changed."},
-    {"wrong": "After RAG, the model permanently remembers the documents.", "right": "Retrieved text is only part of that one prompt; it is not stored inside the model."},
-    {"wrong": "RAG guarantees correct answers / completely removes hallucinations.", "right": "RAG reduces made-up answers, but wrong or missing retrieval can still lead to wrong answers."},
-    {"wrong": "In RAG, the LLM itself searches the internet on its own.", "right": "A separate retrieval step searches a chosen knowledge source (which may or may not be the web) and passes results to the LLM."},
-    {"wrong": "Embeddings store the exact words or are the final answer.", "right": "Embeddings are lists of numbers that represent meaning; they are used to find similar text, not to answer directly."},
-    {"wrong": "RAG always needs a vector database.", "right": "Vector search is common, but keyword or hybrid search also works."},
-    {"wrong": "The whole document collection is sent to the model every time.", "right": "Only the few most relevant chunks are sent, partly because of the context window limit."}
+    {
+      "wrong": "RAG retrains or fine-tunes the model on your documents.",
+      "right": "RAG adds retrieved text to the prompt at question time; the model itself is not changed."
+    },
+    {
+      "wrong": "After RAG, the model permanently remembers the documents.",
+      "right": "Retrieved text is only part of that one prompt; it is not stored inside the model."
+    },
+    {
+      "wrong": "RAG guarantees correct answers / completely removes hallucinations.",
+      "right": "RAG reduces made-up answers, but wrong or missing retrieval can still lead to wrong answers."
+    },
+    {
+      "wrong": "In RAG, the LLM itself searches the internet on its own.",
+      "right": "A separate retrieval step searches a chosen knowledge source (which may or may not be the web) and passes results to the LLM."
+    },
+    {
+      "wrong": "Embeddings store the exact words or are the final answer.",
+      "right": "Embeddings are lists of numbers that represent meaning; they are used to find similar text, not to answer directly."
+    },
+    {
+      "wrong": "RAG always needs a vector database.",
+      "right": "Vector search is common, but keyword or hybrid search also works."
+    },
+    {
+      "wrong": "The whole document collection is sent to the model every time.",
+      "right": "Only the few most relevant chunks are sent, partly because of the context window limit."
+    }
   ],
   "jargon": [
-    "AI model", "LLM", "large language model", "language model", "prompt", "retrieval", "retrieve", "retriever",
-    "augmented", "augmentation", "generation", "embedding", "embeddings", "vector", "vector database",
-    "vector store", "chunk", "chunks", "chunking", "index", "indexing", "hallucination", "hallucinate",
-    "knowledge cutoff", "training data", "trained", "fine-tuning", "fine-tune", "token", "tokens",
-    "context window", "semantic search", "similarity search", "similarity", "query", "API", "dataset",
-    "parameters", "weights", "top-k", "cosine similarity", "pipeline", "knowledge base", "algorithm",
-    "neural network", "database"
+    "AI model",
+    "LLM",
+    "large language model",
+    "language model",
+    "prompt",
+    "retrieval",
+    "retrieve",
+    "retriever",
+    "augmented",
+    "augmentation",
+    "generation",
+    "embedding",
+    "embeddings",
+    "vector",
+    "vector database",
+    "vector store",
+    "chunk",
+    "chunks",
+    "chunking",
+    "index",
+    "indexing",
+    "hallucination",
+    "hallucinate",
+    "knowledge cutoff",
+    "training data",
+    "trained",
+    "fine-tuning",
+    "fine-tune",
+    "token",
+    "tokens",
+    "context window",
+    "semantic search",
+    "similarity search",
+    "similarity",
+    "query",
+    "API",
+    "dataset",
+    "parameters",
+    "weights",
+    "top-k",
+    "cosine similarity",
+    "pipeline",
+    "knowledge base",
+    "algorithm",
+    "neural network",
+    "database"
+  ],
+  "short_name": "RAG (Retrieval-Augmented Generation)",
+  "resources": [
+    {
+      "url": "https://www.youtube.com/watch?v=T-D1OfcDW1M",
+      "type": "video",
+      "title": "What is Retrieval-Augmented Generation (RAG)?",
+      "source": "IBM Technology",
+      "minutes": 7,
+      "language": "English",
+      "why": "A short video. An IBM scientist explains RAG on a board, with a simple story."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=LPZh9BOjkQs",
+      "type": "video",
+      "title": "Large Language Models explained briefly",
+      "source": "3Blue1Brown",
+      "minutes": 8,
+      "language": "English",
+      "why": "Very clear pictures of how an LLM works. Good before or after this lesson."
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=zizonToFXDs",
+      "type": "video",
+      "title": "Introduction to large language models",
+      "source": "Google Cloud Tech",
+      "minutes": 16,
+      "language": "English",
+      "why": "A longer, slow introduction to LLMs from Google."
+    },
+    {
+      "url": "https://aws.amazon.com/what-is/retrieval-augmented-generation/",
+      "type": "article",
+      "title": "What is RAG? - Retrieval-Augmented Generation AI Explained",
+      "source": "AWS",
+      "language": "English",
+      "why": "A short written explanation with the main benefits of RAG."
+    },
+    {
+      "url": "https://blogs.nvidia.com/blog/what-is-retrieval-augmented-generation/",
+      "type": "article",
+      "title": "What Is Retrieval-Augmented Generation aka RAG",
+      "source": "NVIDIA Blog",
+      "language": "English",
+      "why": "Explains RAG with a court-clerk example and real uses."
+    },
+    {
+      "url": "https://www.ibm.com/think/topics/retrieval-augmented-generation",
+      "type": "article",
+      "title": "What is RAG (Retrieval Augmented Generation)?",
+      "source": "IBM",
+      "language": "English",
+      "why": "A longer article for when you want more detail."
+    }
   ]
 }

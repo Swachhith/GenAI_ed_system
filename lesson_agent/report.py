@@ -27,7 +27,11 @@ def _render_log(settings, state, history, winner, status) -> str:
            f"- **Shipped attempt:** {winner['attempt']} of {len(history)} (retry budget: {settings.max_retries})",
            f"- **Generator:** `{settings.generator_provider}:{settings.generator_model}` | **Evaluator:** `{settings.evaluator_provider}:{settings.evaluator_model}` (judge votes: {settings.judge_votes})",
            f"- **Grounding:** reference sheet `{Path(ref.get('path', '?')).name}` (trust: {ref.get('trust')})",
-           f"- **Learned guidelines in the prompt at start:** {len(state.get('guidelines', []))}"]
+           f"- **Learned guidelines in the prompt at start:** {len(state.get('guidelines', []))}",
+           f"- **Web research:** {len(ref.get('resources') or [])} learning resources verified live; "
+           f"{len(ref.get('web_facts') or [])} fresh facts from {len(ref.get('web_sources') or [])} web sources"]
+    for f in ref.get("web_facts") or []:
+        out.append(f"  - Fresh fact: {f['fact']} ([source]({f['source_url']}))")
     if state.get("inject"):
         spec = INJECTIONS[state["inject"]]
         caught = [c for c in spec["expected"] if any(r["check_id"] == c and not r["passed"] for r in history[0]["results"])]

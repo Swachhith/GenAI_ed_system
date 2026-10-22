@@ -81,63 +81,110 @@
         "L4_EXAMPLES: reinforced existing guideline G2",
         "R2_SENTENCES: reinforced existing guideline G1"
       ]
+    },
+    {
+      "run_id": "20261022-082834",
+      "topic": "Introduction to RAG (Retrieval-Augmented Generation)",
+      "timestamp": "2026-10-22T02:59:32+00:00",
+      "status": "NEEDS_HUMAN_REVIEW",
+      "attempts": 3,
+      "injected": null,
+      "failed_per_attempt": [
+        [
+          "R2_SENTENCES"
+        ],
+        [
+          "L3_JARGON"
+        ],
+        [
+          "R2_SENTENCES"
+        ]
+      ],
+      "learned": [
+        "L3_JARGON: reinforced existing guideline G3",
+        "R2_SENTENCES: reinforced existing guideline G1"
+      ]
+    },
+    {
+      "run_id": "20261022-083015",
+      "topic": "Introduction to RAG (Retrieval-Augmented Generation)",
+      "timestamp": "2026-10-22T03:02:24+00:00",
+      "status": "PASSED",
+      "attempts": 2,
+      "injected": null,
+      "failed_per_attempt": [
+        [
+          "R2_SENTENCES",
+          "L1_ACCURACY"
+        ],
+        []
+      ],
+      "learned": [
+        "L1_ACCURACY: new guideline G4 -> Ensure all technical explanations remain factually accurate without implying models are retrained or hallucinations are completely eliminated.",
+        "R2_SENTENCES: reinforced existing guideline G1"
+      ]
     }
   ],
   "check_stats": {
     "R1_STRUCTURE": {
-      "evaluated": 11,
+      "evaluated": 17,
       "failed": 0,
       "first_draft_failed": 0
     },
     "R2_SENTENCES": {
-      "evaluated": 11,
-      "failed": 3,
-      "first_draft_failed": 0
+      "evaluated": 17,
+      "failed": 7,
+      "first_draft_failed": 3
     },
     "R3_READABILITY": {
-      "evaluated": 11,
+      "evaluated": 17,
       "failed": 0,
       "first_draft_failed": 0
     },
     "R4_LENGTH": {
-      "evaluated": 11,
+      "evaluated": 17,
       "failed": 0,
       "first_draft_failed": 0
     },
     "R5_QUIZ": {
-      "evaluated": 11,
+      "evaluated": 17,
       "failed": 0,
       "first_draft_failed": 0
     },
     "L1_ACCURACY": {
-      "evaluated": 11,
-      "failed": 1,
-      "first_draft_failed": 1
+      "evaluated": 17,
+      "failed": 2,
+      "first_draft_failed": 2
     },
     "L2_COVERAGE": {
-      "evaluated": 11,
+      "evaluated": 17,
       "failed": 1,
       "first_draft_failed": 1
     },
     "L3_JARGON": {
-      "evaluated": 11,
-      "failed": 2,
-      "first_draft_failed": 2
-    },
-    "L4_EXAMPLES": {
-      "evaluated": 11,
-      "failed": 3,
+      "evaluated": 17,
+      "failed": 4,
       "first_draft_failed": 3
     },
+    "L4_EXAMPLES": {
+      "evaluated": 17,
+      "failed": 4,
+      "first_draft_failed": 4
+    },
     "L5_LEARNER_FIT": {
-      "evaluated": 11,
+      "evaluated": 17,
       "failed": 0,
       "first_draft_failed": 0
     },
     "L6_FLOW": {
-      "evaluated": 11,
+      "evaluated": 17,
       "failed": 1,
       "first_draft_failed": 1
+    },
+    "R6_RESOURCES": {
+      "evaluated": 5,
+      "failed": 0,
+      "first_draft_failed": 0
     }
   },
   "failures": {
@@ -152,6 +199,15 @@
           "Here is the secret: RAG works by retraining the AI model on your documents. After that, the model remembers them forever, so its answers are always correct."
         ],
         "fix": "Remove the paragraph under 'How does RAG work?' that begins with 'Here is the secret: RAG works by retraining the AI model on your documents. After that, the model remembers them forever, so its answers are always correct.' Ensure all mentions align with the fact that RAG does not retrain the model or guarantee complete correctness."
+      },
+      {
+        "run_id": "20261022-083015",
+        "attempt": 1,
+        "evidence": [
+          "ABSOLUTE CLAIM: \"Second, it stops the model from making up wild lies.\" The word 'stops' makes this an all-or-nothing claim. met=true ONLY if it is literally true with no exceptions according to the reference facts (check the facts about limits). -> \"Second, it stops the model from making up wild lies.\"",
+          "Other problem -> \"Second, it stops the model from making up wild lies.\""
+        ],
+        "fix": "Change the sentence under 'Why does RAG matter?' from 'Second, it stops the model from making up wild lies.' to 'Second, it greatly reduces made-up answers from the model.'"
       }
     ],
     "L2_COVERAGE": [
@@ -187,6 +243,28 @@
           "'retrieve' is explained in simple words at or before its FIRST use in the body. AUTOMATIC PRE-CHECK found no explanation in the sentence of first use: \"Relevant text is retrieved and added to the prompt.\". Mark met=true ONLY if you can quote an earlier explanation. -> \"Relevant text is retrieved and added to the prompt.\""
         ],
         "fix": "Ensure terms like LLM, AI model, index/indexing, training data, and database are defined in simple words before or right when they are first used in the text."
+      },
+      {
+        "run_id": "20261022-082103",
+        "attempt": 1,
+        "evidence": [
+          "'AI model' is explained in simple words at or before its FIRST use in the body. AUTOMATIC PRE-CHECK found no explanation in the sentence of first use: \"Best of all, you do not need to retrain the AI model every time a rule changes.\". Mark met=true ONLY if you can quote an earlier explanation. -> (not found)",
+          "'knowledge cutoff' is explained in simple words at or before its FIRST use in the body. AUTOMATIC PRE-CHECK found no explanation in the sentence of first use: \"An LLM has a knowledge cutoff date and can hallucinate facts.\". Mark met=true ONLY if you can quote an earlier explanation. -> (not found)",
+          "'trained' is explained in simple words at or before its FIRST use in the body. AUTOMATIC PRE-CHECK found no explanation in the sentence of first use: \"An LLM (large language model, an AI program trained on huge amounts of text to write like a human) is very powerful.\". Mark met=true ONLY if you can quote an earlier explanation. -> (not found)",
+          "Other problem -> \"Best of all, you do not need to retrain the AI model every time a rule changes.\""
+        ],
+        "fix": "Add a simple explanation for 'trained' and 'AI model' the first time they appear, and define 'knowledge cutoff' before using it in the text body."
+      },
+      {
+        "run_id": "20261022-082834",
+        "attempt": 2,
+        "evidence": [
+          "'AI model' is explained in simple words at or before its FIRST use in the body. AUTOMATIC PRE-CHECK found no explanation in the sentence of first use: \"An LLM is an AI model trained on a very large amount of text to predict and generate language.\". Mark met=true ONLY if you can quote an earlier explanation. -> (not found)",
+          "'prompt' is explained in simple words at or before its FIRST use in the body -> (not found)",
+          "'retrieve' is explained in simple words at or before its FIRST use in the body. AUTOMATIC PRE-CHECK found no explanation in the sentence of first use: \"Add to prompt: The system places those retrieved chunks into a prompt (the message you type to the AI) along with your original question.\". Mark met=true ONLY if you can quote an earlier explanation. -> (not found)",
+          "'generation' is explained in simple words at or before its FIRST use in the body. AUTOMATIC PRE-CHECK found no explanation in the sentence of first use: \"An LLM is an AI model trained on a very large amount of text to predict and generate language.\". Mark met=true ONLY if you can quote an earlier explanation. -> (not found)"
+        ],
+        "fix": "Ensure that every technical term, including 'AI model', 'prompt', 'retrieved', 'generation', 'trained', and 'database', is clearly defined in simple words right before or immediately when it first appears in the lesson body."
       }
     ],
     "L6_FLOW": [
@@ -226,6 +304,43 @@
           "(37 words) In this analogy, the LLM is the student, the textbook is the folder of documents, looking up the page is retrieval, adding notes to the answer sheet is augmentation, and writing the final exam answer is generation."
         ],
         "fix": "Split every sentence longer than 25 words into two or three short sentences. One idea per sentence."
+      },
+      {
+        "run_id": "20261022-082103",
+        "attempt": 1,
+        "evidence": [
+          "(28 words) Put them together, and you get RAG (Retrieval-Augmented Generation, a method that finds relevant documents, adds them to your question, and lets the LLM write the final answer).",
+          "(28 words) Indexing (preparing documents before anyone asks a question): You collect your documents, split them into small parts called chunks (small pieces of text), and turn them into numbers."
+        ],
+        "fix": "Split every sentence longer than 25 words into two or three short sentences. One idea per sentence."
+      },
+      {
+        "run_id": "20261022-082834",
+        "attempt": 1,
+        "evidence": [
+          "(30 words) It is a type of AI called a large language model (an LLM is an AI model trained on a very large amount of text to predict and generate language).",
+          "(26 words) Search: When you ask a question, the system converts your question into an embedding and searches the database to find the top few most similar chunks.",
+          "(28 words) The prompt sent to the AI looks like this: \"Answer the user question using only this text chunk: [Chunk text: Exam fee last date is 15th July]."
+        ],
+        "fix": "Split every sentence longer than 25 words into two or three short sentences. One idea per sentence."
+      },
+      {
+        "run_id": "20261022-082834",
+        "attempt": 3,
+        "evidence": [
+          "(41 words) An LLM is an AI model (a computer program designed to think or act like a human) trained (taught using many examples) on a very large amount of text to predict (guess the next word) and generate (produce new text) language.",
+          "(32 words) Store in an index: Save these embeddings in a searchable list or vector index (a database [an organized collection of data stored on a computer] that stores number lists for fast searching).",
+          "(32 words) Add to prompt: The system places those retrieved (found and brought back from storage) chunks into a prompt (the message or question you type to the AI) along with your original question."
+        ],
+        "fix": "Split every sentence longer than 25 words into two or three short sentences. One idea per sentence."
+      },
+      {
+        "run_id": "20261022-083015",
+        "attempt": 1,
+        "evidence": [
+          "(27 words) Finally, the LLM reads the rule chunk and writes: \"The fine for returning a library book late is five rupees per day.\" This is the generation step."
+        ],
+        "fix": "Split every sentence longer than 25 words into two or three short sentences. One idea per sentence."
       }
     ],
     "L4_EXAMPLES": [
@@ -256,6 +371,15 @@
           "Everyday analogy is missing entirely from the lesson."
         ],
         "fix": "Add an everyday analogy before the worked example, such as comparing RAG to a student taking an open-book exam using a textbook, and explicitly map the parts (the textbook is the document folder, looking up the index is retrieval, etc.)."
+      },
+      {
+        "run_id": "20261022-082103",
+        "attempt": 1,
+        "evidence": [
+          "There is an everyday analogy a young Indian learner would recognise. -> (not found)",
+          "The analogy is mapped to RAG correctly (each part of the analogy matches a real part of RAG). -> (not found)"
+        ],
+        "fix": "Add a concrete everyday analogy (like an open-book exam or looking up a specific rule in a college handbook) right before the 'How does RAG work?' or 'Let's follow one example' section, and explicitly map its parts to indexing, retrieval, augmentation, and generation."
       }
     ]
   },
@@ -266,7 +390,7 @@
       "source": "learned",
       "check_id": "R2_SENTENCES",
       "created": "2026-10-21T07:21:26+00:00",
-      "hits": 2,
+      "hits": 4,
       "active": true
     },
     {
@@ -284,6 +408,15 @@
       "source": "learned",
       "check_id": "L3_JARGON",
       "created": "2026-10-21T07:25:58+00:00",
+      "hits": 2,
+      "active": true
+    },
+    {
+      "id": "G4",
+      "text": "Ensure all technical explanations remain factually accurate without implying models are retrained or hallucinations are completely eliminated.",
+      "source": "learned",
+      "check_id": "L1_ACCURACY",
+      "created": "2026-10-22T03:02:24+00:00",
       "hits": 1,
       "active": true
     }

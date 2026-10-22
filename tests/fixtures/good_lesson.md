@@ -121,3 +121,9 @@ RAG is very useful, but it is not magic.
 - **Embedding:** a list of numbers that shows the meaning of text.
 - **Prompt:** the full message sent to the LLM.
 - **Retrieval:** finding the useful information.
+
+## Learn more
+
+- [What is Retrieval-Augmented Generation (RAG)?](https://www.youtube.com/watch?v=T-D1OfcDW1M) - IBM Technology, 7-minute video. A scientist explains RAG on a board, step by step.
+- [Large Language Models explained briefly](https://www.youtube.com/watch?v=LPZh9BOjkQs) - 3Blue1Brown, 8-minute video. Clear pictures of how an LLM works.
+- [What is RAG?](https://aws.amazon.com/what-is/retrieval-augmented-generation/) - AWS, short article. The main benefits of RAG in simple words.

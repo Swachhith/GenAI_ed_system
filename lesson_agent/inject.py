@@ -52,6 +52,12 @@ INJECTIONS = {
                  "models, fundamentally combines information retrieval with text generation."),
         "expected": ["R2_SENTENCES"], "also": ["R3_READABILITY", "L5_LEARNER_FIT"],
     },
+    # A plausible but invented video link, the classic way models make up references.
+    "fake-link": {
+        "section": "learn more",
+        "text": "- [RAG full course in 10 minutes](https://www.youtube.com/watch?v=Xr4G7aQ2pLm) - a quick video course.",
+        "expected": ["R6_RESOURCES"], "also": [],
+    },
     # A whole required section deleted. Coverage may still pass: the recap also says RAG can fail.
     "missing-limits": {
         "remove_section": "cannot",

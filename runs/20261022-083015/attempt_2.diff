@@ -1,0 +1,20 @@
+--- attempt_1.md
++++ attempt_2.md
+@@ -27,7 +27,7 @@
+ 
+ First, your AI can now answer questions using up-to-date facts. It can read today's news or your fresh office circular. 
+ 
+-Second, it stops the model from making up wild lies. The model reads the real document before writing. 
++Second, it greatly reduces made-up answers from the model. The model reads the real document before writing. 
+ 
+ Third, RAG answers can point directly to their source documents. You can check the exact page the AI used. 
+ 
+@@ -55,7 +55,7 @@
+ 
+ Next, the system takes that library chunk and adds it to Priya's prompt. This is the augmentation step. 
+ 
+-Finally, the LLM reads the rule chunk and writes: "The fine for returning a library book late is five rupees per day." This is the generation step. Priya gets the exact right answer without any made-up facts.
++Finally, the LLM reads the rule chunk. Then the LLM writes the answer. It writes: "The fine for returning a library book late is five rupees per day." This is the generation step. Priya gets the exact right answer without any made-up facts.
+ 
+ ## What RAG cannot do
+ RAG is very powerful, but it has limits. 

@@ -1,0 +1,259 @@
+{
+  "attempt": 2,
+  "strategy": "revise",
+  "passed": false,
+  "n_passed": 11,
+  "results": [
+    {
+      "check_id": "R1_STRUCTURE",
+      "name": "Required sections present",
+      "dimension": "coherent teaching flow",
+      "kind": "rule",
+      "criterion": "The lesson has an H2 section for each of: what is RAG, why it matters, how it works, a worked example, limits, recap, a self-check quiz, and key words.",
+      "source": "core",
+      "passed": true,
+      "evidence": [],
+      "fix": "",
+      "reasoning": "",
+      "metrics": {
+        "h2_headings": [
+          "what you will learn",
+          "first, what is an llm?",
+          "what is rag?",
+          "why does rag matter?",
+          "how does rag work?",
+          "let's follow one example",
+          "what rag cannot do",
+          "quick recap",
+          "check yourself",
+          "key words",
+          "learn more"
+        ]
+      }
+    },
+    {
+      "check_id": "R2_SENTENCES",
+      "name": "Short sentences",
+      "dimension": "beginner-friendly language",
+      "kind": "rule",
+      "criterion": "Average sentence length <= 15 words AND no sentence longer than 25 words.",
+      "source": "core",
+      "passed": true,
+      "evidence": [],
+      "fix": "",
+      "reasoning": "",
+      "metrics": {
+        "avg_sentence_words": 11.2,
+        "sentences": 86,
+        "over_cap": 0
+      }
+    },
+    {
+      "check_id": "R3_READABILITY",
+      "name": "Plain-English readability",
+      "dimension": "beginner-friendly language",
+      "kind": "rule",
+      "criterion": "Flesch Reading Ease >= 60 on the lesson prose.",
+      "source": "core",
+      "passed": true,
+      "evidence": [],
+      "fix": "",
+      "reasoning": "",
+      "metrics": {
+        "flesch": 76.3
+      }
+    },
+    {
+      "check_id": "R4_LENGTH",
+      "name": "Right length for one sitting",
+      "dimension": "covers the key points",
+      "kind": "rule",
+      "criterion": "Between 850 and 1800 words (~10-15 minutes of reading for a slow reader).",
+      "source": "core",
+      "passed": true,
+      "evidence": [],
+      "fix": "",
+      "reasoning": "",
+      "metrics": {
+        "word_count": 1013
+      }
+    },
+    {
+      "check_id": "R5_QUIZ",
+      "name": "Self-check with answers",
+      "dimension": "teaches by example",
+      "kind": "rule",
+      "criterion": "The quiz section has at least 3 questions and gives the answers.",
+      "source": "core",
+      "passed": true,
+      "evidence": [],
+      "fix": "",
+      "reasoning": "",
+      "metrics": {
+        "quiz_questions": 4,
+        "quiz_has_answers": true
+      }
+    },
+    {
+      "check_id": "R6_RESOURCES",
+      "name": "Verified links to learn more",
+      "dimension": "teaches by example",
+      "kind": "rule",
+      "criterion": "A 'Learn more' section links 2-4 resources, at least one a video, and EVERY link in the lesson is on the list verified live during research (no invented or broken URLs).",
+      "source": "core",
+      "passed": true,
+      "evidence": [],
+      "fix": "",
+      "reasoning": "",
+      "metrics": {
+        "links": 4,
+        "verified_used": 4,
+        "videos": 2
+      }
+    },
+    {
+      "check_id": "L1_ACCURACY",
+      "name": "No false or misleading claims",
+      "dimension": "accurate & grounded",
+      "kind": "llm",
+      "criterion": "Every technical claim agrees with the reference facts. No listed misconception is stated or implied as true. Simplifications are allowed only if they do not create a wrong belief (e.g. 'the model learns your documents' is a FAIL, because RAG does not change the model).",
+      "source": "core",
+      "passed": true,
+      "evidence": [],
+      "fix": "",
+      "reasoning": "I checked every required item against the lesson text. All technical claims, definitions, and boundaries align precisely with the reference facts, and none of the listed misconceptions are promoted. The phrasing is factually sound and handles limits accurately. I have thoroughly verified every listed technical claim and statement against the reference facts and misconceptions list. All descriptions of LLMs, hallucinations, RAG steps (retrieval, augmentation, generation), chunking, embeddings, and vector indices are accurate and completely free of false claims or misconceptions.",
+      "metrics": {
+        "items_checked": 76,
+        "items_unmet": 0,
+        "extra_problems": 0,
+        "ungrounded_dropped": 0,
+        "votes": 1
+      }
+    },
+    {
+      "check_id": "L2_COVERAGE",
+      "name": "All must-cover points taught",
+      "dimension": "covers the key points",
+      "kind": "llm",
+      "criterion": "Every must-cover point in the reference is actually taught (explained, not just named).",
+      "source": "core",
+      "passed": true,
+      "evidence": [],
+      "fix": "",
+      "reasoning": "Every required point from M1 to M9 was checked against the lesson text and found to be thoroughly explained with exact matching quotes. The concepts of LLMs, limits, RAG components, workflows, indexing, retrieval, augmentation, generation, and realistic use cases are all clearly covered.",
+      "metrics": {
+        "items_checked": 9,
+        "items_unmet": 0,
+        "extra_problems": 0,
+        "ungrounded_dropped": 0,
+        "votes": 1
+      }
+    },
+    {
+      "check_id": "L3_JARGON",
+      "name": "Every technical term explained",
+      "dimension": "clear, no unexplained jargon",
+      "kind": "llm",
+      "criterion": "Every technical or English-uncommon term is explained in simple words at or before its first use in the body (a glossary at the end alone does not count). Acronyms are expanded on first use.",
+      "source": "core",
+      "passed": false,
+      "evidence": [
+        "'AI model' is explained in simple words at or before its FIRST use in the body. AUTOMATIC PRE-CHECK found no explanation in the sentence of first use: \"An LLM is an AI model trained on a very large amount of text to predict and generate language.\". Mark met=true ONLY if you can quote an earlier explanation. -> (not found)",
+        "'prompt' is explained in simple words at or before its FIRST use in the body -> (not found)",
+        "'retrieve' is explained in simple words at or before its FIRST use in the body. AUTOMATIC PRE-CHECK found no explanation in the sentence of first use: \"Add to prompt: The system places those retrieved chunks into a prompt (the message you type to the AI) along with your original question.\". Mark met=true ONLY if you can quote an earlier explanation. -> (not found)",
+        "'generation' is explained in simple words at or before its FIRST use in the body. AUTOMATIC PRE-CHECK found no explanation in the sentence of first use: \"An LLM is an AI model trained on a very large amount of text to predict and generate language.\". Mark met=true ONLY if you can quote an earlier explanation. -> (not found)",
+        "'trained' is explained in simple words at or before its FIRST use in the body. AUTOMATIC PRE-CHECK found no explanation in the sentence of first use: \"An LLM is an AI model trained on a very large amount of text to predict and generate language.\". Mark met=true ONLY if you can quote an earlier explanation. -> (not found)",
+        "'database' is explained in simple words at or before its FIRST use in the body. AUTOMATIC PRE-CHECK found no explanation in the sentence of first use: \"Store in an index: Save these embeddings in a searchable list or vector index (a database that stores number lists for fast searching).\". Mark met=true ONLY if you can quote an earlier explanation. -> (not found)",
+        "Other problem -> \"'AI model'\"",
+        "Other problem -> \"'prompt'\"",
+        "Other problem -> \"'retrieved'\"",
+        "Other problem -> \"'generation'\"",
+        "Other problem -> \"'trained'\"",
+        "Other problem -> \"'database'\""
+      ],
+      "fix": "Ensure that every technical term, including 'AI model', 'prompt', 'retrieved', 'generation', 'trained', and 'database', is clearly defined in simple words right before or immediately when it first appears in the lesson body.",
+      "reasoning": "I checked every required technical term to see if it was explained in simple words at or before its first appearance in the lesson body. Several terms like 'AI model', 'prompt', 'retrieved' / 'retrieve', 'generation', 'trained', and 'database' are used before any definition or explanation is provided in the text. Therefore, the lesson fails the strict jargon explanation requirement.",
+      "metrics": {
+        "items_checked": 20,
+        "items_unmet": 6,
+        "extra_problems": 6,
+        "ungrounded_dropped": 0,
+        "votes": 1
+      }
+    },
+    {
+      "check_id": "L4_EXAMPLES",
+      "name": "Concrete analogy and walk-through",
+      "dimension": "teaches by example",
+      "kind": "llm",
+      "criterion": "The lesson has (a) at least one everyday analogy a young Indian learner would recognise, correctly mapped to RAG, AND (b) one concrete worked example that follows a single question through every step: preparing documents, retrieving, adding to the prompt, generating.",
+      "source": "core",
+      "passed": true,
+      "evidence": [],
+      "fix": "",
+      "reasoning": "I checked the lesson for an everyday analogy suitable for an Indian learner (open-book college exam) and confirmed it is correctly mapped to RAG. I also reviewed the worked example of the college helpdesk bot and found clear, step-by-step coverage of document preparation, retrieval, prompt augmentation, and generation.",
+      "metrics": {
+        "items_checked": 6,
+        "items_unmet": 0,
+        "extra_problems": 0,
+        "ungrounded_dropped": 0,
+        "votes": 1
+      }
+    },
+    {
+      "check_id": "L5_LEARNER_FIT",
+      "name": "Fits a non-native English beginner",
+      "dimension": "beginner-friendly language",
+      "kind": "llm",
+      "criterion": "Uses common, everyday English words; no idioms, slang, sarcasm or culturally obscure references; assumes no coding, maths beyond class 12, or prior AI knowledge; tone is encouraging and direct.",
+      "source": "core",
+      "passed": true,
+      "evidence": [],
+      "fix": "",
+      "reasoning": "I checked the entire lesson for learner fit criteria. The text uses very clear, simple everyday English without idioms or overly formal vocabulary. The tone is direct, encouraging, and uses 'you', and there is no assumed prior coding or advanced math knowledge.",
+      "metrics": {
+        "items_checked": 5,
+        "items_unmet": 0,
+        "extra_problems": 0,
+        "ungrounded_dropped": 0,
+        "votes": 1
+      }
+    },
+    {
+      "check_id": "L6_FLOW",
+      "name": "Builds step by step",
+      "dimension": "coherent teaching flow",
+      "kind": "llm",
+      "criterion": "Ideas are introduced before they are used; sections go from what -> why -> how -> example -> limits -> recap; each section links to the previous one; nothing is repeated without purpose.",
+      "source": "core",
+      "passed": true,
+      "evidence": [],
+      "fix": "",
+      "reasoning": "I checked the structural flow of the lesson against the required order and progression rules. All sections appear in the exact required sequence, terms are defined before they are used, transitions between sections feel natural and connected, and the analogy is placed precisely where RAG is introduced.",
+      "metrics": {
+        "items_checked": 4,
+        "items_unmet": 0,
+        "extra_problems": 0,
+        "ungrounded_dropped": 0,
+        "votes": 1
+      }
+    }
+  ],
+  "change_log": [
+    {
+      "check_id": "R2_SENTENCES",
+      "change": "Split the long sentence defining LLMs in the introduction into two shorter sentences."
+    },
+    {
+      "check_id": "R2_SENTENCES",
+      "change": "Split the long sentence about search embeddings into two separate sentences under step five."
+    },
+    {
+      "check_id": "R2_SENTENCES",
+      "change": "Split the long sentence containing the prompt example into shorter, simpler sentences in the worked example."
+    }
+  ],
+  "lesson_file": "attempt_2.md",
+  "injected": null,
+  "timestamp": "2026-10-22T02:59:11+00:00"
+}

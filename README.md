@@ -1,6 +1,6 @@
 # Self-Evaluating Lesson Generator
 
-An agentic system that **writes a beginner lesson, grades it against a hard pass/fail rubric, and rewrites it until it clears the bar**. Nothing reaches a human until the system has decided on its own that the lesson is good enough to ship. It also **learns across runs**: checks that keep failing become guidelines in the writer's prompt, and human feedback can add new rubric checks.
+An agentic system that **researches the topic on the web, writes a beginner lesson with verified links and videos, grades it against a hard pass/fail rubric, and rewrites it until it clears the bar**. Nothing reaches a human until the system has decided on its own that the lesson is good enough to ship. It also **learns across runs**: checks that keep failing become guidelines in the writer's prompt, and human feedback can add new rubric checks.
 
 - **Topic for submission:** Introduction to RAG (Retrieval-Augmented Generation)
 - **Learner:** a class-12 graduate in India from a non-English-medium school, with limited English vocabulary and no coding background, who wants to start an AI career.
@@ -18,7 +18,8 @@ copy .env.example .env            # macOS/Linux: cp .env.example .env   -> add y
 
 python -m lesson_agent run                      # full loop on "Introduction to RAG"
 python -m lesson_agent run --inject factual     # plant a deliberate error and watch it get caught
-python -m lesson_agent calibrate                # test the evaluator itself: plant 7 defects, measure what it catches
+python -m lesson_agent research                 # web step only: fresh facts + live-verified videos/articles
+python -m lesson_agent calibrate                # test the evaluator itself: plant known defects, measure what it catches
 python -m pytest -q                             # offline tests (no API key needed)
 ```
 
@@ -87,9 +88,10 @@ python -m lesson_agent graph                           # prints the agent graph 
 ```mermaid
 graph TD
     START([topic]) --> prepare
-    prepare["prepare<br/>load reference sheet + memory<br/>(guidelines, learned checks)"] --> generate
+    prepare["prepare<br/>load reference sheet + memory<br/>(guidelines, learned checks)"] --> research
+    research["research (Tavily)<br/>fresh facts with sources +<br/>videos/articles, every link<br/>verified live"] --> generate
     generate["generate<br/>writer model drafts lesson"] --> evaluate
-    evaluate["evaluate<br/>5 rule checks + 6 LLM judges<br/>(parallel, evidence required)"] -->|all pass| finalize
+    evaluate["evaluate<br/>6 rule checks + 6 LLM judges<br/>(parallel, evidence required)"] -->|all pass| finalize
     evaluate -->|fail, retries left| revise["revise<br/>targeted fix of failed checks<br/>keep what passed"]
     evaluate -->|same check failed twice| generate
     evaluate -->|retry budget used| finalize
@@ -101,7 +103,8 @@ graph TD
 | Module | Responsibility |
 |---|---|
 | `lesson_agent/graph.py` | LangGraph state machine: nodes, routing, the retry bound |
-| `lesson_agent/rubric.py` | The rubric: 11 core checks + any checks learned from feedback |
+| `lesson_agent/rubric.py` | The rubric: 12 core checks + any checks learned from feedback |
+| `lesson_agent/web.py` | Web research: Tavily search, fresh facts tied to sources, live link verification (YouTube oEmbed / page fetch), daily cache |
 | `lesson_agent/rules.py` | Deterministic checks (readability, sentence length, structure, length, quiz) |
 | `lesson_agent/evaluator.py` | Runs the rubric: rule checks locally, LLM judges in parallel |
 | `lesson_agent/prompts.py` | All prompts: writer, reviser, judge, learner |
@@ -115,7 +118,7 @@ graph TD
 
 ---
 
-## The rubric: 11 hard gates, no partial credit
+## The rubric: 12 hard gates, no partial credit
 
 The lesson ships only if **every** check passes. There is no weighted score. A weighted average would let a lesson with a factual error pass on the strength of nice formatting. Here, any failed check is a rejection.
 
@@ -126,6 +129,7 @@ The lesson ships only if **every** check passes. There is no weighted score. A w
 | R3_READABILITY | beginner language | rule | Flesch Reading Ease ≥ 60 (plain English) |
 | R4_LENGTH | covers key points | rule | 850–1800 words (one sitting for a slow reader) |
 | R5_QUIZ | teaches by example | rule | ≥ 3 self-check questions with answers |
+| R6_RESOURCES | teaches by example | rule | a 'Learn more' section with 2–4 links, at least one video, and **every** URL in the lesson is on the list verified live during research (no invented links) |
 | L1_ACCURACY | accurate & grounded | LLM | **every** claim sentence (extracted by code, checked one by one) agrees with the reference sheet; no overclaim; no listed misconception stated or implied |
 | L2_COVERAGE | covers key points | LLM | every must-cover point (M1–M9) is actually taught |
 | L3_JARGON | no unexplained jargon | LLM | every technical term explained at or before its first use (a glossary alone doesn't count) |
@@ -159,6 +163,9 @@ Small and open models skip items, invent quotes, and wave things through. So the
 - *Optional voting* (`JUDGE_VOTES=3`): independent samples, majority per item, ties fail.
 
 **3d. The rubric is tested, not trusted.** `calibrate` plants seven known defects into a known-good lesson (an obvious misconception, a subtle overclaim, a wrong "who searches" claim, dense jargon, idioms, a 50-word sentence, a deleted section). It reports which ones the owning check caught (recall), whether the clean lesson passes (false alarms), and which unrelated checks fired (spillover). This is how a judge model is qualified before use, and how a prompt or threshold change is shown to help rather than assumed to.
+
+**3e. Internet access, without trusting the internet blindly.**
+With `TAVILY_API_KEY` set, a `research` node runs before writing. (1) *Fresh facts:* recent search results are distilled into a few beginner-level facts, each tied to the URL it came from. Facts citing a URL that wasn't in the results are dropped. They go into the reference sheet as `fresh_facts_from_the_web`, below the curated facts in trust, and the accuracy judge sees them too. (2) *Links and videos:* candidates come from the curated sheet plus YouTube and article searches, including a Hindi-explainer search for this learner. **Every link is checked live** before the writer sees it: YouTube through oEmbed (which returns 404 for removed or made-up videos), other pages by fetching them. The writer may only use links from that list, and rule **R6** rejects any URL in the lesson that isn't on it. Models invent plausible YouTube links; this makes that impossible to ship. Research is cached per topic per day (`knowledge/web/`), listed in the rejection log, and best-effort: with no key or no network, the system falls back to the curated sheet.
 
 **4. Grounding against a curated reference sheet.**
 "Accurate" means *consistent with a source we control* (`knowledge/rag.json`: facts, nine must-cover points, seven common misconceptions), not "whatever the judge model happens to believe". The misconception list is what lets the accuracy judge reliably catch the most likely errors, such as "RAG retrains the model". For topics without a curated sheet, the model drafts one, caches it, and labels it `trust: generated` in the log.

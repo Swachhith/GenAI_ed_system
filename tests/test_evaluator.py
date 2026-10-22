@@ -151,3 +151,58 @@ def test_grounded_accepts_real_quote_with_nested_quotes():
     # Regression from live calibration: a judge's genuine quote was rejected because of 'quote marks'.
     q = "Step 3: Augment. The system makes a prompt. It contains Priya's question, the two chunks and the instruction 'Answer using only this information.'"
     assert rules.grounded(q, GOOD)
+
+
+# ---- links and web research ----------------------------------------------------------------
+
+def test_resources_rule_rejects_invented_links():
+    res = REF["resources"]
+    assert rules.check_resources(GOOD, res)[0]
+    passed, evidence, *_ = rules.check_resources(inject(GOOD, "fake-link"), res)
+    assert not passed and "Xr4G7aQ2pLm" in evidence[0]
+    no_video = GOOD.replace("https://www.youtube.com/watch?v=T-D1OfcDW1M", "https://aws.amazon.com/what-is/retrieval-augmented-generation/") \
+                   .replace("https://www.youtube.com/watch?v=LPZh9BOjkQs", "https://blogs.nvidia.com/blog/what-is-retrieval-augmented-generation/")
+    passed, evidence, *_ = rules.check_resources(no_video, res)
+    assert not passed and any("No video" in e for e in evidence)
+    # Nothing verified (offline): links aren't required, but none may appear.
+    assert not rules.check_resources(GOOD, [])[0]
+    assert rules.check_resources(rules.without_resources(GOOD), [])[0]
+
+
+def test_link_list_is_not_judged_as_prose():
+    assert "youtube" not in " ".join(s for s, _ in rules.technical_claims(GOOD))
+    assert rules.check_sentences(GOOD)[0]
+
+
+def test_research_keeps_only_live_links_and_sourced_facts(monkeypatch, tmp_path):
+    from lesson_agent import web
+
+    s = Settings(provider="anthropic", generator_model="g", evaluator_model="e")
+    s.knowledge_dir, s.tavily_api_key, s.web_research, s.verify_links = tmp_path, "k", True, True
+    fake_results = {
+        "explained for beginners": [{"url": "https://www.youtube.com/watch?v=AAAAAAAAAAA", "title": "v"},
+                                    {"url": "https://www.youtube.com/watch?v=DEADDEADDEA", "title": "gone"}],
+        "in Hindi": [{"url": "https://www.youtube.com/watch?v=HHHHHHHHHHH", "title": "h"}],
+        "latest developments": [{"url": "https://news.example/rag", "title": "RAG today", "content": "..."}],
+    }
+    monkeypatch.setattr(web, "search", lambda settings, q, **kw: next(v for k, v in fake_results.items() if k in q))
+    live = {"https://www.youtube.com/watch?v=AAAAAAAAAAA": "RAG for beginners",
+            "https://www.youtube.com/watch?v=HHHHHHHHHHH": "RAG kya hai? Hindi mein",
+            "https://www.youtube.com/watch?v=T-D1OfcDW1M": "What is RAG?"}
+    monkeypatch.setattr(web, "verify", lambda url: {"url": url, "type": "video", "title": live[url], "source": "ch"}
+                        if url in live else None)
+
+    class FactLLM:
+        def structured(self, system, prompt, schema, *, role):
+            return web.WebFacts(facts=[web.WebFact(fact="Many apps use RAG today.", source_url="https://news.example/rag"),
+                                       web.WebFact(fact="Invented.", source_url="https://made-up.example")])
+
+    ref = {"short_name": "RAG", "facts": [], "resources": [{"url": "https://www.youtube.com/watch?v=T-D1OfcDW1M",
+                                                           "type": "video", "title": "x", "why": "curated note"}]}
+    data = web.research("RAG", ref, FactLLM(), s, log=lambda _: None)
+    urls = [r["url"] for r in data["resources"]]
+    assert urls[0].endswith("T-D1OfcDW1M") and data["resources"][0]["why"] == "curated note"  # curated first
+    assert "https://www.youtube.com/watch?v=DEADDEADDEA" not in urls  # failed the live check
+    assert any(r["language"] == "Hindi" for r in data["resources"])
+    assert [f["source_url"] for f in data["web_facts"]] == ["https://news.example/rag"]  # invented source dropped
+    assert list((tmp_path / "web").glob("*.json"))  # cached for the day
