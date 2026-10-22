@@ -1,0 +1,293 @@
+{
+  "version": 1,
+  "runs": [
+    {
+      "run_id": "20261021-124748",
+      "topic": "Introduction to RAG (Retrieval-Augmented Generation)",
+      "timestamp": "2026-10-21T07:18:33+00:00",
+      "status": "PASSED",
+      "attempts": 3,
+      "injected": "factual",
+      "failed_per_attempt": [
+        [
+          "L1_ACCURACY",
+          "L2_COVERAGE",
+          "L3_JARGON",
+          "L6_FLOW"
+        ],
+        [
+          "R2_SENTENCES"
+        ],
+        []
+      ],
+      "learned": []
+    },
+    {
+      "run_id": "20261021-124859",
+      "topic": "Introduction to RAG (Retrieval-Augmented Generation)",
+      "timestamp": "2026-10-21T07:21:26+00:00",
+      "status": "PASSED",
+      "attempts": 3,
+      "injected": null,
+      "failed_per_attempt": [
+        [
+          "L4_EXAMPLES"
+        ],
+        [
+          "R2_SENTENCES"
+        ],
+        []
+      ],
+      "learned": [
+        "R2_SENTENCES: new guideline G1 -> Keep every sentence under twenty-five words by expressing only one idea per sentence."
+      ]
+    },
+    {
+      "run_id": "20261021-125136",
+      "topic": "Introduction to RAG (Retrieval-Augmented Generation)",
+      "timestamp": "2026-10-21T07:22:14+00:00",
+      "status": "PASSED",
+      "attempts": 2,
+      "injected": null,
+      "failed_per_attempt": [
+        [
+          "L4_EXAMPLES"
+        ],
+        []
+      ],
+      "learned": [
+        "L4_EXAMPLES: new guideline G2 -> Explicitly show document collection, chunking, and storage as the first step of your worked example before introducing the user's question."
+      ]
+    },
+    {
+      "run_id": "20261021-125344",
+      "topic": "Introduction to RAG (Retrieval-Augmented Generation)",
+      "timestamp": "2026-10-21T07:26:01+00:00",
+      "status": "PASSED",
+      "attempts": 3,
+      "injected": null,
+      "failed_per_attempt": [
+        [
+          "L3_JARGON",
+          "L4_EXAMPLES"
+        ],
+        [
+          "R2_SENTENCES"
+        ],
+        []
+      ],
+      "learned": [
+        "L3_JARGON: new guideline G3 -> Define every technical term in simple words immediately before or upon its first use in the body.",
+        "L4_EXAMPLES: reinforced existing guideline G2",
+        "R2_SENTENCES: reinforced existing guideline G1"
+      ]
+    }
+  ],
+  "check_stats": {
+    "R1_STRUCTURE": {
+      "evaluated": 11,
+      "failed": 0,
+      "first_draft_failed": 0
+    },
+    "R2_SENTENCES": {
+      "evaluated": 11,
+      "failed": 3,
+      "first_draft_failed": 0
+    },
+    "R3_READABILITY": {
+      "evaluated": 11,
+      "failed": 0,
+      "first_draft_failed": 0
+    },
+    "R4_LENGTH": {
+      "evaluated": 11,
+      "failed": 0,
+      "first_draft_failed": 0
+    },
+    "R5_QUIZ": {
+      "evaluated": 11,
+      "failed": 0,
+      "first_draft_failed": 0
+    },
+    "L1_ACCURACY": {
+      "evaluated": 11,
+      "failed": 1,
+      "first_draft_failed": 1
+    },
+    "L2_COVERAGE": {
+      "evaluated": 11,
+      "failed": 1,
+      "first_draft_failed": 1
+    },
+    "L3_JARGON": {
+      "evaluated": 11,
+      "failed": 2,
+      "first_draft_failed": 2
+    },
+    "L4_EXAMPLES": {
+      "evaluated": 11,
+      "failed": 3,
+      "first_draft_failed": 3
+    },
+    "L5_LEARNER_FIT": {
+      "evaluated": 11,
+      "failed": 0,
+      "first_draft_failed": 0
+    },
+    "L6_FLOW": {
+      "evaluated": 11,
+      "failed": 1,
+      "first_draft_failed": 1
+    }
+  },
+  "failures": {
+    "L1_ACCURACY": [
+      {
+        "run_id": "20261021-124748",
+        "attempt": 1,
+        "evidence": [
+          "The lesson does NOT state or imply: \"RAG retrains or fine-tunes the model on your documents.\" -> \"Here is the secret: RAG works by retraining the AI model on your documents. After that, the model remembers them forever, so its answers are always correct.\"",
+          "The lesson does NOT state or imply: \"After RAG, the model permanently remembers the documents.\" -> \"After that, the model remembers them forever, so its answers are always correct.\"",
+          "The lesson does NOT state or imply: \"RAG guarantees correct answers / completely removes hallucinations.\" -> \"After that, the model remembers them forever, so its answers are always correct.\"",
+          "Here is the secret: RAG works by retraining the AI model on your documents. After that, the model remembers them forever, so its answers are always correct."
+        ],
+        "fix": "Remove the paragraph under 'How does RAG work?' that begins with 'Here is the secret: RAG works by retraining the AI model on your documents. After that, the model remembers them forever, so its answers are always correct.' Ensure all mentions align with the fact that RAG does not retrain the model or guarantee complete correctness."
+      }
+    ],
+    "L2_COVERAGE": [
+      {
+        "run_id": "20261021-124748",
+        "attempt": 1,
+        "evidence": [
+          "Additional check: Contradictory false teaching inserted directly into the lesson text. -> \"Here is the secret: RAG works by retraining the AI model on your documents. After that, the model remembers them forever, so its answers are always correct.\"",
+          "Here is the secret: RAG works by retraining the AI model on your documents. After that, the model remembers them forever, so its answers are always correct."
+        ],
+        "fix": "Remove the paragraph claiming that RAG retrains the AI model and guarantees always-correct answers, as it contradicts the core definition of RAG taught elsewhere in the lesson."
+      }
+    ],
+    "L3_JARGON": [
+      {
+        "run_id": "20261021-124748",
+        "attempt": 1,
+        "evidence": [
+          "'knowledge cutoff' is explained in simple words at or before its FIRST use in the body -> \"First, it only knows what was in its training data up to a cutoff date.\"",
+          "'training data' is explained in simple words at or before its FIRST use in the body. AUTOMATIC PRE-CHECK found no explanation in the sentence of first use: \"First, it only knows what was in its training data up to a cutoff date.\". Mark met=true ONLY if you can quote an earlier explanation. -> \"First, it only knows what was in its training data up to a cutoff date.\"",
+          "'trained' is explained in simple words at or before its FIRST use in the body -> \"An LLM is an AI model trained on a very large amount of text to predict and generate language.\"",
+          "'weights' is explained in simple words at or before its FIRST use in the body. AUTOMATIC PRE-CHECK found no explanation in the sentence of first use: \"RAG does not change the model's weights.\". Mark met=true INVLY if you can quote an earlier explanation. -> \"RAG does not change the model's weights.\""
+        ],
+        "fix": "Add a simple explanation for 'training data' (e.g., the past books and text the AI read to learn), 'cutoff date / knowledge cutoff' (the date after which the AI has no new information), and 'weights' (the internal numbers the AI adjusts to learn) before their first use."
+      },
+      {
+        "run_id": "20261021-125344",
+        "attempt": 1,
+        "evidence": [
+          "'AI model' is explained in simple words at or before its FIRST use in the body. AUTOMATIC PRE-CHECK found no explanation in the sentence of first use: \"An LLM is an AI model trained on huge amounts of text.\". Mark met=true ONLY if you can quote an earlier explanation. -> \"An LLM is an AI model trained on huge amounts of text.\"",
+          "'LLM' is explained in simple words at or before its FIRST use in the body -> \"An LLM is an AI model trained on huge amounts of text.\"",
+          "'prompt' is explained in simple words at or before its FIRST use in the body -> \"5. **Augmentation**: The system takes those relevant chunks and adds them to a **prompt** (the message you type to the AI).\"",
+          "'retrieve' is explained in simple words at or before its FIRST use in the body. AUTOMATIC PRE-CHECK found no explanation in the sentence of first use: \"Relevant text is retrieved and added to the prompt.\". Mark met=true ONLY if you can quote an earlier explanation. -> \"Relevant text is retrieved and added to the prompt.\""
+        ],
+        "fix": "Ensure terms like LLM, AI model, index/indexing, training data, and database are defined in simple words before or right when they are first used in the text."
+      }
+    ],
+    "L6_FLOW": [
+      {
+        "run_id": "20261021-124748",
+        "attempt": 1,
+        "evidence": [
+          "2. Every idea or term is introduced before it is used (quote any used before being introduced). -> \"Here is the secret: RAG works by retraining the AI model on your documents. After that, the model remembers them forever, so its answers are always correct. RAG works in steps behind the screen.\"",
+          "Here is the secret: RAG works by retraining the AI model on your documents. After that, the model remembers them forever, so its answers are always correct."
+        ],
+        "fix": "Remove the incorrect sentence claiming RAG works by retraining the AI model at the beginning of the 'How does RAG work?' section, as it contradicts the correct explanation given a few paragraphs later ('RAG does not change the model's weights. There is no retraining.')."
+      }
+    ],
+    "R2_SENTENCES": [
+      {
+        "run_id": "20261021-124748",
+        "attempt": 2,
+        "evidence": [
+          "(43 words) First, it only knows what was in its training data (the past books and text the AI read to learn) up to a cutoff date (a knowledge cutoff, which is the date after which the AI has no new information in its memory)."
+        ],
+        "fix": "Split every sentence longer than 25 words into two or three short sentences. One idea per sentence."
+      },
+      {
+        "run_id": "20261021-124859",
+        "attempt": 2,
+        "evidence": [
+          "(34 words) Before any student asks a question, the system prepares the documents: it collects the college library rulebook, splits it into small chunks like the late fee rule, and stores those chunks in its database."
+        ],
+        "fix": "Split every sentence longer than 25 words into two or three short sentences. One idea per sentence."
+      },
+      {
+        "run_id": "20261021-125344",
+        "attempt": 2,
+        "evidence": [
+          "(26 words) Indexing documents: Indexing (organizing and preparing documents so they can be searched quickly) means you collect your documents and split them into small pieces called chunks.",
+          "(31 words) Storing data: You store these embeddings in a searchable place called a vector database (a database [an organized collection of data stored in a computer] designed to search through meaning-based numbers).",
+          "(37 words) In this analogy, the LLM is the student, the textbook is the folder of documents, looking up the page is retrieval, adding notes to the answer sheet is augmentation, and writing the final exam answer is generation."
+        ],
+        "fix": "Split every sentence longer than 25 words into two or three short sentences. One idea per sentence."
+      }
+    ],
+    "L4_EXAMPLES": [
+      {
+        "run_id": "20261021-124859",
+        "attempt": 1,
+        "evidence": [
+          "The worked example shows how the documents were prepared (collected, split into chunks, stored) before the question was asked. -> (not found)",
+          "The worked example shows how the documents were prepared (collected, split into chunks, stored) before the question was asked."
+        ],
+        "fix": "In the section 'Let's follow one example', add sentences right at the beginning showing the preparation phase for that specific library rulebook (e.g., collecting the rulebook, splitting it into chunks like the late fee rule, and storing them) before introducing the question."
+      },
+      {
+        "run_id": "20261021-125136",
+        "attempt": 1,
+        "evidence": [
+          "3. The worked example shows how the documents were prepared (collected, split into chunks, stored) before the question was asked. -> (not found)",
+          "Item 3: The worked example shows how the documents were prepared (collected, split into chunks, stored) before the question was asked."
+        ],
+        "fix": "In the section 'Let's follow one example', add a brief sentence at the beginning showing the preparation phase before the question is asked, such as: 'Before you ask, the college rulebook is collected and split into small chunks stored in a database.'"
+      },
+      {
+        "run_id": "20261021-125344",
+        "attempt": 1,
+        "evidence": [
+          "There is an everyday analogy a young Indian learner would recognise. -> (not found)",
+          "The analogy is mapped to RAG correctly (each part of the analogy matches a real part of RAG). -> (not found)",
+          "Everyday analogy is missing entirely from the lesson."
+        ],
+        "fix": "Add an everyday analogy before the worked example, such as comparing RAG to a student taking an open-book exam using a textbook, and explicitly map the parts (the textbook is the document folder, looking up the index is retrieval, etc.)."
+      }
+    ]
+  },
+  "guidelines": [
+    {
+      "id": "G1",
+      "text": "Keep every sentence under twenty-five words by expressing only one idea per sentence.",
+      "source": "learned",
+      "check_id": "R2_SENTENCES",
+      "created": "2026-10-21T07:21:26+00:00",
+      "hits": 2,
+      "active": true
+    },
+    {
+      "id": "G2",
+      "text": "Explicitly show document collection, chunking, and storage as the first step of your worked example before introducing the user's question.",
+      "source": "learned",
+      "check_id": "L4_EXAMPLES",
+      "created": "2026-10-21T07:22:14+00:00",
+      "hits": 2,
+      "active": true
+    },
+    {
+      "id": "G3",
+      "text": "Define every technical term in simple words immediately before or upon its first use in the body.",
+      "source": "learned",
+      "check_id": "L3_JARGON",
+      "created": "2026-10-21T07:25:58+00:00",
+      "hits": 1,
+      "active": true
+    }
+  ],
+  "learned_checks": [],
+  "feedback": []
+}

@@ -1,0 +1,84 @@
+--- attempt_1.md
++++ attempt_2.md
+@@ -7,23 +7,23 @@
+ - Why this method stops the AI from making up false answers.
+ 
+ ## First, what is an LLM?
+-An LLM is an AI model trained on huge amounts of text. 
+-It predicts and generates natural language like a human. 
++An LLM is a large language model, which is an **AI model** (a computer program designed to learn patterns from data). 
++An LLM is **trained** (taught using massive amounts of data) on huge amounts of text to predict and generate natural language like a human. 
+ You might use ChatGPT on your smartphone every day. 
+ It can write essays, translate languages, and answer questions. 
+ However, an LLM has big limits. 
+-It only knows things from its training data up to a cutoff date. 
++It only knows things from its **training data** (the text information used to teach the AI model) up to a cutoff date. 
+ It does not know your college private rules or last week's cricket score. 
+ Worse, it can write fluent lies with total confidence. 
+-This false answer problem is called hallucination.
++This false answer problem is called **hallucinate** (when an AI model invents false facts and presents them as true).
+ 
+ ## What is RAG?
+ RAG stands for **Retrieval-Augmented Generation**. 
+ It is a way to fix the limits of an LLM. 
+ The name has three simple parts. 
+-First, **retrieval** means to find relevant information from a set of documents. 
++First, **retrieval** (finding and fetching relevant information from a storage place) means to find relevant information from a set of documents. 
+ Second, **augmented** means to add that found information to the user's question. 
+-Third, **generation** means the LLM writes the final answer using the added text. 
++Third, **generation** (the creation of new text by the AI model) means the LLM writes the final answer using the added text. 
+ RAG does not change the model itself. 
+ It just gives the AI an open book to read right before answering.
+ 
+@@ -39,34 +39,40 @@
+ RAG works in a few clear steps. 
+ Let us look at how the system prepares and answers.
+ 
+-1. **Indexing documents**: You collect your documents and split them into small pieces. These small pieces are called chunks.
+-2. **Creating embeddings**: You convert each chunk into an **embedding** (a list of numbers that capture meaning). 
+-3. **Storing data**: You store these embeddings in a searchable place called a **vector database** (a database designed to search through meaning-based numbers).
++1. **Indexing documents**: **Indexing** (organizing and preparing documents so they can be searched quickly) means you collect your documents and split them into small pieces called chunks. An **index** (an organized list that helps you find information fast) is created for this.
++2. **Creating embeddings**: You convert each chunk into an **embedding** (a list of numbers that capture meaning).
++3. **Storing data**: You store these embeddings in a searchable place called a **vector database** (a **database** [an organized collection of data stored in a computer] designed to search through meaning-based numbers).
+ 4. **Retrieval**: When a user asks a question, the system turns the question into an embedding and finds the most similar chunks.
+-5. **Augmentation**: The system takes those relevant chunks and adds them to a **prompt** (the message you type to the AI).
++5. **Augmentation**: The system takes those relevant chunks and adds them to a **prompt** (the message or input you type to give to the AI).
+ 6. **Generation**: The LLM reads the prompt with the added chunks and writes the final answer.
+ 
++## Everyday Analogy: The Open-Book Exam
++Think of RAG like a student writing an exam in a college classroom in India.
++If the exam is closed-book, the student relies only on memory and might forget facts or make mistakes.
++If the exam is open-book, the student can open the textbook, find the right page, read it, and write the correct answer.
++In this analogy, the LLM is the student, the textbook is the folder of documents, looking up the page is **retrieval**, adding notes to the answer sheet is **augmentation**, and writing the final exam answer is **generation**.
++
+ ## Let's follow one example
+-Imagine a college helpdesk bot at your college in India. 
+-The bot needs to answer student questions using the official college rulebook. 
++Imagine a college helpdesk bot at your college in India.
++The bot needs to answer student questions using the official college rulebook.
+ 
+ First, we prepare the documents. 
+ The college collects the fifty-page PDF rulebook. 
+ The system splits this long PDF into small chunks of one paragraph each. 
+-It turns each chunk into an embedding and stores them all in a vector index. 
++It turns each chunk into an embedding and stores them all in a vector index.
+ 
+ Now, a student types a question into the WhatsApp bot. 
+ The student asks, "What is the fine for missing the library book return date?" 
+-Step two is retrieval. 
++Step two is **retrieval** (finding and fetching relevant information from a storage place). 
+ The system turns this question into numbers and searches the vector index. 
+ It picks the one paragraph about library fines from the fifty pages. 
+ 
+-Step three is augmentation. 
++Step three is **augmentation** (adding that found information to the user's question). 
+ The system takes that single paragraph about library fines. 
+-It puts that paragraph into a prompt along with the student's question. 
++It puts that paragraph into a **prompt** (the message or input you type to give to the AI) along with the student's question. 
+ It adds an instruction that says, "Answer using only this text." 
+ 
+-Step four is generation. 
++Step four is **generation** (the creation of new text by the AI model). 
+ The LLM reads the paragraph and writes back, "The fine is ten rupees per day." 
+ The AI did not guess. 
+ It read the exact rule provided by the retrieval step.

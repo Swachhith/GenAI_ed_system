@@ -1,0 +1,44 @@
+--- attempt_1.md
++++ attempt_2.md
+@@ -9,11 +9,11 @@
+ ## First, what is an LLM?
+ You may have used ChatGPT on your phone. 
+ It is a type of AI called an **LLM** (Large Language Model). 
+-An LLM is an AI model trained on a very large amount of text to predict and generate language.
++An LLM is an AI model trained (taught by reading examples) on a very large amount of text to predict and generate language.
+ Think of it like a very smart student who read many books before an exam. 
+ This student knows a lot of general facts about the world. 
+ However, an LLM has two big limits. 
+-First, it only knows what was in its training data up to a cutoff date. 
++First, it only knows what was in its training data (the past books and text the AI read to learn) up to a cutoff date (a knowledge cutoff, which is the date after which the AI has no new information in its memory).
+ It does not know private or very recent information. 
+ For example, it does not know the exact fee refund rules of your local college announced yesterday. 
+ Second, it can confidently make things up. 
+@@ -47,16 +47,14 @@
+ You do not need to train a new AI model from scratch.
+ 
+ ## How does RAG work?
+-
+-Here is the secret: RAG works by retraining the AI model on your documents. After that, the model remembers them forever, so its answers are always correct.
+ RAG works in steps behind the screen. 
+ Here is how the system handles documents and questions:
+ 1. **Indexing**: The system collects documents. It splits them into small pieces called **chunks** (small parts of a document). 
+ 2. **Embeddings**: Each chunk is turned into an **embedding** (a list of numbers that capture meaning). This helps the computer compare texts by meaning.
+ 3. **Retrieval**: When you type a question, the system searches the stored chunks. It picks the few most relevant ones. 
+-4. **Augmentation**: The system takes your question and adds the retrieved chunks to a **prompt** (the message you type to the AI). 
++4. **Augmentation**: The system takes your question and adds the retrieved chunks to a **prompt** (the message you type to the AI).
+ 5. **Generation**: The LLM reads the prompt with the added chunks and writes the final answer for you. 
+-RAG does not change the model's weights. 
++RAG does not change the model's weights (the internal numbers the AI adjusts to learn from text). 
+ There is no retraining. 
+ The knowledge lives in the documents outside the model.
+ 
+@@ -68,7 +66,7 @@
+ 2. You open a chat app on your phone and type: "What is the hostel gate closing time?" This question is your **prompt**.
+ 3. The system turns your question into numbers. It checks which **chunks** in the rulebook match your question. 
+ 4. It finds paragraph 12, which says: "Hostel gates close at 8:30 PM." 
+-5. The system performs **augmentation**. It sends your question along with paragraph 12 to the LLM. 
++5. The system performs **augmentation**. It sends your question along with paragraph 12 to the LLM.
+ 6. The LLM performs **generation**. It reads the rule and replies: "The hostel gates close at 8:30 PM, according to page 12 of your rulebook." 
+ Where does this analogy stop working? 
+ Unlike a human student, the AI does not truly understand the rules. 

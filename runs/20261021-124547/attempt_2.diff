@@ -1,0 +1,11 @@
+--- attempt_1.md
++++ attempt_2.md
+@@ -65,7 +65,7 @@
+ 
+ ## What RAG cannot do
+ RAG is very powerful, but it has limits.
+-It does not change the model weights or retrain the model.
++It does not change the internal numbers (called model weights) or retrain the model.
+ It does not mean the model permanently remembers your documents.
+ If the retrieval step finds the wrong information, the final answer can still be wrong.
+ RAG reduces made-up answers, but it does not remove them completely.

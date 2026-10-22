@@ -1,0 +1,215 @@
+{
+  "attempt": 1,
+  "strategy": "generate",
+  "passed": false,
+  "n_passed": 7,
+  "results": [
+    {
+      "check_id": "R1_STRUCTURE",
+      "name": "Required sections present",
+      "dimension": "coherent teaching flow",
+      "kind": "rule",
+      "criterion": "The lesson has an H2 section for each of: what is RAG, why it matters, how it works, a worked example, limits, recap, a self-check quiz, and key words.",
+      "source": "core",
+      "passed": true,
+      "evidence": [],
+      "fix": "",
+      "reasoning": "",
+      "metrics": {
+        "h2_headings": [
+          "what you will learn",
+          "first, what is an llm?",
+          "what is rag?",
+          "why does rag matter?",
+          "how does rag work?",
+          "let's follow one example",
+          "what rag cannot do",
+          "quick recap",
+          "check yourself",
+          "key words"
+        ]
+      }
+    },
+    {
+      "check_id": "R2_SENTENCES",
+      "name": "Short sentences",
+      "dimension": "beginner-friendly language",
+      "kind": "rule",
+      "criterion": "Average sentence length <= 15 words AND no sentence longer than 25 words.",
+      "source": "core",
+      "passed": true,
+      "evidence": [],
+      "fix": "",
+      "reasoning": "",
+      "metrics": {
+        "avg_sentence_words": 10.7,
+        "sentences": 98,
+        "over_cap": 0
+      }
+    },
+    {
+      "check_id": "R3_READABILITY",
+      "name": "Plain-English readability",
+      "dimension": "beginner-friendly language",
+      "kind": "rule",
+      "criterion": "Flesch Reading Ease >= 60 on the lesson prose.",
+      "source": "core",
+      "passed": true,
+      "evidence": [],
+      "fix": "",
+      "reasoning": "",
+      "metrics": {
+        "flesch": 73.7
+      }
+    },
+    {
+      "check_id": "R4_LENGTH",
+      "name": "Right length for one sitting",
+      "dimension": "covers the key points",
+      "kind": "rule",
+      "criterion": "Between 700 and 1800 words (~10-15 minutes of reading for a slow reader).",
+      "source": "core",
+      "passed": true,
+      "evidence": [],
+      "fix": "",
+      "reasoning": "",
+      "metrics": {
+        "word_count": 1099
+      }
+    },
+    {
+      "check_id": "R5_QUIZ",
+      "name": "Self-check with answers",
+      "dimension": "teaches by example",
+      "kind": "rule",
+      "criterion": "The quiz section has at least 3 questions and gives the answers.",
+      "source": "core",
+      "passed": true,
+      "evidence": [],
+      "fix": "",
+      "reasoning": "",
+      "metrics": {
+        "quiz_questions": 4,
+        "quiz_has_answers": true
+      }
+    },
+    {
+      "check_id": "L1_ACCURACY",
+      "name": "No false or misleading claims",
+      "dimension": "accurate & grounded",
+      "kind": "llm",
+      "criterion": "Every technical claim agrees with the reference facts. No listed misconception is stated or implied as true. Simplifications are allowed only if they do not create a wrong belief (e.g. 'the model learns your documents' is a FAIL, because RAG does not change the model).",
+      "source": "core",
+      "passed": false,
+      "evidence": [
+        "The lesson does NOT state or imply: \"RAG retrains or fine-tunes the model on your documents.\" -> \"Here is the secret: RAG works by retraining the AI model on your documents. After that, the model remembers them forever, so its answers are always correct.\"",
+        "The lesson does NOT state or imply: \"After RAG, the model permanently remembers the documents.\" -> \"After that, the model remembers them forever, so its answers are always correct.\"",
+        "The lesson does NOT state or imply: \"RAG guarantees correct answers / completely removes hallucinations.\" -> \"After that, the model remembers them forever, so its answers are always correct.\"",
+        "Here is the secret: RAG works by retraining the AI model on your documents. After that, the model remembers them forever, so its answers are always correct."
+      ],
+      "fix": "Remove the paragraph under 'How does RAG work?' that begins with 'Here is the secret: RAG works by retraining the AI model on your documents. After that, the model remembers them forever, so its answers are always correct.' Ensure all mentions align with the fact that RAG does not retrain the model or guarantee complete correctness.",
+      "reasoning": "The lesson explicitly contradicts its own later accurate statements by including a paragraph under 'How does RAG work?' that promotes major misconceptions: it states that RAG retrains the AI model, makes the model remember documents forever, and guarantees correct answers. These claims violate the reference facts and the accuracy requirements.",
+      "metrics": {
+        "items_checked": 8,
+        "items_unmet": 3
+      }
+    },
+    {
+      "check_id": "L2_COVERAGE",
+      "name": "All must-cover points taught",
+      "dimension": "covers the key points",
+      "kind": "llm",
+      "criterion": "Every must-cover point in the reference is actually taught (explained, not just named).",
+      "source": "core",
+      "passed": false,
+      "evidence": [
+        "Additional check: Contradictory false teaching inserted directly into the lesson text. -> \"Here is the secret: RAG works by retraining the AI model on your documents. After that, the model remembers them forever, so its answers are always correct.\"",
+        "Here is the secret: RAG works by retraining the AI model on your documents. After that, the model remembers them forever, so its answers are always correct."
+      ],
+      "fix": "Remove the paragraph claiming that RAG retrains the AI model and guarantees always-correct answers, as it contradicts the core definition of RAG taught elsewhere in the lesson.",
+      "reasoning": "I checked all nine must-cover points in the reference and found that they are all present and clearly explained within the text. However, the lesson explicitly includes a severe factual contradiction under the 'How does RAG work?' section, stating that RAG works by retraining the AI model on documents and that answers are always correct, which directly contradicts standard RAG principles and other parts of the lesson.",
+      "metrics": {
+        "items_checked": 10,
+        "items_unmet": 1
+      }
+    },
+    {
+      "check_id": "L3_JARGON",
+      "name": "Every technical term explained",
+      "dimension": "clear, no unexplained jargon",
+      "kind": "llm",
+      "criterion": "Every technical or English-uncommon term is explained in simple words at or before its first use in the body (a glossary at the end alone does not count). Acronyms are expanded on first use.",
+      "source": "core",
+      "passed": false,
+      "evidence": [
+        "'knowledge cutoff' is explained in simple words at or before its FIRST use in the body -> \"First, it only knows what was in its training data up to a cutoff date.\"",
+        "'training data' is explained in simple words at or before its FIRST use in the body. AUTOMATIC PRE-CHECK found no explanation in the sentence of first use: \"First, it only knows what was in its training data up to a cutoff date.\". Mark met=true ONLY if you can quote an earlier explanation. -> \"First, it only knows what was in its training data up to a cutoff date.\"",
+        "'trained' is explained in simple words at or before its FIRST use in the body -> \"An LLM is an AI model trained on a very large amount of text to predict and generate language.\"",
+        "'weights' is explained in simple words at or before its FIRST use in the body. AUTOMATIC PRE-CHECK found no explanation in the sentence of first use: \"RAG does not change the model's weights.\". Mark met=true INVLY if you can quote an earlier explanation. -> \"RAG does not change the model's weights.\"",
+        "First, it only knows what was in its training data up to a cutoff date.",
+        "RAG does not change the model's weights."
+      ],
+      "fix": "Add a simple explanation for 'training data' (e.g., the past books and text the AI read to learn), 'cutoff date / knowledge cutoff' (the date after which the AI has no new information), and 'weights' (the internal numbers the AI adjusts to learn) before their first use.",
+      "reasoning": "I checked every technical term against the rule that it must be explained in simple words at or before its first use. While many terms like 'LLM', 'hallucination', 'chunk', and 'embedding' are well-explained, terms like 'training data', 'weights', and 'knowledge cutoff' (referred to as cutoff date) are used without a prior simple explanation.",
+      "metrics": {
+        "items_checked": 21,
+        "items_unmet": 4
+      }
+    },
+    {
+      "check_id": "L4_EXAMPLES",
+      "name": "Concrete analogy and walk-through",
+      "dimension": "teaches by example",
+      "kind": "llm",
+      "criterion": "The lesson has (a) at least one everyday analogy a young Indian learner would recognise, correctly mapped to RAG, AND (b) one concrete worked example that follows a single question through every step: preparing documents, retrieving, adding to the prompt, generating.",
+      "source": "core",
+      "passed": true,
+      "evidence": [],
+      "fix": "",
+      "reasoning": "I checked the lesson for an everyday analogy suitable for an Indian student (an open-book college exam), verified its mapping to RAG, and checked the step-by-step worked example of the hostel rulebook PDF. All required elements—preparation/chunking, retrieval, prompt augmentation, and generation—are fully present and correctly mapped.",
+      "metrics": {
+        "items_checked": 6,
+        "items_unmet": 0
+      }
+    },
+    {
+      "check_id": "L5_LEARNER_FIT",
+      "name": "Fits a non-native English beginner",
+      "dimension": "beginner-friendly language",
+      "kind": "llm",
+      "criterion": "Uses common, everyday English words; no idioms, slang, sarcasm or culturally obscure references; assumes no coding, maths beyond class 12, or prior AI knowledge; tone is encouraging and direct.",
+      "source": "core",
+      "passed": true,
+      "evidence": [],
+      "fix": "",
+      "reasoning": "I checked the lesson for idioms, difficult vocabulary, assumed knowledge, grammar errors, and tone. The language is kept very simple and accessible, avoiding jargon without explanation, and directly addresses the learner using 'you'.",
+      "metrics": {
+        "items_checked": 5,
+        "items_unmet": 0
+      }
+    },
+    {
+      "check_id": "L6_FLOW",
+      "name": "Builds step by step",
+      "dimension": "coherent teaching flow",
+      "kind": "llm",
+      "criterion": "Ideas are introduced before they are used; sections go from what -> why -> how -> example -> limits -> recap; each section links to the previous one; nothing is repeated without purpose.",
+      "source": "core",
+      "passed": false,
+      "evidence": [
+        "2. Every idea or term is introduced before it is used (quote any used before being introduced). -> \"Here is the secret: RAG works by retraining the AI model on your documents. After that, the model remembers them forever, so its answers are always correct. RAG works in steps behind the screen.\"",
+        "Here is the secret: RAG works by retraining the AI model on your documents. After that, the model remembers them forever, so its answers are always correct."
+      ],
+      "fix": "Remove the incorrect sentence claiming RAG works by retraining the AI model at the beginning of the 'How does RAG work?' section, as it contradicts the correct explanation given a few paragraphs later ('RAG does not change the model's weights. There is no retraining.').",
+      "reasoning": "I checked the structural flow, order of sections, term introduction, section transitions, and repetition. Sections follow the required order and connect logically. However, under the 'How does RAG work?' section, the text states 'RAG works by retraining the AI model on your documents', which directly contradicts the core concept of RAG and later statements in the same section ('RAG does not change the model's weights. There is no retraining.'), causing an internal contradiction and introduction of incorrect information before it is corrected.",
+      "metrics": {
+        "items_checked": 4,
+        "items_unmet": 1
+      }
+    }
+  ],
+  "change_log": [],
+  "lesson_file": "attempt_1.md",
+  "injected": "factual",
+  "timestamp": "2026-10-21T07:18:04+00:00"
+}

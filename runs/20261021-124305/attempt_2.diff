@@ -1,0 +1,11 @@
+--- attempt_1.md
++++ attempt_2.md
+@@ -47,7 +47,7 @@
+ 2. The system turns your question into numbers and searches the college rulebook index.
+ 3. It finds the exact paragraph about hostel fees. This is the **Retrieval** step.
+ 4. The system copies that paragraph and adds it to your question. This is the **Augmented** step.
+-5. The LLM reads the added paragraph and replies: "The last date to get a full hostel fee refund is July 15." This is the **Generation** step.
++5. The LLM reads the added paragraph. It writes a reply. It says: "The last date to get a full hostel fee refund is July 15." This is the **Generation** step.
+ 
+ Where does this analogy stop working? A human student reads the rulebook and uses memory for future exams. The LLM does not remember your question or the rulebook after answering. It reads the text fresh every single time.
+ 

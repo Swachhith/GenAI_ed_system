@@ -1,0 +1,207 @@
+{
+  "summary": {
+    "evaluator": "gemini:gemini-3.5-flash-lite",
+    "judge_votes": 1,
+    "defects_caught": 7,
+    "defects_planted": 7,
+    "expected_checks_fired": 7,
+    "expected_checks_total": 7,
+    "false_alarms_on_clean": [],
+    "spillover_failures": 2
+  },
+  "rows": [
+    {
+      "case": "clean",
+      "expected": [],
+      "failed": [],
+      "caught": [],
+      "missed": [],
+      "spillover": [],
+      "evidence": {},
+      "seconds": 16.3
+    },
+    {
+      "case": "factual",
+      "expected": [
+        "L1_ACCURACY"
+      ],
+      "failed": [
+        "L1_ACCURACY",
+        "L3_JARGON"
+      ],
+      "caught": [
+        "L1_ACCURACY"
+      ],
+      "missed": [],
+      "spillover": [],
+      "evidence": {
+        "L1_ACCURACY": [
+          "ABSOLUTE CLAIM: \"After that, the model remembers them forever, so its answers are always correct.\" The word 'forever' makes this an all-or-nothing claim. met=true ONLY if it is literally true with no exceptions according to the reference facts (check the facts about limits). -> \"Here is the secret: RAG works by retraining the AI model on your documents. After that, the model remembers them forever, so its answers are always correct.\"",
+          "ABSOLUTE CLAIM: \"Remove the documents, and the LLM forgets nothing because it never stored them.\" The word 'nothing' makes this an all-or-nothing claim. met=true ONLY if it is literally true with no exceptions according to the reference facts (check the facts about limits). -> \"Remove the documents, and the LLM forgets nothing because it never stored them.\"",
+          "The lesson does NOT state or imply: \"RAG retrains or fine-tunes the model on your documents.\" -> \"Here is the secret: RAG works by retraining the AI model on your documents.\""
+        ],
+        "L3_JARGON": [
+          "'AI model' is explained in simple words at or before its FIRST use in the body. AUTOMATIC PRE-CHECK found no explanation in the sentence of first use: \"Here is the secret: RAG works by retraining the AI model on your documents.\". Mark met=true ONLY if you can quote an earlier explanation. -> (not found)",
+          "Other problem -> \"AI model\""
+        ]
+      },
+      "seconds": 17.0
+    },
+    {
+      "case": "overclaim",
+      "expected": [
+        "L1_ACCURACY"
+      ],
+      "failed": [
+        "L1_ACCURACY"
+      ],
+      "caught": [
+        "L1_ACCURACY"
+      ],
+      "missed": [],
+      "spillover": [],
+      "evidence": {
+        "L1_ACCURACY": [
+          "ABSOLUTE CLAIM: \"Because the AI reads your real documents, RAG stops it from making up answers.\" The word 'stops' makes this an all-or-nothing claim. met=true ONLY if it is literally true with no exceptions according to the reference facts (check the facts about limits). -> \"Because the AI reads your real documents, RAG stops it from making up answers.\"",
+          "Other problem -> \"Because the AI reads your real documents, RAG stops it from making up answers.\""
+        ]
+      },
+      "seconds": 69.7
+    },
+    {
+      "case": "wrong-actor",
+      "expected": [
+        "L1_ACCURACY"
+      ],
+      "failed": [
+        "L1_ACCURACY",
+        "L2_COVERAGE"
+      ],
+      "caught": [
+        "L1_ACCURACY"
+      ],
+      "missed": [],
+      "spillover": [
+        "L2_COVERAGE"
+      ],
+      "evidence": {
+        "L1_ACCURACY": [
+          "The lesson does NOT state or imply: \"In RAG, the LLM itself searches the internet on its own.\" -> \"In RAG, the LLM goes onto the internet by itself and searches Google before it answers.\"",
+          "Accurate, not overclaimed: \"In RAG, the LLM goes onto the internet by itself and searches Google before it answers.\" -> \"In RAG, the LLM goes onto the internet by itself and searches Google before it answers.\"",
+          "Every technical claim NOT listed above agrees with the reference facts (quote any claim that is false or misleading, even slightly). -> \"In RAG, the LLM goes onto the internet by itself and searches Google before it answers.\""
+        ],
+        "L2_COVERAGE": [
+          "[M9] is taught (explained, not just named): At least one realistic use case (for example: a college helpdesk bot answering from the college rulebook, or a company support bot answering from product manuals). -> \"In RAG, the LLM goes onto the internet by itself and searches Google before it answers.\""
+        ]
+      },
+      "seconds": 23.9
+    },
+    {
+      "case": "jargon",
+      "expected": [
+        "L3_JARGON"
+      ],
+      "failed": [
+        "L1_ACCURACY",
+        "L3_JARGON",
+        "L5_LEARNER_FIT",
+        "L6_FLOW"
+      ],
+      "caught": [
+        "L3_JARGON"
+      ],
+      "missed": [],
+      "spillover": [
+        "L1_ACCURACY"
+      ],
+      "evidence": {
+        "L1_ACCURACY": [
+          "Accurate, not overclaimed: \"Internally, the retriever computes cosine similarity between dense vector embeddings stored in an HNSW index and returns the top-k chunks to the orchestration layer.\" -> \"Internally, the retriever computes cosine similarity between dense vector embeddings stored in an HNSW index and returns the top-k chunks to the orchestration layer.\"",
+          "Other problem -> \"Internally, the retriever computes cosine similarity between dense vector embeddings stored in an HNSW index and returns the top-k chunks to the orchestration layer.\""
+        ],
+        "L3_JARGON": [
+          "'retriever' is explained in simple words at or before its FIRST use in the body. AUTOMATIC PRE-CHECK found no explanation in the sentence of first use: \"Internally, the retriever computes cosine similarity between dense vector embeddings stored in an HNSW index and returns the top-k chunks to the orchestration layer.\". Mark met=true ONLY if you can quote an earlier explanation. -> (not found)",
+          "'embedding' is explained in simple words at or before its FIRST use in the body. AUTOMATIC PRE-CHECK found no explanation in the sentence of first use: \"Internally, the retriever computes cosine similarity between dense vector embeddings stored in an HNSW index and returns the top-k chunks to the orchestration layer.\". Mark met=true ONLY if you can quote an earlier explanation. -> (not found)",
+          "'embeddings' is explained in simple words at or before its FIRST use in the body. AUTOMATIC PRE-CHECK found no explanation in the sentence of first use: \"Internally, the retriever computes cosine similarity between dense vector embeddings stored in an HNSW index and returns the top-k chunks to the orchestration layer.\". Mark met=true ONLY if you can quote an earlier explanation. -> (not found)"
+        ],
+        "L5_LEARNER_FIT": [
+          "No uncommon or formal English words where an everyday word would do (quote any you find). -> \"Internally, the retriever computes cosine similarity between dense vector embeddings stored in an HNSW index and returns the top-k chunks to the orchestration layer.\"",
+          "No assumed knowledge of coding, advanced maths or AI beyond what the lesson itself explains. -> \"Internally, the retriever computes cosine similarity between dense vector embeddings stored in an HNSW index and returns the top-k chunks to the orchestration layer.\"",
+          "Other problem -> \"Internally, the retriever computes cosine similarity between dense vector embeddings stored in an HNSW index and returns the top-k chunks to the orchestration layer.\""
+        ],
+        "L6_FLOW": [
+          "Every idea or term is introduced before it is used (quote any used before being introduced). -> \"Internally, the retriever computes cosine similarity between dense vector embeddings stored in an HNSW index and returns the top-k chunks to the orchestration layer.\"",
+          "Each section connects to the previous one; there are no abrupt jumps. -> \"Internally, the retriever computes cosine similarity between dense vector embeddings stored in an HNSW index and returns the top-k chunks to the orchestration layer.\"",
+          "Other problem -> \"Internally, the retriever computes cosine similarity between dense vector embeddings stored in an HNSW index and returns the top-k chunks to the orchestration layer.\""
+        ]
+      },
+      "seconds": 82.9
+    },
+    {
+      "case": "idiom",
+      "expected": [
+        "L5_LEARNER_FIT"
+      ],
+      "failed": [
+        "L5_LEARNER_FIT"
+      ],
+      "caught": [
+        "L5_LEARNER_FIT"
+      ],
+      "missed": [],
+      "spillover": [],
+      "evidence": {
+        "L5_LEARNER_FIT": [
+          "No English idioms, slang or figures of speech (quote any you find). -> \"Don't worry, this part is a piece of cake. Once you get the hang of it, you will be over the moon.\"",
+          "Other problem -> \"Don't worry, this part is a piece of cake. Once you get the hang of it, you will be over the moon.\""
+        ]
+      },
+      "seconds": 18.8
+    },
+    {
+      "case": "long-sentence",
+      "expected": [
+        "R2_SENTENCES"
+      ],
+      "failed": [
+        "R2_SENTENCES",
+        "L5_LEARNER_FIT"
+      ],
+      "caught": [
+        "R2_SENTENCES"
+      ],
+      "missed": [],
+      "spillover": [],
+      "evidence": {
+        "R2_SENTENCES": [
+          "(39 words) Retrieval-Augmented Generation, which is a methodology that researchers and engineers frequently utilise in contemporary artificial intelligence applications in order to substantially enhance the factual reliability of responses generated by large language models, fundamentally combines information retrieval with text generation."
+        ],
+        "L5_LEARNER_FIT": [
+          "No uncommon or formal English words where an everyday word would do (quote any you find). -> \"Retrieval-Augmented Generation, which is a methodology that researchers and engineers frequently utilise in contemporary artificial intelligence applications...\"",
+          "Other problem -> \"Retrieval-Augmented Generation, which is a methodology that researchers and engineers frequently utilise in contemporary artificial intelligence applications...\""
+        ]
+      },
+      "seconds": 16.9
+    },
+    {
+      "case": "missing-limits",
+      "expected": [
+        "R1_STRUCTURE"
+      ],
+      "failed": [
+        "R1_STRUCTURE"
+      ],
+      "caught": [
+        "R1_STRUCTURE"
+      ],
+      "missed": [],
+      "spillover": [],
+      "evidence": {
+        "R1_STRUCTURE": [
+          "Missing section: limits"
+        ]
+      },
+      "seconds": 85.6
+    }
+  ]
+}

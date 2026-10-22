@@ -1,0 +1,11 @@
+--- attempt_2.md
++++ attempt_3.md
+@@ -13,7 +13,7 @@
+ Think of it like a very smart student who read many books before an exam. 
+ This student knows a lot of general facts about the world. 
+ However, an LLM has two big limits. 
+-First, it only knows what was in its training data (the past books and text the AI read to learn) up to a cutoff date (a knowledge cutoff, which is the date after which the AI has no new information in its memory).
++First, it only knows what was in its training data. This is the past books and text the AI read to learn. It only knows things up to a cutoff date. This date is a knowledge cutoff. It is the date after which the AI has no new information in its memory.
+ It does not know private or very recent information. 
+ For example, it does not know the exact fee refund rules of your local college announced yesterday. 
+ Second, it can confidently make things up. 

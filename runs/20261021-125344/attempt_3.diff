@@ -1,0 +1,31 @@
+--- attempt_2.md
++++ attempt_3.md
+@@ -39,18 +39,23 @@
+ RAG works in a few clear steps. 
+ Let us look at how the system prepares and answers.
+ 
+-1. **Indexing documents**: **Indexing** (organizing and preparing documents so they can be searched quickly) means you collect your documents and split them into small pieces called chunks. An **index** (an organized list that helps you find information fast) is created for this.
++1. **Indexing documents**: **Indexing** (organizing documents so they can be searched quickly) means you collect documents. Then you split them into small pieces called chunks. An **index** (an organized list that helps you find information fast) is created for this.
+ 2. **Creating embeddings**: You convert each chunk into an **embedding** (a list of numbers that capture meaning).
+-3. **Storing data**: You store these embeddings in a searchable place called a **vector database** (a **database** [an organized collection of data stored in a computer] designed to search through meaning-based numbers).
++3. **Storing data**: You store these embeddings in a vector database. A vector database is a **database** (an organized collection of data stored in a computer) designed to search through numbers.
+ 4. **Retrieval**: When a user asks a question, the system turns the question into an embedding and finds the most similar chunks.
+ 5. **Augmentation**: The system takes those relevant chunks and adds them to a **prompt** (the message or input you type to give to the AI).
+ 6. **Generation**: The LLM reads the prompt with the added chunks and writes the final answer.
+ 
+ ## Everyday Analogy: The Open-Book Exam
+ Think of RAG like a student writing an exam in a college classroom in India.
+-If the exam is closed-book, the student relies only on memory and might forget facts or make mistakes.
+-If the exam is open-book, the student can open the textbook, find the right page, read it, and write the correct answer.
+-In this analogy, the LLM is the student, the textbook is the folder of documents, looking up the page is **retrieval**, adding notes to the answer sheet is **augmentation**, and writing the final exam answer is **generation**.
++If the exam is closed-book, the student relies only on memory and might make mistakes.
++If the exam is open-book, the student can open the textbook and find the right page.
++Then the student reads the page and writes the correct answer.
++In this analogy, the LLM is the student.
++The textbook is the folder of documents.
++Looking up the page is **retrieval**.
++Adding notes to the answer sheet is **augmentation**.
++Writing the final exam answer is **generation**.
+ 
+ ## Let's follow one example
+ Imagine a college helpdesk bot at your college in India.

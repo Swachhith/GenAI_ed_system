@@ -1,0 +1,11 @@
+--- attempt_1.md
++++ attempt_2.md
+@@ -32,7 +32,7 @@
+ 6. **Generation**: The LLM reads the question and the chunks, then writes a correct answer.
+ 
+ ## Let's follow one example
+-Imagine your college has a thick rulebook for attendance and exams. You want to ask a chatbot a question: "What is the minimum attendance needed for my semester exams?"
++Imagine your college has a thick rulebook for attendance and exams. Before you ask, the college rulebook is collected and split into small chunks stored in a database. You want to ask a chatbot a question: "What is the minimum attendance needed for my semester exams?"
+ 
+ First, the system looks at your question. It searches the college rulebook chunks and finds the exact page about attendance. Second, the system takes that page and attaches it to your question. Third, it sends both the page and your question to the LLM. Fourth, the LLM reads the page and tells you the exact rule. The LLM does not need to memorize the rulebook beforehand.
+ 

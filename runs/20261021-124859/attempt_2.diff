@@ -1,0 +1,12 @@
+--- attempt_1.md
++++ attempt_2.md
+@@ -50,7 +50,8 @@
+ 
+ ## Let's follow one example
+ Let us look at a college helpdesk bot at your local university in India. 
+-You want to know: "What is the fine for returning library books late?"
++Before any student asks a question, the system prepares the documents: it collects the college library rulebook, splits it into small chunks like the late fee rule, and stores those chunks in its database. 
++Now, you want to know: "What is the fine for returning library books late?"
+ First, the system looks at your question and turns it into an embedding. 
+ It searches the college library rulebook stored in its database. 
+ It finds the exact chunk of text that says: "Late fee is five rupees per day." 

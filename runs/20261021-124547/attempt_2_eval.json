@@ -1,0 +1,202 @@
+{
+  "attempt": 2,
+  "strategy": "revise",
+  "passed": true,
+  "n_passed": 11,
+  "results": [
+    {
+      "check_id": "R1_STRUCTURE",
+      "name": "Required sections present",
+      "dimension": "coherent teaching flow",
+      "kind": "rule",
+      "criterion": "The lesson has an H2 section for each of: what is RAG, why it matters, how it works, a worked example, limits, recap, a self-check quiz, and key words.",
+      "source": "core",
+      "passed": true,
+      "evidence": [],
+      "fix": "",
+      "reasoning": "",
+      "metrics": {
+        "h2_headings": [
+          "what you will learn",
+          "first, what is an llm?",
+          "what is rag?",
+          "why does rag matter?",
+          "how does rag work?",
+          "let's follow one example",
+          "what rag cannot do",
+          "quick recap",
+          "check yourself",
+          "key words"
+        ]
+      }
+    },
+    {
+      "check_id": "R2_SENTENCES",
+      "name": "Short sentences",
+      "dimension": "beginner-friendly language",
+      "kind": "rule",
+      "criterion": "Average sentence length <= 15 words AND no sentence longer than 25 words.",
+      "source": "core",
+      "passed": true,
+      "evidence": [],
+      "fix": "",
+      "reasoning": "",
+      "metrics": {
+        "avg_sentence_words": 10.9,
+        "sentences": 79,
+        "over_cap": 0
+      }
+    },
+    {
+      "check_id": "R3_READABILITY",
+      "name": "Plain-English readability",
+      "dimension": "beginner-friendly language",
+      "kind": "rule",
+      "criterion": "Flesch Reading Ease >= 60 on the lesson prose.",
+      "source": "core",
+      "passed": true,
+      "evidence": [],
+      "fix": "",
+      "reasoning": "",
+      "metrics": {
+        "flesch": 71.7
+      }
+    },
+    {
+      "check_id": "R4_LENGTH",
+      "name": "Right length for one sitting",
+      "dimension": "covers the key points",
+      "kind": "rule",
+      "criterion": "Between 700 and 1800 words (~10-15 minutes of reading for a slow reader).",
+      "source": "core",
+      "passed": true,
+      "evidence": [],
+      "fix": "",
+      "reasoning": "",
+      "metrics": {
+        "word_count": 906
+      }
+    },
+    {
+      "check_id": "R5_QUIZ",
+      "name": "Self-check with answers",
+      "dimension": "teaches by example",
+      "kind": "rule",
+      "criterion": "The quiz section has at least 3 questions and gives the answers.",
+      "source": "core",
+      "passed": true,
+      "evidence": [],
+      "fix": "",
+      "reasoning": "",
+      "metrics": {
+        "quiz_questions": 4,
+        "quiz_has_answers": true
+      }
+    },
+    {
+      "check_id": "L1_ACCURACY",
+      "name": "No false or misleading claims",
+      "dimension": "accurate & grounded",
+      "kind": "llm",
+      "criterion": "Every technical claim agrees with the reference facts. No listed misconception is stated or implied as true. Simplifications are allowed only if they do not create a wrong belief (e.g. 'the model learns your documents' is a FAIL, because RAG does not change the model).",
+      "source": "core",
+      "passed": true,
+      "evidence": [],
+      "fix": "",
+      "reasoning": "I checked every single verification item against the reference facts and misconceptions list. The lesson correctly explains RAG without falling into any of the listed misconceptions and covers all necessary points accurately.",
+      "metrics": {
+        "items_checked": 8,
+        "items_unmet": 0
+      }
+    },
+    {
+      "check_id": "L2_COVERAGE",
+      "name": "All must-cover points taught",
+      "dimension": "covers the key points",
+      "kind": "llm",
+      "criterion": "Every must-cover point in the reference is actually taught (explained, not just named).",
+      "source": "core",
+      "passed": true,
+      "evidence": [],
+      "fix": "",
+      "reasoning": "I checked every single must-cover item (M1 through M9) against the text. All required concepts, including definitions, limits, the steps of RAG, why it matters, and a realistic example, are thoroughly and clearly taught in simple language suited for the target learner.",
+      "metrics": {
+        "items_checked": 9,
+        "items_unmet": 0
+      }
+    },
+    {
+      "check_id": "L3_JARGON",
+      "name": "Every technical term explained",
+      "dimension": "clear, no unexplained jargon",
+      "kind": "llm",
+      "criterion": "Every technical or English-uncommon term is explained in simple words at or before its first use in the body (a glossary at the end alone does not count). Acronyms are expanded on first use.",
+      "source": "core",
+      "passed": true,
+      "evidence": [],
+      "fix": "",
+      "reasoning": "I checked every technical term listed against the text. Each term was properly defined or explained in simple words at or before its first appearance in the body of the lesson.",
+      "metrics": {
+        "items_checked": 24,
+        "items_unmet": 0
+      }
+    },
+    {
+      "check_id": "L4_EXAMPLES",
+      "name": "Concrete analogy and walk-through",
+      "dimension": "teaches by example",
+      "kind": "llm",
+      "criterion": "The lesson has (a) at least one everyday analogy a young Indian learner would recognise, correctly mapped to RAG, AND (b) one concrete worked example that follows a single question through every step: preparing documents, retrieving, adding to the prompt, generating.",
+      "source": "core",
+      "passed": true,
+      "evidence": [],
+      "fix": "",
+      "reasoning": "I checked the lesson for an everyday analogy suitable for an Indian learner (open-book college exam) and confirmed it is correctly mapped to RAG. I also verified the concrete worked example, which follows a single question sequentially through document preparation, retrieval, prompt augmentation, and LLM generation.",
+      "metrics": {
+        "items_checked": 6,
+        "items_unmet": 0
+      }
+    },
+    {
+      "check_id": "L5_LEARNER_FIT",
+      "name": "Fits a non-native English beginner",
+      "dimension": "beginner-friendly language",
+      "kind": "llm",
+      "criterion": "Uses common, everyday English words; no idioms, slang, sarcasm or culturally obscure references; assumes no coding, maths beyond class 12, or prior AI knowledge; tone is encouraging and direct.",
+      "source": "core",
+      "passed": true,
+      "evidence": [],
+      "fix": "",
+      "reasoning": "I checked the lesson against all 5 criteria. The language used is simple, clear, and avoids idioms, slang, or overly formal vocabulary. There is no assumed prior knowledge of coding or advanced math, and the tone directly addresses the learner using 'you' in an encouraging way.",
+      "metrics": {
+        "items_checked": 5,
+        "items_unmet": 0
+      }
+    },
+    {
+      "check_id": "L6_FLOW",
+      "name": "Builds step by step",
+      "dimension": "coherent teaching flow",
+      "kind": "llm",
+      "criterion": "Ideas are introduced before they are used; sections go from what -> why -> how -> example -> limits -> recap; each section links to the previous one; nothing is repeated without purpose.",
+      "source": "core",
+      "passed": true,
+      "evidence": [],
+      "fix": "",
+      "reasoning": "I checked the lesson sections against the required order and verified that each idea (like LLM, RAG, embeddings, chunks) is properly introduced before usage. The sections flow logically from problem (LLM limits) to solution (RAG definition) to mechanics, example, and limitations, with clear transitions throughout.",
+      "metrics": {
+        "items_checked": 4,
+        "items_unmet": 0
+      }
+    }
+  ],
+  "change_log": [
+    {
+      "check_id": "L3_JARGON",
+      "change": "Added a simple definition for 'weights' ('internal numbers (called model weights)') right where it is first used in the text."
+    }
+  ],
+  "lesson_file": "attempt_2.md",
+  "injected": null,
+  "timestamp": "2026-10-21T07:16:26+00:00"
+}
