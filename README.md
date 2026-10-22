@@ -2,7 +2,7 @@
 
 An agentic system that **researches the topic on the web, writes a beginner lesson with verified links and videos, grades it against a hard pass/fail rubric, and rewrites it until it clears the bar**. Nothing reaches a human until the system has decided on its own that the lesson is good enough to ship. It also **learns across runs**: checks that keep failing become guidelines in the writer's prompt, and human feedback can add new rubric checks.
 
-- **Topic for submission:** Introduction to RAG (Retrieval-Augmented Generation)
+- **Topic for submission:** Introduction to RAG (Retrieval-Augmented Generation). The system itself is **topic-general**: `--topic` takes any topic, and nothing in the template, rubric or tests is specific to RAG (see decision 0).
 - **Learner:** a class-12 graduate in India from a non-English-medium school, with limited English vocabulary and no coding background, who wants to start an AI career.
 - **Stack:** Python, LangGraph (orchestration), Pydantic structured outputs, JSON-file memory. **Works with any chat model**: Claude, Gemini/Gemma, or anything behind an OpenAI-compatible API (OpenAI, OpenRouter, Groq, Together, DeepSeek, Ollama, LM Studio, vLLM). The writer and the judge can come from different providers. The submission runs used `gemini-3.5-flash-lite` (free tier).
 
@@ -142,6 +142,9 @@ The lesson ships only if **every** check passes. There is no weighted score. A w
 
 ## Design decisions and trade-offs
 
+**0. Topic-general by construction.**
+The code knows only two things: the *audience* (the learner profile) and *good teaching* (the template, the rubric, the defect types). Everything about a *topic* lives in its reference sheet: short name, prerequisite idea, must-cover points, facts, misconceptions, jargon, and resources. A topic with a curated sheet (`knowledge/*.json`, matched on whole words, so "Paragraphs" doesn't match "rag") uses it. Any other topic gets a sheet drafted from web search results, cached, and labelled `trust: generated+web`. The rubric reads its items from the sheet: L1 from the misconceptions, L2 from the must-cover points, L3 from the jargon, and R6 from the verified resources. The defect injections are built from the sheet too (the topic's own top misconception, its own unexplained terms). A guard test fails if a topic word ever appears in the shared prompts, rubric or judge items. Every lesson-level test runs for two different topics.
+
 **1. Hybrid evaluator: rules where possible, judges only where necessary.**
 Sentence length, readability, structure, length and quiz presence are measurable, so plain Python checks them. These checks are free, deterministic, and the writer model can't argue its way past them. LLM judges are used only for what needs judgment: accuracy, jargon, examples, learner fit, and flow. *Trade-off:* Flesch is a blunt proxy for "easy English" (it counts syllables, not word familiarity). L5_LEARNER_FIT covers vocabulary and idioms on top of it.
 
@@ -162,13 +165,13 @@ Small and open models skip items, invent quotes, and wave things through. So the
 - *Over-explaining is measured.* Terms re-defined more than twice are handed to the flow judge as suspects. This came from a live run where a learned guideline caused exactly that.
 - *Optional voting* (`JUDGE_VOTES=3`): independent samples, majority per item, ties fail.
 
-**3d. The rubric is tested, not trusted.** `calibrate` plants seven known defects into a known-good lesson (an obvious misconception, a subtle overclaim, a wrong "who searches" claim, dense jargon, idioms, a 50-word sentence, a deleted section). It reports which ones the owning check caught (recall), whether the clean lesson passes (false alarms), and which unrelated checks fired (spillover). This is how a judge model is qualified before use, and how a prompt or threshold change is shown to help rather than assumed to.
+**3d. The rubric is tested, not trusted.** `calibrate --topic T` plants eight known defects into a known-good lesson, each **built from that topic's reference sheet**: its top misconception stated confidently, another misconception slipped into the example, an overclaim, the topic's own technical terms left unexplained, idioms, a 40-word formal sentence, an invented video link, and a deleted section. It reports which ones the owning check caught (recall), whether the clean lesson passes (false alarms), and which unrelated checks fired (spillover). This is how a judge model is qualified before use, and how a prompt or threshold change is shown to help rather than assumed to.
 
 **3e. Internet access, without trusting the internet blindly.**
 With `TAVILY_API_KEY` set, a `research` node runs before writing. (1) *Fresh facts:* recent search results are distilled into a few beginner-level facts, each tied to the URL it came from. Facts citing a URL that wasn't in the results are dropped. They go into the reference sheet as `fresh_facts_from_the_web`, below the curated facts in trust, and the accuracy judge sees them too. (2) *Links and videos:* candidates come from the curated sheet plus YouTube and article searches, including a Hindi-explainer search for this learner. **Every link is checked live** before the writer sees it: YouTube through oEmbed (which returns 404 for removed or made-up videos), other pages by fetching them. The writer may only use links from that list, and rule **R6** rejects any URL in the lesson that isn't on it. Models invent plausible YouTube links; this makes that impossible to ship. Research is cached per topic per day (`knowledge/web/`), listed in the rejection log, and best-effort: with no key or no network, the system falls back to the curated sheet.
 
 **4. Grounding against a curated reference sheet.**
-"Accurate" means *consistent with a source we control* (`knowledge/rag.json`: facts, nine must-cover points, seven common misconceptions), not "whatever the judge model happens to believe". The misconception list is what lets the accuracy judge reliably catch the most likely errors, such as "RAG retrains the model". For topics without a curated sheet, the model drafts one, caches it, and labels it `trust: generated` in the log.
+"Accurate" means *consistent with a source we control* (`knowledge/rag.json`: facts, nine must-cover points, seven common misconceptions), not "whatever the judge model happens to believe". The misconception list is what lets the accuracy judge reliably catch the most likely errors, such as "RAG retrains the model". For topics without a curated sheet, the model drafts one from web search results (or its own knowledge when offline), caches it, and labels it `trust: generated+web` (or `generated`) in the log.
 
 **5. Separate writer and judge models.**
 By default Sonnet 5.5 writes and Opus 5.5 judges, at higher effort. A model grading its own output tends to favour it, so a different (and stronger) judge reduces self-preference bias. The judge prompt also states that it did not write the lesson.
@@ -209,6 +212,8 @@ The submission runs used `gemini-3.5-flash-lite` (Gemini free tier) as both writ
 
 ### Known limitations
 
+- **After the topic-general refactor, live re-calibration is incomplete.** The calibration numbers above (7/7) are from before the refactor. A partial re-run on RAG with the new topic-built defects caught 5/5 planted defects before I stopped it, but raised one false alarm (L3_JARGON) on the clean lesson. A live run on an uncurated topic (`runs/20261022-085459`, "Introduction to Embeddings") worked end to end: reference sheet drafted from the web, 8 verified videos, write → evaluate → revise. It ended in NEEDS_HUMAN_REVIEW after the retry budget, so it was correctly not shipped.
+
 - LLM judges can still be wrong. Evidence quoting makes that visible in the log, and `calibrate` measures it, but it doesn't make the judges infallible. With `gemini-3.5-flash-lite` as the judge, the hardened rubric now rejects the old shipped lesson's overclaim, but still misses its grammar slip ("is called **hallucinate**") and "AI models usually forget private or new facts". A stronger judge (one line in `.env`, any provider) or `JUDGE_VOTES=3` is the fix.
 - Judges vary from run to run: the same lesson failed L2 on one evaluation and passed it on another. `JUDGE_VOTES=3` (majority per item) reduces this at 3x the judge cost.
 - The calibration set is small (7 defects, one clean lesson) and I tuned the rubric against it, so 7/7 is a ceiling, not a guarantee. The defects were written before tuning and not changed to fit (one expectation was relaxed, with the reason in `inject.py`: deleting the limits section leaves M8 covered by the recap). A held-out set of defects is the next step.
@@ -221,7 +226,8 @@ The submission runs used `gemini-3.5-flash-lite` (Gemini free tier) as both writ
 
 ## Testing
 
-`python -m pytest -q` runs offline. A scripted fake LLM drives the **real** graph, rules, memory, and reports. The tests check that:
+`python -m pytest -q` runs offline. A scripted fake LLM drives the **real** graph, rules, memory, and reports. **Every lesson-level test runs once per topic** in `tests/fixtures/topics/` (RAG, and large language models as a second, different subject), so a test can only pass if the code is topic-general. The tests check that:
+- no topic's words appear in the shared prompts, rubric criteria or judge items (guard test); topic matching uses whole words; an uncurated topic gets a generated reference sheet;
 - a clean draft ships first time;
 - a planted factual error is caught by L1_ACCURACY, fixed by targeted revision, and recorded in the rejection log;
 - a check that never passes escalates generate → revise → regenerate, stops at the retry budget, and is **not** shipped;

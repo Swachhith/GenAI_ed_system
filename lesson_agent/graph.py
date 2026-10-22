@@ -24,7 +24,7 @@ from langgraph.graph import END, StateGraph
 
 from .config import Settings
 from .evaluator import evaluate, summarize
-from .inject import INJECTIONS, inject
+from .inject import INJECTIONS, describe, inject
 from .knowledge import load_reference
 from .learner import learn_from_run
 from .llm import LLM
@@ -39,6 +39,7 @@ from .web import research as web_research
 class LessonState(TypedDict, total=False):
     topic: str
     inject: str | None
+    planted: str  # the exact defect text planted by --inject
     run_id: str
     run_dir: str
     reference: dict
@@ -74,7 +75,7 @@ def build_graph(settings: Settings, llm: LLM, memory: Memory, log: Callable[[str
         run_id = datetime.now().strftime("%Y%m%d-%H%M%S")
         run_dir = settings.runs_dir / run_id
         run_dir.mkdir(parents=True, exist_ok=True)
-        reference = load_reference(state["topic"], settings.knowledge_dir, llm)
+        reference = load_reference(state["topic"], settings.knowledge_dir, llm, settings, log)
         guidelines = memory.guideline_texts()
         log(f"[prepare] run {run_id} | reference: {reference.get('trust')} | "
             f"rubric: {len(rubric)} checks | learned guidelines in prompt: {len(guidelines)}")
@@ -105,12 +106,14 @@ def build_graph(settings: Settings, llm: LLM, memory: Memory, log: Callable[[str
         lesson = llm.text(GENERATOR_SYSTEM,
                           generate_prompt(state["topic"], state["reference"], state["guidelines"], avoid),
                           role="generator")
+        planted = {}
         if attempt == 1 and state.get("inject"):
-            lesson = inject(lesson, state["inject"])
+            planted = {"planted": describe(state["inject"], lesson, state["reference"])}
+            lesson = inject(lesson, state["inject"], state["reference"])
             log(f"[inject] planted a deliberate '{state['inject']}' error; "
                 f"expect {INJECTIONS[state['inject']]['expected']} to fail")
         save(state, f"attempt_{attempt}.md", lesson)
-        return {"attempt": attempt, "lesson": lesson, "strategy": strategy, "change_log": change_log}
+        return {"attempt": attempt, "lesson": lesson, "strategy": strategy, "change_log": change_log, **planted}
 
     def revise(state: LessonState) -> LessonState:
         attempt = state["attempt"] + 1

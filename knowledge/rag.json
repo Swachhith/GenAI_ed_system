@@ -192,5 +192,6 @@
       "language": "English",
       "why": "A longer article for when you want more detail."
     }
-  ]
+  ],
+  "prerequisite": "what a large language model (LLM) is"
 }

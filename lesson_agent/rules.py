@@ -204,8 +204,8 @@ def _teaching_body(md: str) -> str:
 
 
 def _stem(term: str) -> str:
-    """Regex for a term plus simple inflections: chunk/chunks, hallucinate/hallucination."""
-    base = re.escape(re.sub(r"(?:s|es|ion|e)$", "", term.lower()) if len(term) > 5 else term.lower())
+    """Regex for a term plus simple inflections: chunk/chunks, hallucinate/hallucination, trained/training."""
+    base = re.escape(re.sub(r"(?:s|es|ed|ing|ion|e)$", "", term.lower()) if len(term) > 5 else term.lower())
     return rf"{base}(?:s|es|e|ed|ing|ion|ions)?"
 
 
@@ -229,6 +229,7 @@ def _explains(term: str, sentence: str) -> bool:
         rf"\bcalled\s+(?:\w+\s+){{0,2}}{t}",                          # ... called (a/model) term
         rf"{t}\)?\s+(?:means|is an?|is the|are|refers to|stands for)\b",  # term is a ...
         rf"^{t}\s*[:—-]\s",                                           # Term: meaning
+        rf"\b(?:stands for|is short for)\s+[\"']?{t}",                # ABC stands for <term>
     ]
     return any(re.search(c, sentence, re.I) for c in cues)
 
@@ -281,28 +282,26 @@ def grounded(quote: str, md: str, min_ratio: float = 0.8) -> bool:
     return True
 
 
-# Absolute wording is where beginner lessons most often overclaim ("RAG stops hallucinations").
+# Absolute wording is where beginner lessons most often overclaim ("X stops all mistakes").
 ABSOLUTE_RE = re.compile(
     r"\b(always|never|every time|guarantee[sd]?|100 ?%|complete(?:ly)?|entirely|totally|perfect(?:ly)?|"
     r"forever|permanent(?:ly)?|eliminat\w*|stops?|prevents?|impossible|cannot be wrong|no mistakes?|"
     r"all the time|any question|everything|nothing)\b", re.I)
 
-_CLAIM_HINT = re.compile(
-    r"\b(rag|ai|llm|models?|chatgpt|retriev\w*|search\w*|documents?|chunks?|embedd\w*|vectors?|prompts?|"
-    r"answers?|hallucinat\w*|train\w*|learn\w*|remember\w*|forget\w*|knows?|memory|database|index\w*|"
-    r"generat\w*|augment\w*|facts?|information|sources?)\b", re.I)
+# Sentences that only address the learner ("Let us look at...", "Think of...") carry no claim.
+_NOT_A_CLAIM = re.compile(r"^(let us|let's|think of|imagine|now,|next,|first,|meet |look at|you will learn)", re.I)
 
 
 def technical_claims(md: str, limit: int = 120) -> list[tuple[str, bool]]:
-    """(sentence, uses_absolute_wording) for every sentence that states something about the topic.
+    """(sentence, uses_absolute_wording) for every sentence that could state something false.
 
-    Covers the whole lesson except headings, the glossary-free quiz questions themselves, and
-    pure instructions. Deterministic, so the accuracy judge verifies claim by claim and cannot
-    skip a sentence. Absolute-wording claims are kept first if the list must be cut.
+    Topic-free: every statement of 4+ words in the lesson, except headings, questions, the link
+    list and pure instructions to the learner. Deterministic, so the accuracy judge verifies claim
+    by claim and cannot skip a sentence. Absolute-wording claims are kept first if the list is cut.
     """
     seen, out = set(), []
     for s in sentences(without_resources(md)):
-        if s.endswith("?") or s in seen or not _CLAIM_HINT.search(s) or len(words(s)) < 4:
+        if s.endswith("?") or s in seen or _NOT_A_CLAIM.match(s) or len(words(s)) < 4:
             continue
         seen.add(s)
         out.append((s, bool(ABSOLUTE_RE.search(s))))

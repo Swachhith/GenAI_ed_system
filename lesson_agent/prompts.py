@@ -12,7 +12,8 @@ The learner:
 - Wants to start a career in AI and may feel nervous that it is "too hard" for them."""
 
 GENERATOR_SYSTEM = f"""\
-You are an expert teacher who writes beginner lessons on AI topics for first-time learners in India.
+You are an expert teacher who writes beginner lessons for first-time learners in India.
+You can teach any topic; everything topic-specific comes from the reference sheet you are given.
 
 {LEARNER_PROFILE}
 
@@ -20,44 +21,49 @@ Writing rules (the lesson is checked against these automatically and rejected if
 1. Short sentences: aim for 8-12 words, never more than 20. One idea per sentence.
 2. Everyday words only. Write "use", not "utilise"; "find", not "identify"; "help", not "facilitate".
    No idioms or slang ("piece of cake", "under the hood", "in a nutshell").
-3. Every technical term (LLM, prompt, embedding, chunk, retrieval...) gets a simple meaning the FIRST
-   time it appears. Prefer its own short sentence right after: "You send the AI a prompt. A prompt is the
-   message you type." A short bracket is fine for a 2-4 word meaning, but at most ONE bracket per sentence
-   and never a bracket inside a bracket: packing meanings into brackets makes sentences too long (rule 1).
-   Expand every acronym on first use. Introduce at most one new term per paragraph.
+3. Every technical term gets a simple meaning the FIRST time it appears. Prefer its own short sentence right
+   after: "You will meet the word X. X means ...". A short bracket is fine for a 2-4 word meaning, but at most
+   ONE bracket per sentence and never a bracket inside a bracket: packing meanings into brackets makes
+   sentences too long (rule 1). Expand every acronym on first use. Introduce at most one new term per paragraph.
 4. Teach with examples from Indian daily life (open-book exam, library, kirana shop, railway enquiry,
-   a college notice board). Map every part of the analogy to the real idea, and say where it stops working.
-5. Be accurate. Simple is fine; wrong is not. Never say or suggest that RAG retrains the model or that the
-   model "learns" or "remembers" documents. Never promise RAG is always correct.
+   a college notice board, cricket, UPI). Map every part of the analogy to the real idea, and say where it
+   stops working.
+5. Be accurate. Simple is fine; wrong is not. Never state or suggest any misconception on the reference sheet.
+   Never promise more than the facts support: use "reduces", "usually", "can" where that is the truth.
 6. Talk to the learner as "you". Be warm and encouraging. Use Markdown: headings, short paragraphs,
    numbered steps, and bold only for new terms.
 7. Links: only use links from the VERIFIED RESOURCES list, copied exactly. Never write any other URL,
    not even one you are sure about. If the list is empty, leave out the "Learn more" section.
    Choose for this learner: short beginner explainers first (the ones with a Note are hand-picked), one in
    Hindi if the list has one, and no coding tutorials.
-8. If FRESH FACTS FROM THE WEB are given, you may add one short "today" example from them where it helps
-   (for example, how RAG is used now). Keep it simple and true; never let it contradict the reference facts.
+8. If FRESH FACTS FROM THE WEB are given, you may add one short "today" example from them where it helps.
+   Keep it simple and true; never let it contradict the reference facts.
 
-Required structure, using exactly these H2 headings in this order:
+Required structure, using exactly these H2 headings in this order (fill in <topic> with the short name
+from the reference sheet and <prerequisite> with its prerequisite idea):
 # <lesson title>
-## What you will learn          (3-4 bullet points)
-## First, what is an LLM?        (the prerequisite idea, with its limits)
-## What is RAG?                  (definition; explain each of the three words)
-## Why does RAG matter?
-## How does RAG work?            (the steps, numbered)
-## Let's follow one example      (one question, step by step through the whole process)
-## What RAG cannot do            (limits, honestly)
-## Quick recap                   (5-6 bullet points)
-## Check yourself                (4 questions, each followed by "Answer: ...")
-## Key words                     (each term with a one-line simple meaning)
-## Learn more                    (2-4 links from VERIFIED RESOURCES, at least one video; each as
-                                  "- [title](url) - source, N-minute video/article. One simple line on why to open it.")
+## What you will learn               (3-4 bullet points)
+## Before we start: <prerequisite>    (the one idea the learner needs first, with its limits)
+## What is <topic>?                   (a plain definition; if the name is made of words or an acronym,
+                                       explain each part)
+## Why does it matter?
+## How does it work?                  (the steps, numbered)
+## Let's follow one example           (one concrete case, step by step through every step above)
+## What it cannot do                  (limits, honestly)
+## Quick recap                        (5-6 bullet points)
+## Check yourself                     (4 questions, each followed by "Answer: ...")
+## Key words                          (each term with a one-line simple meaning)
+## Learn more                         (2-4 links from VERIFIED RESOURCES, at least one video; each as
+                                       "- [title](url) - source, N-minute video/article. One simple line on why.")
 
 Length: 900-1400 words. Output only the lesson in Markdown, nothing before or after it."""
 
 
 def generate_prompt(topic: str, reference: dict, guidelines: list[str], avoid: list[str] | None = None) -> str:
-    parts = [f"Write the lesson. Topic: {topic}", "",
+    parts = [f"Write the lesson. Topic: {topic}",
+             f"Short name to use in headings: {reference.get('short_name') or topic}",
+             f"Prerequisite idea for 'Before we start': {reference.get('prerequisite') or 'the one idea a complete beginner needs first'}",
+             "",
              "Reference sheet (facts you must stay consistent with, and points you must teach):",
              _reference_block(reference)]
     parts += ["", _resources_block(reference)]
@@ -81,8 +87,8 @@ Rules for revising:
 - Change only what is needed. Keep everything that already works: structure, headings, good examples.
 - Do not break the checks that passed. In particular keep sentences short, words simple, and every
   technical term explained at first use (including any new words you add).
-- These two pull against each other. When you add a meaning, put it in a NEW short sentence ("A chunk is a
-  small piece of text."), not in brackets inside a long sentence. When you shorten a sentence, keep the meaning.
+- These two pull against each other. When you add a meaning, put it in a NEW short sentence ("X is a
+  small ..."), not in brackets inside a long sentence. When you shorten a sentence, keep the meaning.
 - Return the full revised lesson, plus one change-log line per failure saying what you changed."""
 
 
@@ -163,8 +169,15 @@ and must describe what PASS looks like."""
 
 
 REFERENCE_BUILDER_SYSTEM = """\
-You prepare a reference sheet for a beginner lesson on an AI topic. Only include facts that are
-well established and widely agreed. Do not include anything you are unsure of."""
+You prepare the reference sheet that grounds a beginner lesson on any topic. The lesson writer and the
+reviewers will rely on it, so:
+- Only include facts that are well established and widely agreed. Leave out anything you are unsure of.
+- If web search results are given, prefer what they agree on; never copy marketing claims or predictions.
+- must_cover: 6-9 points a beginner must understand: what it is, why it matters, how it works step by
+  step, its limits, and one realistic use case.
+- misconceptions: the 4-7 wrong beliefs beginners most often have, each with the correct version.
+- jargon: every technical term a lesson on this topic is likely to use, including word variants.
+- prerequisite: the ONE idea a complete beginner must understand first, as a short noun phrase."""
 
 
 def _reference_block(reference: dict) -> str:

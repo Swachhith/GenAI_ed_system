@@ -67,9 +67,9 @@ def search(settings, query: str, **kw) -> list[dict]:
 
 # ---- link verification --------------------------------------------------------------------
 
-def _get(url: str, timeout: float = 12) -> tuple[int, str]:
+def _get(url: str, timeout: float = 12, limit: int = 400_000) -> tuple[int, str]:
     with urllib.request.urlopen(urllib.request.Request(url, headers=_UA), timeout=timeout) as r:
-        return r.status, r.read(400_000).decode("utf-8", "ignore")
+        return r.status, r.read(limit).decode("utf-8", "ignore")
 
 
 def verify(url: str) -> dict | None:
@@ -82,7 +82,7 @@ def verify(url: str) -> dict | None:
             out = {"url": f"https://www.youtube.com/watch?v={m.group(1)}", "type": "video",
                    "title": info["title"], "source": info.get("author_name", "")}
             try:  # length is nice to have for a learner, not required
-                secs = re.search(r'"lengthSeconds":"(\d+)"', _get(out["url"])[1])
+                secs = re.search(r'"lengthSeconds":"(\d+)"', _get(out["url"], limit=3_000_000)[1])
                 if secs:
                     out["minutes"] = round(int(secs.group(1)) / 60)
             except Exception:

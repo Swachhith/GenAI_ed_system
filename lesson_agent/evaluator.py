@@ -50,12 +50,13 @@ def _result(check: Check, passed: bool, evidence: list[str], fix: str, reasoning
 _STATIC_ITEMS = {
     "L4_EXAMPLES": [
         Item("There is an everyday analogy a young Indian learner would recognise.", True),
-        Item("The analogy is mapped to RAG correctly (each part of the analogy matches a real part of RAG).", True),
-        Item("The worked example shows how the documents were prepared (collected, split into chunks, stored) "
-             "before the question was asked.", True),
-        Item("The worked example shows the retrieval step for that specific question.", True),
-        Item("The worked example shows the retrieved text being added to the prompt with the question.", True),
-        Item("The worked example shows the LLM generating the answer from that text.", True),
+        Item("The analogy is mapped to the topic correctly (each part of the analogy matches a real part of the "
+             "topic, and nothing in the mapping is wrong).", True),
+        Item("There is a worked example that follows ONE concrete case (one question, one situation, one input) "
+             "from start to finish.", True),
+        Item("The worked example goes through EVERY step listed in the 'How does it work?' section, in the same "
+             "order, applied to that one case (name any step it skips).", True),
+        Item("The worked example ends with the concrete result for that case.", True),
     ],
     "L5_LEARNER_FIT": [
         Item("No English idioms, slang or figures of speech (quote any you find)."),
@@ -66,9 +67,9 @@ _STATIC_ITEMS = {
         Item("The tone is warm, encouraging and speaks to the learner as 'you'."),
     ],
     "L6_FLOW": [
-        Item("Sections follow the planned order: what you will learn -> the LLM prerequisite -> what is RAG -> why "
-             "-> how -> example -> limits -> recap -> check yourself -> key words -> learn more. (This order is required; do not "
-             "fail it for having the LLM prerequisite first.)"),
+        Item("Sections follow the planned order: what you will learn -> before we start (the prerequisite) -> "
+             "what is it -> why -> how -> example -> limits -> recap -> check yourself -> key words -> learn more. "
+             "(This order is required; do not fail it for having the prerequisite before the definition.)"),
         Item("Every idea or term is introduced before it is used (quote any used before being introduced)."),
         Item("Each section connects to the previous one; there are no abrupt jumps."),
         Item("Nothing is repeated without purpose, and analogies are discussed where they are introduced."),

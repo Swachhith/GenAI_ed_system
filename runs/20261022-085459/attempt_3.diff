@@ -1,0 +1,11 @@
+--- attempt_2.md
++++ attempt_3.md
+@@ -11,7 +11,7 @@
+ 
+ You will meet the word **vector**. Vector means a list of numbers that act like coordinates on a big map. If two shops sell similar items, their map addresses will be close to each other. This idea of putting things on a map using numbers is the secret key to our lesson today.
+ 
+-## What is Embeddings?
++## What are embeddings?
+ You will meet the word **embeddings**. Embeddings are numerical representations of real-world objects like words, sentences, or images converted into sequences of numbers called vectors. 
+ 
+ Computers cannot read text or look at photos the way you do. They only understand math. Embeddings translate human words and pictures into long lists of numbers. These numbers capture the true meaning of the data. 

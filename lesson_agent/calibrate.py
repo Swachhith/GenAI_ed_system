@@ -18,23 +18,24 @@ import time
 from pathlib import Path
 
 from .evaluator import evaluate
-from .inject import INJECTIONS, inject
+from .inject import INJECTIONS, describe, inject
 
 
 def calibrate(lesson: str, rubric, reference: dict, llm, settings, modes: list[str] | None = None,
               log=print) -> dict:
-    cases = [("clean", lesson, [], [])]
+    cases = [("clean", lesson, [], [], "(none)")]
     for mode in modes or list(INJECTIONS):
         spec = INJECTIONS[mode]
-        cases.append((mode, inject(lesson, mode), spec["expected"], spec["also"]))
+        cases.append((mode, inject(lesson, mode, reference), spec["expected"], spec["also"],
+                      describe(mode, lesson, reference)))
 
     rows = []
-    for name, text, expected, also in cases:
+    for name, text, expected, also, planted in cases:
         t0 = time.time()
         results = evaluate(text, rubric, reference, llm, settings.eval_concurrency, settings.judge_votes)
         failed = [r["check_id"] for r in results if not r["passed"]]
         row = {
-            "case": name, "expected": expected, "failed": failed,
+            "case": name, "planted": planted, "expected": expected, "failed": failed,
             "caught": [c for c in expected if c in failed],
             "missed": [c for c in expected if c not in failed],
             "spillover": [c for c in failed if c not in expected and c not in also],
@@ -50,6 +51,7 @@ def calibrate(lesson: str, rubric, reference: dict, llm, settings, modes: list[s
     planted = [r for r in rows if r["case"] != "clean"]
     expected_total = sum(len(r["expected"]) for r in planted)
     summary = {
+        "topic": reference.get("topic"),
         "evaluator": f"{settings.evaluator_provider}:{settings.evaluator_model}",
         "judge_votes": settings.judge_votes,
         "defects_caught": sum(not r["missed"] for r in planted), "defects_planted": len(planted),
@@ -63,6 +65,7 @@ def calibrate(lesson: str, rubric, reference: dict, llm, settings, modes: list[s
 def render(report: dict) -> str:
     s = report["summary"]
     out = ["# Rubric calibration", "",
+           f"- **Topic:** {s.get('topic')}",
            f"- **Evaluator:** `{s['evaluator']}` (judge votes: {s['judge_votes']})",
            f"- **Defects caught:** {s['defects_caught']}/{s['defects_planted']} "
            f"(expected checks fired: {s['expected_checks_fired']}/{s['expected_checks_total']})",
@@ -70,8 +73,7 @@ def render(report: dict) -> str:
            f"- **Spillover failures (unrelated checks):** {s['spillover_failures']}", "",
            "| Case | Planted defect | Must fail | Failed | Result |", "|---|---|---|---|---|"]
     for r in report["rows"]:
-        spec = INJECTIONS.get(r["case"], {})
-        planted = spec.get("text") or (f"deleted section '{spec['remove_section']}'" if spec else "(none)")
+        planted = r["planted"]
         if r["case"] == "clean":
             result = "OK" if not r["failed"] else "FALSE ALARM"
         else:

@@ -7,7 +7,7 @@
 - Why companies use RAG.
 - How RAG works, step by step, with one full example.
 
-## First, what is an LLM?
+## Before we start: what is an LLM?
 
 You may have used ChatGPT. It is an **LLM**. LLM means "Large Language Model". It is a computer program that reads your message and writes a reply.
 

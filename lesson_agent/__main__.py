@@ -49,7 +49,7 @@ def main(argv: list[str] | None = None) -> int:
     w.add_argument("--topic", default=DEFAULT_TOPIC)
 
     c = sub.add_parser("calibrate", help="plant known defects in a good lesson and measure what the rubric catches")
-    c.add_argument("--lesson", default=str(Path(__file__).resolve().parent.parent / "tests" / "fixtures" / "good_lesson.md"))
+    c.add_argument("--lesson", help="a known-good lesson for the topic (default: tests/fixtures/topics/<topic>/lesson.md)")
     c.add_argument("--modes", help="comma-separated injection modes (default: all)")
     c.add_argument("--topic", default=DEFAULT_TOPIC)
 
@@ -99,7 +99,7 @@ def main(argv: list[str] | None = None) -> int:
     if args.cmd == "research":
         from .knowledge import load_reference
         from .web import research
-        data = research(args.topic, load_reference(args.topic, settings.knowledge_dir, llm), llm, settings)
+        data = research(args.topic, load_reference(args.topic, settings.knowledge_dir, llm, settings), llm, settings)
         print("\nVerified resources:")
         for r in data["resources"]:
             length = f", {r['minutes']} min" if r.get("minutes") else ""
@@ -115,10 +115,16 @@ def main(argv: list[str] | None = None) -> int:
         from .knowledge import load_reference
         from .rubric import build_rubric
         modes = args.modes.split(",") if args.modes else None
+        reference = load_reference(args.topic, settings.knowledge_dir, llm, settings)
+        lesson_path = Path(args.lesson) if args.lesson else \
+            settings.knowledge_dir.parent / "tests" / "fixtures" / "topics" / Path(reference.get("path", "")).stem / "lesson.md"
+        if not lesson_path.exists():
+            print(f"No known-good lesson for {args.topic!r}. Pass one with --lesson (e.g. a lesson that passed `run`).")
+            return 2
         print(f"Calibrating evaluator {settings.evaluator_provider}:{settings.evaluator_model} "
-              f"(votes={settings.judge_votes}) on {args.lesson}")
-        report = calibrate(Path(args.lesson).read_text(encoding="utf-8"), build_rubric(memory.learned_checks()),
-                           load_reference(args.topic, settings.knowledge_dir, llm), llm, settings, modes)
+              f"(votes={settings.judge_votes}) on {lesson_path}")
+        report = calibrate(lesson_path.read_text(encoding="utf-8"), build_rubric(memory.learned_checks()),
+                           reference, llm, settings, modes)
         s = report["summary"]
         print(f"\nCaught {s['defects_caught']}/{s['defects_planted']} planted defects | false alarms on clean: "
               f"{s['false_alarms_on_clean'] or 'none'} | spillover: {s['spillover_failures']}")
@@ -130,7 +136,7 @@ def main(argv: list[str] | None = None) -> int:
         from .knowledge import load_reference
         from .rubric import build_rubric
         lesson = Path(args.file).read_text(encoding="utf-8")
-        reference = load_reference(args.topic, settings.knowledge_dir, llm)
+        reference = load_reference(args.topic, settings.knowledge_dir, llm, settings)
         results = evaluate(lesson, build_rubric(memory.learned_checks()), reference, llm, settings.eval_concurrency, settings.judge_votes)
         print(_scorecard(results))
         print(f"\nVerdict: {'SHIP' if all(x['passed'] for x in results) else 'REJECT'} | {summarize(results)}")

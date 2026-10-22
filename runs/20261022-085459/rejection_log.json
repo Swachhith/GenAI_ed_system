@@ -1,0 +1,745 @@
+{
+  "run_id": "20261022-085459",
+  "topic": "Introduction to Embeddings",
+  "status": "NEEDS_HUMAN_REVIEW",
+  "shipped_attempt": 3,
+  "generator_model": "gemini-3.5-flash-lite",
+  "evaluator_model": "gemini-3.5-flash-lite",
+  "injected": null,
+  "guidelines_used": [
+    "Keep every sentence under twenty-five words by expressing only one idea per sentence.",
+    "Explicitly show document collection, chunking, and storage as the first step of your worked example before introducing the user's question.",
+    "Define every technical term in simple words immediately before or upon its first use in the body.",
+    "Ensure all technical explanations remain factually accurate without implying models are retrained or hallucinations are completely eliminated."
+  ],
+  "attempts": [
+    {
+      "attempt": 1,
+      "strategy": "generate",
+      "passed": false,
+      "n_passed": 10,
+      "results": [
+        {
+          "check_id": "R1_STRUCTURE",
+          "name": "Required sections present",
+          "dimension": "coherent teaching flow",
+          "kind": "rule",
+          "criterion": "The lesson has an H2 section for each of: the prerequisite idea, what the topic is, why it matters, how it works, a worked example, limits, recap, a self-check quiz, and key words.",
+          "source": "core",
+          "passed": true,
+          "evidence": [],
+          "fix": "",
+          "reasoning": "",
+          "metrics": {
+            "h2_headings": [
+              "what you will learn",
+              "before we start: numbers and coordinates",
+              "what is embeddings?",
+              "why does it matter?",
+              "how does it work?",
+              "let's follow one example",
+              "what it cannot do",
+              "quick recap",
+              "check yourself",
+              "key words",
+              "learn more"
+            ]
+          }
+        },
+        {
+          "check_id": "R2_SENTENCES",
+          "name": "Short sentences",
+          "dimension": "beginner-friendly language",
+          "kind": "rule",
+          "criterion": "Average sentence length <= 15 words AND no sentence longer than 25 words.",
+          "source": "core",
+          "passed": false,
+          "evidence": [
+            "(28 words) This is a realistic use case of building a semantic search engine or recommendation system that finds documents or products with similar meanings rather than exact keyword matches."
+          ],
+          "fix": "Split every sentence longer than 25 words into two or three short sentences. One idea per sentence.",
+          "reasoning": "",
+          "metrics": {
+            "avg_sentence_words": 12.7,
+            "sentences": 68,
+            "over_cap": 1
+          }
+        },
+        {
+          "check_id": "R3_READABILITY",
+          "name": "Plain-English readability",
+          "dimension": "beginner-friendly language",
+          "kind": "rule",
+          "criterion": "Flesch Reading Ease >= 60 on the lesson prose.",
+          "source": "core",
+          "passed": true,
+          "evidence": [],
+          "fix": "",
+          "reasoning": "",
+          "metrics": {
+            "flesch": 62.0
+          }
+        },
+        {
+          "check_id": "R4_LENGTH",
+          "name": "Right length for one sitting",
+          "dimension": "covers the key points",
+          "kind": "rule",
+          "criterion": "Between 850 and 1800 words (~10-15 minutes of reading for a slow reader).",
+          "source": "core",
+          "passed": true,
+          "evidence": [],
+          "fix": "",
+          "reasoning": "",
+          "metrics": {
+            "word_count": 906
+          }
+        },
+        {
+          "check_id": "R5_QUIZ",
+          "name": "Self-check with answers",
+          "dimension": "teaches by example",
+          "kind": "rule",
+          "criterion": "The quiz section has at least 3 questions and gives the answers.",
+          "source": "core",
+          "passed": true,
+          "evidence": [],
+          "fix": "",
+          "reasoning": "",
+          "metrics": {
+            "quiz_questions": 4,
+            "quiz_has_answers": true
+          }
+        },
+        {
+          "check_id": "R6_RESOURCES",
+          "name": "Verified links to learn more",
+          "dimension": "teaches by example",
+          "kind": "rule",
+          "criterion": "A 'Learn more' section links 2-4 resources, at least one a video, and EVERY link in the lesson is on the list verified live during research (no invented or broken URLs).",
+          "source": "core",
+          "passed": true,
+          "evidence": [],
+          "fix": "",
+          "reasoning": "",
+          "metrics": {
+            "links": 3,
+            "verified_used": 3,
+            "videos": 3
+          }
+        },
+        {
+          "check_id": "L1_ACCURACY",
+          "name": "No false or misleading claims",
+          "dimension": "accurate & grounded",
+          "kind": "llm",
+          "criterion": "Every technical claim agrees with the reference facts. No listed misconception is stated or implied as true. Simplifications are allowed only if they do not create a wrong belief (a misconception from the reference sheet, even softened, is a FAIL).",
+          "source": "core",
+          "passed": true,
+          "evidence": [],
+          "fix": "",
+          "reasoning": "I checked every required item and statement against the reference facts and misconceptions list. All technical claims, quotes, and absolute statements accurately reflect the provided reference context without introducing false claims or listed misconceptions. I checked every listed sentence and general technical claim against the reference facts and misconceptions list. All statements properly align with the concepts of embeddings, dense vectors, neural network training, distance metrics, and limitations without introducing false claims.",
+          "metrics": {
+            "items_checked": 68,
+            "items_unmet": 0,
+            "extra_problems": 0,
+            "ungrounded_dropped": 0,
+            "votes": 1
+          }
+        },
+        {
+          "check_id": "L2_COVERAGE",
+          "name": "All must-cover points taught",
+          "dimension": "covers the key points",
+          "kind": "llm",
+          "criterion": "Every must-cover point in the reference is actually taught (explained, not just named).",
+          "source": "core",
+          "passed": true,
+          "evidence": [],
+          "fix": "",
+          "reasoning": "All eight must-cover points are thoroughly taught, explained, and directly quoted from the lesson text.",
+          "metrics": {
+            "items_checked": 8,
+            "items_unmet": 0,
+            "extra_problems": 0,
+            "ungrounded_dropped": 0,
+            "votes": 1
+          }
+        },
+        {
+          "check_id": "L3_JARGON",
+          "name": "Every technical term explained",
+          "dimension": "clear, no unexplained jargon",
+          "kind": "llm",
+          "criterion": "Every technical or English-uncommon term is explained in simple words at or before its first use in the body (a glossary at the end alone does not count). Acronyms are expanded on first use.",
+          "source": "core",
+          "passed": false,
+          "evidence": [
+            "'high-dimensional space' is explained in simple words at or before its FIRST use in the body. AUTOMATIC PRE-CHECK found no explanation in the sentence of first use: \"The model outputs a dense vector, which is a list of numbers representing coordinates in a high-dimensional space.\". Mark met=true ONLY if you can quote an earlier explanation. -> (not found)",
+            "'neural network' is explained in simple words at or before its FIRST use in the body. AUTOMATIC PRE-CHECK found no explanation in the sentence of first use: \"Raw data such as words or documents are fed into a trained neural network model.\". Mark met=true ONLY if you can quote an earlier explanation. -> (not found)",
+            "'lossy compression' is explained in simple words at or before its FIRST use in the body. AUTOMATIC PRE-CHECK found no explanation in the sentence of first use: \"One major issue is lossy compression where some fine details or exact nuances of the original text can be lost during vector creation.\". Mark met=true ONLY if you can quote an earlier explanation. -> (not found)",
+            "Other problem -> \"high-dimensional space\"",
+            "Other problem -> \"neural network\"",
+            "Other problem -> \"lossy compression\""
+          ],
+          "fix": "Move the definitions or provide simple explanations for 'high-dimensional space', 'neural network', and 'lossy compression' right before or at their very first appearance in the text.",
+          "reasoning": "The lesson introduces several technical terms like 'high-dimensional space', 'neural network', and 'lossy compression' in the body text without explaining them at or before their first use. While some terms are explained correctly before use, these specific ones are used first and explained later or not at all in simple terms prior to their appearance.",
+          "metrics": {
+            "items_checked": 6,
+            "items_unmet": 3,
+            "extra_problems": 3,
+            "ungrounded_dropped": 0,
+            "votes": 1
+          }
+        },
+        {
+          "check_id": "L4_EXAMPLES",
+          "name": "Concrete analogy and walk-through",
+          "dimension": "teaches by example",
+          "kind": "llm",
+          "criterion": "The lesson has (a) at least one everyday analogy a young Indian learner would recognise, correctly mapped to the topic, AND (b) one concrete worked example that follows a single case through every step the lesson lists under 'How does it work?', in order, to its result.",
+          "source": "core",
+          "passed": true,
+          "evidence": [],
+          "fix": "",
+          "reasoning": "I checked the lesson for an everyday Indian analogy (finding a shop in Bengaluru or Mumbai using coordinates) and verified its mapping to vectors. I also reviewed the worked example about the online bookstore and confirmed it follows the exact three steps outlined in the 'How does it work?' section for a specific book case and ends with concrete vector outputs.",
+          "metrics": {
+            "items_checked": 5,
+            "items_unmet": 0,
+            "extra_problems": 0,
+            "ungrounded_dropped": 0,
+            "votes": 1
+          }
+        },
+        {
+          "check_id": "L5_LEARNER_FIT",
+          "name": "Fits a non-native English beginner",
+          "dimension": "beginner-friendly language",
+          "kind": "llm",
+          "criterion": "Uses common, everyday English words; no idioms, slang, sarcasm or culturally obscure references; assumes no coding, maths beyond class 12, or prior AI knowledge; tone is encouraging and direct.",
+          "source": "core",
+          "passed": true,
+          "evidence": [],
+          "fix": "",
+          "reasoning": "I checked the lesson against all five requirements for learner fit. The language is simple, direct, uses everyday words, contains no idioms or grammar errors, explains technical concepts from scratch, and maintains a warm tone addressing the reader directly as 'you'.",
+          "metrics": {
+            "items_checked": 5,
+            "items_unmet": 0,
+            "extra_problems": 0,
+            "ungrounded_dropped": 0,
+            "votes": 1
+          }
+        },
+        {
+          "check_id": "L6_FLOW",
+          "name": "Builds step by step",
+          "dimension": "coherent teaching flow",
+          "kind": "llm",
+          "criterion": "Ideas are introduced before they are used; sections go from what -> why -> how -> example -> limits -> recap; each section links to the previous one; nothing is repeated without purpose.",
+          "source": "core",
+          "passed": true,
+          "evidence": [],
+          "fix": "",
+          "reasoning": "I checked the section order, term introductions, transitions between sections, and the use of analogies. All required elements are present in the correct order, terms are introduced before use, transitions flow smoothly, and the map analogy is appropriately discussed where introduced.",
+          "metrics": {
+            "items_checked": 4,
+            "items_unmet": 0,
+            "extra_problems": 0,
+            "ungrounded_dropped": 0,
+            "votes": 1
+          }
+        }
+      ],
+      "change_log": [],
+      "lesson_file": "attempt_1.md",
+      "injected": null,
+      "timestamp": "2026-10-22T03:25:41+00:00"
+    },
+    {
+      "attempt": 2,
+      "strategy": "revise",
+      "passed": false,
+      "n_passed": 11,
+      "results": [
+        {
+          "check_id": "R1_STRUCTURE",
+          "name": "Required sections present",
+          "dimension": "coherent teaching flow",
+          "kind": "rule",
+          "criterion": "The lesson has an H2 section for each of: the prerequisite idea, what the topic is, why it matters, how it works, a worked example, limits, recap, a self-check quiz, and key words.",
+          "source": "core",
+          "passed": true,
+          "evidence": [],
+          "fix": "",
+          "reasoning": "",
+          "metrics": {
+            "h2_headings": [
+              "what you will learn",
+              "before we start: numbers and coordinates",
+              "what is embeddings?",
+              "why does it matter?",
+              "how does it work?",
+              "let's follow one example",
+              "what it cannot do",
+              "quick recap",
+              "check yourself",
+              "key words",
+              "learn more"
+            ]
+          }
+        },
+        {
+          "check_id": "R2_SENTENCES",
+          "name": "Short sentences",
+          "dimension": "beginner-friendly language",
+          "kind": "rule",
+          "criterion": "Average sentence length <= 15 words AND no sentence longer than 25 words.",
+          "source": "core",
+          "passed": true,
+          "evidence": [],
+          "fix": "",
+          "reasoning": "",
+          "metrics": {
+            "avg_sentence_words": 12.1,
+            "sentences": 80,
+            "over_cap": 0
+          }
+        },
+        {
+          "check_id": "R3_READABILITY",
+          "name": "Plain-English readability",
+          "dimension": "beginner-friendly language",
+          "kind": "rule",
+          "criterion": "Flesch Reading Ease >= 60 on the lesson prose.",
+          "source": "core",
+          "passed": true,
+          "evidence": [],
+          "fix": "",
+          "reasoning": "",
+          "metrics": {
+            "flesch": 61.3
+          }
+        },
+        {
+          "check_id": "R4_LENGTH",
+          "name": "Right length for one sitting",
+          "dimension": "covers the key points",
+          "kind": "rule",
+          "criterion": "Between 850 and 1800 words (~10-15 minutes of reading for a slow reader).",
+          "source": "core",
+          "passed": true,
+          "evidence": [],
+          "fix": "",
+          "reasoning": "",
+          "metrics": {
+            "word_count": 1015
+          }
+        },
+        {
+          "check_id": "R5_QUIZ",
+          "name": "Self-check with answers",
+          "dimension": "teaches by example",
+          "kind": "rule",
+          "criterion": "The quiz section has at least 3 questions and gives the answers.",
+          "source": "core",
+          "passed": true,
+          "evidence": [],
+          "fix": "",
+          "reasoning": "",
+          "metrics": {
+            "quiz_questions": 4,
+            "quiz_has_answers": true
+          }
+        },
+        {
+          "check_id": "R6_RESOURCES",
+          "name": "Verified links to learn more",
+          "dimension": "teaches by example",
+          "kind": "rule",
+          "criterion": "A 'Learn more' section links 2-4 resources, at least one a video, and EVERY link in the lesson is on the list verified live during research (no invented or broken URLs).",
+          "source": "core",
+          "passed": true,
+          "evidence": [],
+          "fix": "",
+          "reasoning": "",
+          "metrics": {
+            "links": 3,
+            "verified_used": 3,
+            "videos": 3
+          }
+        },
+        {
+          "check_id": "L1_ACCURACY",
+          "name": "No false or misleading claims",
+          "dimension": "accurate & grounded",
+          "kind": "llm",
+          "criterion": "Every technical claim agrees with the reference facts. No listed misconception is stated or implied as true. Simplifications are allowed only if they do not create a wrong belief (a misconception from the reference sheet, even softened, is a FAIL).",
+          "source": "core",
+          "passed": true,
+          "evidence": [],
+          "fix": "",
+          "reasoning": "Every technical claim and statement in the lesson was checked against the reference facts and misconceptions list. All statements align correctly without introducing false or misleading ideas, and absolute phrasing matches standard pedagogical framing expected for beginners. I checked every single line of the lesson against the reference facts and misconceptions provided. All technical explanations of embeddings, vectors, neural networks, and limitations align precisely with the requirements without introducing false claims or listed misconceptions.",
+          "metrics": {
+            "items_checked": 80,
+            "items_unmet": 0,
+            "extra_problems": 0,
+            "ungrounded_dropped": 0,
+            "votes": 1
+          }
+        },
+        {
+          "check_id": "L2_COVERAGE",
+          "name": "All must-cover points taught",
+          "dimension": "covers the key points",
+          "kind": "llm",
+          "criterion": "Every must-cover point in the reference is actually taught (explained, not just named).",
+          "source": "core",
+          "passed": true,
+          "evidence": [],
+          "fix": "",
+          "reasoning": "I checked each of the eight must-cover points against the lesson text and found exact quotes satisfying every single point clearly and comprehensively.",
+          "metrics": {
+            "items_checked": 8,
+            "items_unmet": 0,
+            "extra_problems": 0,
+            "ungrounded_dropped": 0,
+            "votes": 1
+          }
+        },
+        {
+          "check_id": "L3_JARGON",
+          "name": "Every technical term explained",
+          "dimension": "clear, no unexplained jargon",
+          "kind": "llm",
+          "criterion": "Every technical or English-uncommon term is explained in simple words at or before its first use in the body (a glossary at the end alone does not count). Acronyms are expanded on first use.",
+          "source": "core",
+          "passed": true,
+          "evidence": [],
+          "fix": "",
+          "reasoning": "I checked every required technical term ('vector', 'high-dimensional space', 'dense vector', 'neural network', 'lossy compression', and 'semantic meaning') and verified that they are all explicitly explained in simple words right at or before their first appearance in the body text.",
+          "metrics": {
+            "items_checked": 6,
+            "items_unmet": 0,
+            "extra_problems": 0,
+            "ungrounded_dropped": 0,
+            "votes": 1
+          }
+        },
+        {
+          "check_id": "L4_EXAMPLES",
+          "name": "Concrete analogy and walk-through",
+          "dimension": "teaches by example",
+          "kind": "llm",
+          "criterion": "The lesson has (a) at least one everyday analogy a young Indian learner would recognise, correctly mapped to the topic, AND (b) one concrete worked example that follows a single case through every step the lesson lists under 'How does it work?', in order, to its result.",
+          "source": "core",
+          "passed": true,
+          "evidence": [],
+          "fix": "",
+          "reasoning": "I checked the lesson for an everyday Indian analogy (Bengaluru/Mumbai shops and coordinates) and its mapping to vectors. I also checked for a single concrete worked example (the Delhi street food book) that follows all three steps listed in the 'How does it work?' section in order and ends with a clear result. All requirements are fully met.",
+          "metrics": {
+            "items_checked": 5,
+            "items_unmet": 0,
+            "extra_problems": 0,
+            "ungrounded_dropped": 0,
+            "votes": 1
+          }
+        },
+        {
+          "check_id": "L5_LEARNER_FIT",
+          "name": "Fits a non-native English beginner",
+          "dimension": "beginner-friendly language",
+          "kind": "llm",
+          "criterion": "Uses common, everyday English words; no idioms, slang, sarcasm or culturally obscure references; assumes no coding, maths beyond class 12, or prior AI knowledge; tone is encouraging and direct.",
+          "source": "core",
+          "passed": false,
+          "evidence": [
+            "Grammar is correct and simple, e.g. no verb used where a noun is needed, no wrong word form (quote any grammar mistakes). -> \"What is Embeddings?\"",
+            "Other problem -> \"What is Embeddings?\""
+          ],
+          "fix": "Change the subheading 'What is Embeddings?' to 'What are embeddings?' or 'What is an embedding?' to fix the grammar error.",
+          "reasoning": "The lesson is generally clear, beginner-friendly, and well-tailored for non-native English speakers. However, there is a minor grammatical error in a subheading where a plural noun is mismatched with a singular verb ('What is Embeddings?'). Therefore, item 4 fails based on that exact quote.",
+          "metrics": {
+            "items_checked": 5,
+            "items_unmet": 1,
+            "extra_problems": 1,
+            "ungrounded_dropped": 0,
+            "votes": 1
+          }
+        },
+        {
+          "check_id": "L6_FLOW",
+          "name": "Builds step by step",
+          "dimension": "coherent teaching flow",
+          "kind": "llm",
+          "criterion": "Ideas are introduced before they are used; sections go from what -> why -> how -> example -> limits -> recap; each section links to the previous one; nothing is repeated without purpose.",
+          "source": "core",
+          "passed": true,
+          "evidence": [],
+          "fix": "",
+          "reasoning": "I checked the section headings, the sequential introduction of terms, the logical transitions between sections, and the use of analogies. All the structural requirements for flow are fully satisfied in the lesson text.",
+          "metrics": {
+            "items_checked": 4,
+            "items_unmet": 0,
+            "extra_problems": 0,
+            "ungrounded_dropped": 0,
+            "votes": 1
+          }
+        }
+      ],
+      "change_log": [
+        {
+          "check_id": "R2_SENTENCES",
+          "change": "Split the long sentence in the example section into two short sentences."
+        },
+        {
+          "check_id": "L3_JARGON",
+          "change": "Added simple explanations for high-dimensional space, neural network, and lossy compression right before their first use."
+        }
+      ],
+      "lesson_file": "attempt_2.md",
+      "injected": null,
+      "timestamp": "2026-10-22T03:27:03+00:00"
+    },
+    {
+      "attempt": 3,
+      "strategy": "revise",
+      "passed": false,
+      "n_passed": 11,
+      "results": [
+        {
+          "check_id": "R1_STRUCTURE",
+          "name": "Required sections present",
+          "dimension": "coherent teaching flow",
+          "kind": "rule",
+          "criterion": "The lesson has an H2 section for each of: the prerequisite idea, what the topic is, why it matters, how it works, a worked example, limits, recap, a self-check quiz, and key words.",
+          "source": "core",
+          "passed": true,
+          "evidence": [],
+          "fix": "",
+          "reasoning": "",
+          "metrics": {
+            "h2_headings": [
+              "what you will learn",
+              "before we start: numbers and coordinates",
+              "what are embeddings?",
+              "why does it matter?",
+              "how does it work?",
+              "let's follow one example",
+              "what it cannot do",
+              "quick recap",
+              "check yourself",
+              "key words",
+              "learn more"
+            ]
+          }
+        },
+        {
+          "check_id": "R2_SENTENCES",
+          "name": "Short sentences",
+          "dimension": "beginner-friendly language",
+          "kind": "rule",
+          "criterion": "Average sentence length <= 15 words AND no sentence longer than 25 words.",
+          "source": "core",
+          "passed": true,
+          "evidence": [],
+          "fix": "",
+          "reasoning": "",
+          "metrics": {
+            "avg_sentence_words": 12.1,
+            "sentences": 80,
+            "over_cap": 0
+          }
+        },
+        {
+          "check_id": "R3_READABILITY",
+          "name": "Plain-English readability",
+          "dimension": "beginner-friendly language",
+          "kind": "rule",
+          "criterion": "Flesch Reading Ease >= 60 on the lesson prose.",
+          "source": "core",
+          "passed": true,
+          "evidence": [],
+          "fix": "",
+          "reasoning": "",
+          "metrics": {
+            "flesch": 61.3
+          }
+        },
+        {
+          "check_id": "R4_LENGTH",
+          "name": "Right length for one sitting",
+          "dimension": "covers the key points",
+          "kind": "rule",
+          "criterion": "Between 850 and 1800 words (~10-15 minutes of reading for a slow reader).",
+          "source": "core",
+          "passed": true,
+          "evidence": [],
+          "fix": "",
+          "reasoning": "",
+          "metrics": {
+            "word_count": 1015
+          }
+        },
+        {
+          "check_id": "R5_QUIZ",
+          "name": "Self-check with answers",
+          "dimension": "teaches by example",
+          "kind": "rule",
+          "criterion": "The quiz section has at least 3 questions and gives the answers.",
+          "source": "core",
+          "passed": true,
+          "evidence": [],
+          "fix": "",
+          "reasoning": "",
+          "metrics": {
+            "quiz_questions": 4,
+            "quiz_has_answers": true
+          }
+        },
+        {
+          "check_id": "R6_RESOURCES",
+          "name": "Verified links to learn more",
+          "dimension": "teaches by example",
+          "kind": "rule",
+          "criterion": "A 'Learn more' section links 2-4 resources, at least one a video, and EVERY link in the lesson is on the list verified live during research (no invented or broken URLs).",
+          "source": "core",
+          "passed": true,
+          "evidence": [],
+          "fix": "",
+          "reasoning": "",
+          "metrics": {
+            "links": 3,
+            "verified_used": 3,
+            "videos": 3
+          }
+        },
+        {
+          "check_id": "L1_ACCURACY",
+          "name": "No false or misleading claims",
+          "dimension": "accurate & grounded",
+          "kind": "llm",
+          "criterion": "Every technical claim agrees with the reference facts. No listed misconception is stated or implied as true. Simplifications are allowed only if they do not create a wrong belief (a misconception from the reference sheet, even softened, is a FAIL).",
+          "source": "core",
+          "passed": true,
+          "evidence": [],
+          "fix": "",
+          "reasoning": "I checked all the technical claims, absolute phrases, and potential misconceptions against the reference facts. All claims align correctly with the reference material, and no listed misconceptions are implied or stated as true. Checked all requested sentences and definitions against the reference facts and misconceptions list. Every technical statement in the lesson accurately reflects core embedding concepts, avoids the listed misconceptions, and is free of false or misleading claims.",
+          "metrics": {
+            "items_checked": 80,
+            "items_unmet": 0,
+            "extra_problems": 0,
+            "ungrounded_dropped": 0,
+            "votes": 1
+          }
+        },
+        {
+          "check_id": "L2_COVERAGE",
+          "name": "All must-cover points taught",
+          "dimension": "covers the key points",
+          "kind": "llm",
+          "criterion": "Every must-cover point in the reference is actually taught (explained, not just named).",
+          "source": "core",
+          "passed": true,
+          "evidence": [],
+          "fix": "",
+          "reasoning": "I checked every single must-cover point against the lesson text. All eight points are explicitly taught, explained, and supported by exact quotes from the lesson.",
+          "metrics": {
+            "items_checked": 8,
+            "items_unmet": 0,
+            "extra_problems": 0,
+            "ungrounded_dropped": 0,
+            "votes": 1
+          }
+        },
+        {
+          "check_id": "L3_JARGON",
+          "name": "Every technical term explained",
+          "dimension": "clear, no unexplained jargon",
+          "kind": "llm",
+          "criterion": "Every technical or English-uncommon term is explained in simple words at or before its first use in the body (a glossary at the end alone does not count). Acronyms are expanded on first use.",
+          "source": "core",
+          "passed": true,
+          "evidence": [],
+          "fix": "",
+          "reasoning": "I checked every requested technical term against the body of the lesson to ensure it was explained in simple words at or before its first appearance. Every term from the checklist and other technical terms used in the text were explicitly introduced and defined properly on first use.",
+          "metrics": {
+            "items_checked": 6,
+            "items_unmet": 0,
+            "extra_problems": 0,
+            "ungrounded_dropped": 0,
+            "votes": 1
+          }
+        },
+        {
+          "check_id": "L4_EXAMPLES",
+          "name": "Concrete analogy and walk-through",
+          "dimension": "teaches by example",
+          "kind": "llm",
+          "criterion": "The lesson has (a) at least one everyday analogy a young Indian learner would recognise, correctly mapped to the topic, AND (b) one concrete worked example that follows a single case through every step the lesson lists under 'How does it work?', in order, to its result.",
+          "source": "core",
+          "passed": false,
+          "evidence": [
+            "The worked example goes through EVERY step listed in the 'How does it work?' section, in the same order, applied to that one case (name any step it skips). -> \"First, you collect all your book descriptions and break them into smaller paragraphs... Second, you feed these paragraphs into a neural network model... Third, the model turns every paragraph into an embedding...\"",
+            "Other problem -> \"Worked example step 2: 'Second, you feed these paragraphs into a neural network model. The model reads the text and checks how words appear next to each other.'\""
+          ],
+          "fix": "Revise the 'Let's follow one example' section so that it explicitly maps the concrete case (e.g., the Delhi street food book) through the exact three steps listed under 'How does it work?' in the exact order given, using those exact phases.",
+          "reasoning": "I checked the lesson for a recognised Indian everyday analogy, its correct mapping, a single worked case, and whether that case goes through every step listed in the 'How does it work?' section in order. Items 1, 2, 3, and 5 are fully met. However, item 4 fails because the 'How does it work?' section lists 3 specific steps (1. Raw data fed into neural network, 2. Model analyzes contexts across vast amounts of training data, 3. Model outputs a dense vector), but the worked example introduces completely different custom steps ('First, you collect all your book descriptions...', 'Second, you feed...', 'Third, the model turns...') instead of explicitly applying the three listed conceptual steps to the single concrete book case in order.",
+          "metrics": {
+            "items_checked": 5,
+            "items_unmet": 1,
+            "extra_problems": 1,
+            "ungrounded_dropped": 1,
+            "votes": 1
+          }
+        },
+        {
+          "check_id": "L5_LEARNER_FIT",
+          "name": "Fits a non-native English beginner",
+          "dimension": "beginner-friendly language",
+          "kind": "llm",
+          "criterion": "Uses common, everyday English words; no idioms, slang, sarcasm or culturally obscure references; assumes no coding, maths beyond class 12, or prior AI knowledge; tone is encouraging and direct.",
+          "source": "core",
+          "passed": true,
+          "evidence": [],
+          "fix": "",
+          "reasoning": "I checked the lesson for non-native beginner fit. The English used is straightforward, grammar is correct, there are no idioms or slang, and complex terms like embeddings, vectors, and neural networks are clearly defined. The tone directly addresses the reader as 'you' in an encouraging and easy-to-follow manner.",
+          "metrics": {
+            "items_checked": 5,
+            "items_unmet": 0,
+            "extra_problems": 0,
+            "ungrounded_dropped": 0,
+            "votes": 1
+          }
+        },
+        {
+          "check_id": "L6_FLOW",
+          "name": "Builds step by step",
+          "dimension": "coherent teaching flow",
+          "kind": "llm",
+          "criterion": "Ideas are introduced before they are used; sections go from what -> why -> how -> example -> limits -> recap; each section links to the previous one; nothing is repeated without purpose.",
+          "source": "core",
+          "passed": true,
+          "evidence": [],
+          "fix": "",
+          "reasoning": "I checked the lesson for section order, term introductions, section transitions, and proper use of analogies. The section headings follow the exact required sequence, terms are defined before they appear in deep contexts, transitions flow logically from concept to application, and analogies like the city map are introduced right where vectors are explained.",
+          "metrics": {
+            "items_checked": 4,
+            "items_unmet": 0,
+            "extra_problems": 0,
+            "ungrounded_dropped": 0,
+            "votes": 1
+          }
+        }
+      ],
+      "change_log": [
+        {
+          "check_id": "L5_LEARNER_FIT",
+          "change": "Changed the subheading 'What is Embeddings?' to 'What are embeddings?' to fix the grammar error."
+        }
+      ],
+      "lesson_file": "attempt_3.md",
+      "injected": null,
+      "timestamp": "2026-10-22T03:27:23+00:00"
+    }
+  ]
+}

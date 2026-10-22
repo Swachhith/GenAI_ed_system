@@ -35,7 +35,7 @@ def _render_log(settings, state, history, winner, status) -> str:
     if state.get("inject"):
         spec = INJECTIONS[state["inject"]]
         caught = [c for c in spec["expected"] if any(r["check_id"] == c and not r["passed"] for r in history[0]["results"])]
-        out += [f"- **Deliberate error injected into attempt 1:** `{state['inject']}`: \"{spec.get('text') or 'deleted the section: ' + spec['remove_section']}\"",
+        out += [f"- **Deliberate error injected into attempt 1:** `{state['inject']}`: \"{state.get('planted', '')}\"",
                 f"- **Expected to be caught by:** {', '.join(spec['expected'])} -> "
                 f"**caught by:** {', '.join(caught) or 'NONE (evaluator missed it)'}"]
     out += ["", "## Summary", "", "| Attempt | How produced | Result | Failed checks |", "|---|---|---|---|"]

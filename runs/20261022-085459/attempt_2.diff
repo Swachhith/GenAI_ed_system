@@ -1,0 +1,42 @@
+--- attempt_1.md
++++ attempt_2.md
+@@ -19,12 +19,12 @@
+ ## Why does it matter?
+ Traditional computer codes treat every item as completely unrelated. If you search a standard computer database for the word "puppy", it will never match the word "dog". 
+ 
+-Embeddings solve this big problem. They capture semantic meaning so that similar concepts are placed closer together in a multi-dimensional space. You will meet the word **semantic meaning**. Semantic meaning means the actual sense or concept behind words, rather than just the spelling. 
++Embeddings solve this big problem. They capture semantic meaning so that similar concepts are placed closer together in a multi-dimensional space. You will meet the term **high-dimensional space**. High-dimensional space means a mathematical room with hundreds of directions to store complex data points. You will also meet the word **semantic meaning**. Semantic meaning means the actual sense or concept behind words, rather than just the spelling.
+ 
+ ## How does it work?
+ Converting words into numbers happens in three simple steps. 
+ 
+-1. Raw data such as words or documents are fed into a trained neural network model. You will meet the word **neural network model**. A neural network model is a computer system inspired by the human brain that learns patterns from data.
++1. Raw data such as words or documents are fed into a trained neural network model. You will meet the term **neural network**. A neural network is a computer system inspired by the human brain that learns patterns from data. You will also meet the word **neural network model**. A neural network model is a computer system inspired by the human brain that learns patterns from data.
+ 2. The model analyzes the contexts in which words or items appear across vast amounts of training data. 
+ 3. The model outputs a dense vector, which is a list of numbers representing coordinates in a high-dimensional space. You will meet the word **dense vector**. A dense vector is a long list of numbers where most spaces contain useful values instead of zeros.
+ 
+@@ -37,10 +37,10 @@
+ 
+ Third, the model turns every paragraph into an embedding. A book about "tasty street food in Delhi" gets numbers like `[0.85, 0.12, 0.44]`. A book about "Mumbai vada pav recipes" gets numbers like `[0.83, 0.15, 0.46]`. 
+ 
+-When a user types "snacks to eat on the street", your system turns that query into numbers. It checks which book coordinates sit closest to the user's query coordinates using distance math. It shows the Delhi food book and the Mumbai food book, even though the words do not match the search box. This is a realistic use case of building a semantic search engine or recommendation system that finds documents or products with similar meanings rather than exact keyword matches.
++When a user types "snacks to eat on the street", your system turns that query into numbers. It checks which book coordinates sit closest to the user's query coordinates using distance math. It shows the Delhi food book and the Mumbai food book, even though the words do not match the search box. This is a realistic use case. It builds a semantic search engine or recommendation system. This system finds documents or products with similar meanings rather than exact keyword matches.
+ 
+ ## What it cannot do
+-Embeddings are very powerful, but they have clear limits. One major issue is lossy compression where some fine details or exact nuances of the original text can be lost during vector creation. 
++Embeddings are very powerful, but they have clear limits. One major issue is lossy compression. You will meet the term **lossy compression**. Lossy compression means losing some fine details or exact nuances during data conversion. Some fine details or exact nuances of the original text can be lost during vector creation.
+ 
+ Furthermore, embeddings do not hold exact dictionary definitions of words. They only show how words relate to each other based on training examples. If a rare word or local slang was missing from the training data, the model cannot understand it properly.
+ 
+@@ -66,8 +66,11 @@
+ - **Vector**: A list of numbers that act like coordinates on a map.
+ - **Embeddings**: Numerical representations of real-world data converted into sequences of numbers.
+ - **Semantic meaning**: The actual sense or concept behind words, rather than just the spelling.
++- **High-dimensional space**: A mathematical room with hundreds of directions to store complex data points.
++- **Neural network**: A computer system inspired by the human brain that learns patterns from data.
+ - **Neural network model**: A computer system inspired by the human brain that learns patterns from data.
+ - **Dense vector**: A long list of numbers where most spaces contain useful values instead of zeros.
++- **Lossy compression**: Losing some fine details or exact nuances during data conversion.
+ 
+ ## Learn more
+ - [What Are Embeddings? Explained Simply for Beginners](https://www.youtube.com/watch?v=JWlkeUFeNPA) - The Data and AI Guy, 11-minute video. A quick introduction to how text becomes numbers.

@@ -1,0 +1,91 @@
+{
+  "topic": "Introduction to Embeddings",
+  "aliases": [
+    "introduction to embeddings"
+  ],
+  "trust": "generated+web",
+  "short_name": "Embeddings",
+  "prerequisite": "Numbers and coordinates",
+  "must_cover": [
+    {
+      "id": "mc_1",
+      "point": "Embeddings are numerical representations of real-world objects like words, sentences, or images converted into sequences of numbers called vectors."
+    },
+    {
+      "id": "mc_2",
+      "point": "They matter because computers and machine learning models cannot understand raw text or images directly; they need numbers to perform math and logic."
+    },
+    {
+      "id": "mc_3",
+      "point": "Unlike traditional codes that treat every item as completely unrelated, embeddings capture semantic meaning so that similar concepts are placed closer together in a multi-dimensional space."
+    },
+    {
+      "id": "mc_4",
+      "point": "Step 1: Raw data such as words or documents are fed into a trained neural network model."
+    },
+    {
+      "id": "mc_5",
+      "point": "Step 2: The model analyzes the contexts in which words or items appear across vast amounts of training data."
+    },
+    {
+      "id": "mc_6",
+      "point": "Step 3: The model outputs a dense vector, which is a list of numbers representing coordinates in a high-dimensional space."
+    },
+    {
+      "id": "mc_7",
+      "point": "Limitations include lossy compression where some fine details or exact nuances of the original text can be lost during vector creation."
+    },
+    {
+      "id": "mc_8",
+      "point": "A realistic use case is building a semantic search engine or recommendation system that finds documents or products with similar meanings rather than exact keyword matches."
+    }
+  ],
+  "facts": [
+    "Embeddings map complex data into continuous vector spaces.",
+    "Common embedding vectors often have hundreds or thousands of dimensions, such as 768 or 1536 numbers.",
+    "Distance metrics like cosine similarity are used to measure how close or related two embedding vectors are.",
+    "Vector arithmetic can sometimes capture analogical relationships, such as king minus man plus woman equaling queen.",
+    "Machine learning models use embeddings to process text, images, audio, and categorical variables efficiently."
+  ],
+  "misconceptions": [
+    {
+      "wrong": "Embeddings are just encrypted versions of text or secret codes.",
+      "right": "Embeddings are numerical coordinates that represent the semantic meaning and relationships of data."
+    },
+    {
+      "wrong": "Every word or object has only one fixed universal embedding vector for all time.",
+      "right": "An embedding depends entirely on the specific machine learning model and training data used to generate it."
+    },
+    {
+      "wrong": "Embeddings contain exact dictionary definitions of words.",
+      "right": "Embeddings capture contextual usage patterns and associations, not formal dictionary definitions."
+    },
+    {
+      "wrong": "Computers understand embeddings the exact same way humans understand language.",
+      "right": "Computers only compute geometric distances and mathematical relationships between numbers."
+    },
+    {
+      "wrong": "Embeddings are only used for text processing.",
+      "right": "Embeddings can represent images, audio, user profiles, and other complex real-world data types."
+    }
+  ],
+  "jargon": [
+    "vector",
+    "vectorize",
+    "vectorization",
+    "dimension",
+    "high-dimensional space",
+    "latent space",
+    "semantic similarity",
+    "dense vector",
+    "sparse data",
+    "one-hot encoding",
+    "cosine similarity",
+    "token",
+    "tokenization",
+    "neural network",
+    "lossy compression"
+  ],
+  "resources": [],
+  "path": "C:\\Users\\Swach\\OneDrive\\Desktop\\Jobs\\nxtwave\\knowledge\\generated\\introduction-to-embeddings.json"
+}

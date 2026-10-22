@@ -1,0 +1,77 @@
+{
+  "resources": [
+    {
+      "url": "https://www.youtube.com/watch?v=JWlkeUFeNPA",
+      "type": "video",
+      "title": "What Are Embeddings? Explained Simply for Beginners",
+      "source": "The Data and AI Guy",
+      "minutes": 11,
+      "language": "English"
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=Q6TBHDgWCDQ",
+      "type": "video",
+      "title": "Learn Text Embeddings in 20 Minutes (full guide for beginners)",
+      "source": "Thu Vu",
+      "minutes": 20,
+      "language": "English"
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=cwiMxi3M9QU",
+      "type": "video",
+      "title": "Beginner's Guide to Vector Embeddings | SingleStore Webinars",
+      "source": "SingleStore",
+      "minutes": 57,
+      "language": "English"
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=9iGvXxH_fdE",
+      "type": "video",
+      "title": "RAG Tutorial 2026 #2: Vector Embeddings and RAG Architecture Explained",
+      "source": "Harish Neel | AI",
+      "minutes": 20,
+      "language": "English"
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=Do8cVbx-HOs",
+      "type": "video",
+      "title": "Text Representation Using Word Embeddings: NLP Tutorial For Beginners - S2 E7",
+      "source": "codebasics",
+      "minutes": 8,
+      "language": "English"
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=9Ie4FUvtS0w",
+      "type": "video",
+      "title": "RAG explained in Hindi under 5 mins",
+      "source": "Harshita Verma",
+      "minutes": 6,
+      "language": "Hindi"
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=mtf8wbkj03M",
+      "type": "video",
+      "title": "How Vector Embeddings work in LLM | LLM Embedding model | LLM Embedding explained",
+      "source": "Unfold Data Science",
+      "minutes": 20,
+      "language": "English"
+    },
+    {
+      "url": "https://www.youtube.com/watch?v=EcuVZzUiHMY",
+      "type": "video",
+      "title": "Sentence Embeddings - EXPLAINED!",
+      "source": "CodeEmporium",
+      "minutes": 17,
+      "language": "English"
+    }
+  ],
+  "web_facts": [],
+  "sources": [
+    "https://www.openxcell.com/blog/best-embedding-models",
+    "https://atlan.com/know/what-are-embeddings-ai-search",
+    "https://cohere.com/blog/embed-5",
+    "https://aws.amazon.com/blogs/aws/amazon-nova-multimodal-embeddings-now-available-in-amazon-bedrock",
+    "https://blog.google/innovation-and-ai/technology/developers-tools/embeddinggemma-2"
+  ],
+  "searched": "2026-10-22"
+}

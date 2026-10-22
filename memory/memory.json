@@ -123,66 +123,91 @@
         "L1_ACCURACY: new guideline G4 -> Ensure all technical explanations remain factually accurate without implying models are retrained or hallucinations are completely eliminated.",
         "R2_SENTENCES: reinforced existing guideline G1"
       ]
+    },
+    {
+      "run_id": "20261022-085459",
+      "topic": "Introduction to Embeddings",
+      "timestamp": "2026-10-22T03:27:27+00:00",
+      "status": "NEEDS_HUMAN_REVIEW",
+      "attempts": 3,
+      "injected": null,
+      "failed_per_attempt": [
+        [
+          "R2_SENTENCES",
+          "L3_JARGON"
+        ],
+        [
+          "L5_LEARNER_FIT"
+        ],
+        [
+          "L4_EXAMPLES"
+        ]
+      ],
+      "learned": [
+        "L3_JARGON: reinforced existing guideline G3",
+        "L4_EXAMPLES: reinforced existing guideline G2",
+        "R2_SENTENCES: reinforced existing guideline G1"
+      ]
     }
   ],
   "check_stats": {
     "R1_STRUCTURE": {
-      "evaluated": 17,
+      "evaluated": 20,
       "failed": 0,
       "first_draft_failed": 0
     },
     "R2_SENTENCES": {
-      "evaluated": 17,
-      "failed": 7,
-      "first_draft_failed": 3
+      "evaluated": 20,
+      "failed": 8,
+      "first_draft_failed": 4
     },
     "R3_READABILITY": {
-      "evaluated": 17,
+      "evaluated": 20,
       "failed": 0,
       "first_draft_failed": 0
     },
     "R4_LENGTH": {
-      "evaluated": 17,
+      "evaluated": 20,
       "failed": 0,
       "first_draft_failed": 0
     },
     "R5_QUIZ": {
-      "evaluated": 17,
+      "evaluated": 20,
       "failed": 0,
       "first_draft_failed": 0
     },
     "L1_ACCURACY": {
-      "evaluated": 17,
+      "evaluated": 20,
       "failed": 2,
       "first_draft_failed": 2
     },
     "L2_COVERAGE": {
-      "evaluated": 17,
+      "evaluated": 20,
       "failed": 1,
       "first_draft_failed": 1
     },
     "L3_JARGON": {
-      "evaluated": 17,
-      "failed": 4,
-      "first_draft_failed": 3
+      "evaluated": 20,
+      "failed": 5,
+      "first_draft_failed": 4
     },
     "L4_EXAMPLES": {
-      "evaluated": 17,
-      "failed": 4,
+      "evaluated": 20,
+      "failed": 5,
       "first_draft_failed": 4
     },
     "L5_LEARNER_FIT": {
-      "evaluated": 17,
-      "failed": 0,
+      "evaluated": 20,
+      "failed": 1,
       "first_draft_failed": 0
     },
     "L6_FLOW": {
-      "evaluated": 17,
+      "evaluated": 20,
       "failed": 1,
       "first_draft_failed": 1
     },
     "R6_RESOURCES": {
-      "evaluated": 5,
+      "evaluated": 8,
       "failed": 0,
       "first_draft_failed": 0
     }
@@ -265,6 +290,17 @@
           "'generation' is explained in simple words at or before its FIRST use in the body. AUTOMATIC PRE-CHECK found no explanation in the sentence of first use: \"An LLM is an AI model trained on a very large amount of text to predict and generate language.\". Mark met=true ONLY if you can quote an earlier explanation. -> (not found)"
         ],
         "fix": "Ensure that every technical term, including 'AI model', 'prompt', 'retrieved', 'generation', 'trained', and 'database', is clearly defined in simple words right before or immediately when it first appears in the lesson body."
+      },
+      {
+        "run_id": "20261022-085459",
+        "attempt": 1,
+        "evidence": [
+          "'high-dimensional space' is explained in simple words at or before its FIRST use in the body. AUTOMATIC PRE-CHECK found no explanation in the sentence of first use: \"The model outputs a dense vector, which is a list of numbers representing coordinates in a high-dimensional space.\". Mark met=true ONLY if you can quote an earlier explanation. -> (not found)",
+          "'neural network' is explained in simple words at or before its FIRST use in the body. AUTOMATIC PRE-CHECK found no explanation in the sentence of first use: \"Raw data such as words or documents are fed into a trained neural network model.\". Mark met=true ONLY if you can quote an earlier explanation. -> (not found)",
+          "'lossy compression' is explained in simple words at or before its FIRST use in the body. AUTOMATIC PRE-CHECK found no explanation in the sentence of first use: \"One major issue is lossy compression where some fine details or exact nuances of the original text can be lost during vector creation.\". Mark met=true ONLY if you can quote an earlier explanation. -> (not found)",
+          "Other problem -> \"high-dimensional space\""
+        ],
+        "fix": "Move the definitions or provide simple explanations for 'high-dimensional space', 'neural network', and 'lossy compression' right before or at their very first appearance in the text."
       }
     ],
     "L6_FLOW": [
@@ -341,6 +377,14 @@
           "(27 words) Finally, the LLM reads the rule chunk and writes: \"The fine for returning a library book late is five rupees per day.\" This is the generation step."
         ],
         "fix": "Split every sentence longer than 25 words into two or three short sentences. One idea per sentence."
+      },
+      {
+        "run_id": "20261022-085459",
+        "attempt": 1,
+        "evidence": [
+          "(28 words) This is a realistic use case of building a semantic search engine or recommendation system that finds documents or products with similar meanings rather than exact keyword matches."
+        ],
+        "fix": "Split every sentence longer than 25 words into two or three short sentences. One idea per sentence."
       }
     ],
     "L4_EXAMPLES": [
@@ -380,6 +424,26 @@
           "The analogy is mapped to RAG correctly (each part of the analogy matches a real part of RAG). -> (not found)"
         ],
         "fix": "Add a concrete everyday analogy (like an open-book exam or looking up a specific rule in a college handbook) right before the 'How does RAG work?' or 'Let's follow one example' section, and explicitly map its parts to indexing, retrieval, augmentation, and generation."
+      },
+      {
+        "run_id": "20261022-085459",
+        "attempt": 3,
+        "evidence": [
+          "The worked example goes through EVERY step listed in the 'How does it work?' section, in the same order, applied to that one case (name any step it skips). -> \"First, you collect all your book descriptions and break them into smaller paragraphs... Second, you feed these paragraphs into a neural network model... Third, the model turns every paragraph into an embedding...\"",
+          "Other problem -> \"Worked example step 2: 'Second, you feed these paragraphs into a neural network model. The model reads the text and checks how words appear next to each other.'\""
+        ],
+        "fix": "Revise the 'Let's follow one example' section so that it explicitly maps the concrete case (e.g., the Delhi street food book) through the exact three steps listed under 'How does it work?' in the exact order given, using those exact phases."
+      }
+    ],
+    "L5_LEARNER_FIT": [
+      {
+        "run_id": "20261022-085459",
+        "attempt": 2,
+        "evidence": [
+          "Grammar is correct and simple, e.g. no verb used where a noun is needed, no wrong word form (quote any grammar mistakes). -> \"What is Embeddings?\"",
+          "Other problem -> \"What is Embeddings?\""
+        ],
+        "fix": "Change the subheading 'What is Embeddings?' to 'What are embeddings?' or 'What is an embedding?' to fix the grammar error."
       }
     ]
   },
@@ -390,7 +454,7 @@
       "source": "learned",
       "check_id": "R2_SENTENCES",
       "created": "2026-10-21T07:21:26+00:00",
-      "hits": 4,
+      "hits": 5,
       "active": true
     },
     {
@@ -399,7 +463,7 @@
       "source": "learned",
       "check_id": "L4_EXAMPLES",
       "created": "2026-10-21T07:22:14+00:00",
-      "hits": 2,
+      "hits": 3,
       "active": true
     },
     {
@@ -408,7 +472,7 @@
       "source": "learned",
       "check_id": "L3_JARGON",
       "created": "2026-10-21T07:25:58+00:00",
-      "hits": 2,
+      "hits": 3,
       "active": true
     },
     {

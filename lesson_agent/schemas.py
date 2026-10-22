@@ -53,6 +53,8 @@ class Misconception(BaseModel):
 
 
 class ReferenceSheet(BaseModel):
+    short_name: str = Field(description="The topic's short name for headings, e.g. 'RAG' or 'Photosynthesis'.")
+    prerequisite: str = Field(description="The one idea a beginner needs first, as a short noun phrase.")
     must_cover: list[MustCover]
     facts: list[str]
     misconceptions: list[Misconception]

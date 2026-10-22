@@ -1,0 +1,45 @@
+{
+  "topic": "Introduction to Large Language Models (LLMs)",
+  "short_name": "an LLM",
+  "aliases": ["large language model", "large language models", "llm", "llms"],
+  "trust": "curated",
+  "prerequisite": "what a computer program that learns from examples is",
+  "must_cover": [
+    {"id": "M1", "point": "What an LLM is in simple terms: a computer program trained on a very large amount of text that writes text by predicting the next word (token)."},
+    {"id": "M2", "point": "Training: the model learns patterns from training data by guessing the next word many billions of times; the numbers it adjusts are called parameters."},
+    {"id": "M3", "point": "Tokens: text is broken into small pieces called tokens before the model reads it."},
+    {"id": "M4", "point": "Prompting: you give the model a prompt, and it predicts a reply one token at a time."},
+    {"id": "M5", "point": "Why LLMs matter: they can explain, summarise, translate and draft text in many languages, which helps learning and work."},
+    {"id": "M6", "point": "Limits: knowledge cutoff (no knowledge of events after training), hallucination (confident wrong answers), and no real understanding or memory of you between chats unless a product adds it."},
+    {"id": "M7", "point": "At least one realistic use case (for example: explaining a hard textbook topic, translating a notice, or drafting an email)."}
+  ],
+  "facts": [
+    "An LLM predicts the next token based on patterns in its training data.",
+    "Training data is a very large collection of text, such as books and web pages.",
+    "Parameters are numbers inside the model that are adjusted during training.",
+    "A token is a small piece of text: a word or part of a word.",
+    "An LLM has a knowledge cutoff: it does not know about events after its training data ends.",
+    "LLMs can hallucinate: produce fluent text that is false.",
+    "An LLM does not look up facts in a database while answering, unless a tool or system is added to it.",
+    "Checking important answers against a trusted source is good practice."
+  ],
+  "misconceptions": [
+    {"wrong": "An LLM understands and thinks exactly like a human.", "right": "It predicts likely text from patterns; it does not think like a person."},
+    {"wrong": "An LLM searches the internet for every answer.", "right": "On its own it answers from patterns learned in training; search only happens if a tool is added."},
+    {"wrong": "Everything an LLM says is true.", "right": "It can confidently produce false answers (hallucinations)."},
+    {"wrong": "An LLM keeps learning from every chat it has with you.", "right": "Its parameters do not change while you chat; training happens before release."},
+    {"wrong": "An LLM stores a copy of every book it was trained on and reads from it.", "right": "It stores learned patterns in its parameters, not a library of documents."}
+  ],
+  "jargon": [
+    "large language model", "language model", "LLM", "AI model", "model", "training", "training data", "trained",
+    "parameter", "parameters", "token", "tokens", "prompt", "predict", "prediction", "hallucination", "hallucinate",
+    "knowledge cutoff", "neural network", "fine-tuning", "context window", "algorithm", "dataset", "transformer",
+    "attention", "weights", "probability", "inference", "GPU"
+  ],
+  "resources": [
+    {"url": "https://www.youtube.com/watch?v=LPZh9BOjkQs", "type": "video", "title": "Large Language Models explained briefly", "source": "3Blue1Brown", "minutes": 8, "language": "English", "why": "Very clear pictures of how an LLM works."},
+    {"url": "https://www.youtube.com/watch?v=zizonToFXDs", "type": "video", "title": "Introduction to large language models", "source": "Google Cloud Tech", "minutes": 16, "language": "English", "why": "A longer, slow introduction from Google."},
+    {"url": "https://aws.amazon.com/what-is/large-language-model/", "type": "article", "title": "What is LLM? - Large Language Models Explained", "source": "AWS", "language": "English", "why": "A short written explanation."},
+    {"url": "https://www.ibm.com/think/topics/large-language-models", "type": "article", "title": "What Are Large Language Models (LLMs)?", "source": "IBM", "language": "English", "why": "More detail when you are ready."}
+  ]
+}

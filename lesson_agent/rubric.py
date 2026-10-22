@@ -26,10 +26,12 @@ THRESHOLDS = {
 }
 
 # H2 headings the generator is told to use; the structure check looks for these keywords.
+# Topic-free on purpose: the same template and checks serve any topic.
 REQUIRED_SECTIONS = {
-    "what": ["what is rag"],
+    "prerequisite": ["before we start"],
+    "what": ["what is", "what are"],
     "why": ["why"],
-    "how": ["how does", "how rag works"],
+    "how": ["how does", "how do", "how it works"],
     "example": ["example"],
     "limits": ["cannot", "limit"],
     "recap": ["recap", "summary"],
@@ -54,8 +56,8 @@ class Check:
 CORE_CHECKS: list[Check] = [
     # ---- deterministic --------------------------------------------------------------
     Check("R1_STRUCTURE", "coherent teaching flow", "Required sections present", "rule",
-          "The lesson has an H2 section for each of: what is RAG, why it matters, how it works, "
-          "a worked example, limits, recap, a self-check quiz, and key words."),
+          "The lesson has an H2 section for each of: the prerequisite idea, what the topic is, why it matters, "
+          "how it works, a worked example, limits, recap, a self-check quiz, and key words."),
     Check("R2_SENTENCES", "beginner-friendly language", "Short sentences", "rule",
           f"Average sentence length <= {THRESHOLDS['avg_sentence_words_max']} words AND no sentence "
           f"longer than {THRESHOLDS['sentence_words_max']} words."),
@@ -73,7 +75,7 @@ CORE_CHECKS: list[Check] = [
     Check("L1_ACCURACY", "accurate & grounded", "No false or misleading claims", "llm",
           "Every technical claim agrees with the reference facts. No listed misconception is stated or "
           "implied as true. Simplifications are allowed only if they do not create a wrong belief "
-          "(e.g. 'the model learns your documents' is a FAIL, because RAG does not change the model)."),
+          "(a misconception from the reference sheet, even softened, is a FAIL)."),
     Check("L2_COVERAGE", "covers the key points", "All must-cover points taught", "llm",
           "Every must-cover point in the reference is actually taught (explained, not just named)."),
     Check("L3_JARGON", "clear, no unexplained jargon", "Every technical term explained", "llm",
@@ -81,8 +83,8 @@ CORE_CHECKS: list[Check] = [
           "use in the body (a glossary at the end alone does not count). Acronyms are expanded on first use."),
     Check("L4_EXAMPLES", "teaches by example", "Concrete analogy and walk-through", "llm",
           "The lesson has (a) at least one everyday analogy a young Indian learner would recognise, "
-          "correctly mapped to RAG, AND (b) one concrete worked example that follows a single question "
-          "through every step: preparing documents, retrieving, adding to the prompt, generating."),
+          "correctly mapped to the topic, AND (b) one concrete worked example that follows a single case "
+          "through every step the lesson lists under 'How does it work?', in order, to its result."),
     Check("L5_LEARNER_FIT", "beginner-friendly language", "Fits a non-native English beginner", "llm",
           "Uses common, everyday English words; no idioms, slang, sarcasm or culturally obscure references; "
           "assumes no coding, maths beyond class 12, or prior AI knowledge; tone is encouraging and direct."),
