@@ -221,7 +221,9 @@ class OpenAICompatLLM:
 
         self._openai = openai
         self._client = openai.OpenAI(base_url=os.getenv("OPENAI_BASE_URL") or None,
-                                     api_key=os.getenv("OPENAI_API_KEY") or "not-needed", max_retries=6)
+                                     api_key=os.getenv("OPENAI_API_KEY") or "not-needed", max_retries=6,
+                                     # Free hosted endpoints can queue for minutes; fail and retry instead of hanging.
+                                     timeout=float(os.getenv("OPENAI_TIMEOUT", "180")))
         self._models = {"generator": settings.generator_model, "evaluator": settings.evaluator_model}
         self._native_json = os.getenv("OPENAI_STRUCTURED", "auto") != "text"
 
