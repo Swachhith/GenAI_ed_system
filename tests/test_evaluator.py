@@ -241,3 +241,9 @@ def test_json_fallback_extracts_and_repairs():
     assert v.verdict == "PASS" and "previous reply was invalid" in seen[1]
     with pytest.raises(LLMError):
         structured_via_text(lambda s, p: "no json here", "sys", "x", JudgeVerdict)
+
+
+def test_sentence_ending_in_a_quote_is_split():
+    # Regression from a live run: a quoted answer glued to the next sentence read as one 31-word sentence.
+    s = 'The model writes the answer: "The fee is ten rupees per day." It adds that this is from page 12.'
+    assert len(rules.sentences(s)) == 2

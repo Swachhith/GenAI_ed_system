@@ -31,8 +31,9 @@ def prose_lines(md: str) -> list[str]:
 def sentences(md: str) -> list[str]:
     result = []
     for line in prose_lines(md):
-        # Split on sentence-ending punctuation; each line (list item etc.) is its own boundary.
-        for part in re.split(r"(?<=[.!?])\s+(?=[\"'(A-Z0-9])", line):
+        # Split on sentence-ending punctuation, also when a closing quote/bracket follows it
+        # ('... per day." It adds ...' is two sentences).
+        for part in re.split(r"(?:(?<=[.!?])|(?<=[.!?][\"'”’)]))\s+(?=[\"'“‘(A-Z0-9])", line):
             if words(part):
                 result.append(part.strip())
     return result

@@ -55,7 +55,9 @@ _STATIC_ITEMS = {
         Item("There is a worked example that follows ONE concrete case (one question, one situation, one input) "
              "from start to finish.", True),
         Item("The worked example goes through EVERY step listed in the 'How does it work?' section, in the same "
-             "order, applied to that one case (name any step it skips).", True),
+             "order, applied to that one case. A step counts as covered if the example shows what happens in that "
+             "step for this case, in plain words; it does not need the step's name, and one sentence may cover two "
+             "steps. Fail only if a step is truly missing (name it).", True),
         Item("The worked example ends with the concrete result for that case.", True),
     ],
     "L5_LEARNER_FIT": [

@@ -48,7 +48,8 @@ from the reference sheet and <prerequisite> with its prerequisite idea):
                                        explain each part)
 ## Why does it matter?
 ## How does it work?                  (the steps, numbered)
-## Let's follow one example           (one concrete case, step by step through every step above)
+## Let's follow one example           (one concrete case through EVERY step above, in order, each step
+                                       starting with its bold name from "How does it work?", e.g. "**1. Indexing:** ...")
 ## What it cannot do                  (limits, honestly)
 ## Quick recap                        (5-6 bullet points)
 ## Check yourself                     (4 questions, each followed by "Answer: ...")
@@ -89,6 +90,8 @@ Rules for revising:
   technical term explained at first use (including any new words you add).
 - These two pull against each other. When you add a meaning, put it in a NEW short sentence ("X is a
   small ..."), not in brackets inside a long sentence. When you shorten a sentence, keep the meaning.
+- If the worked example fails, rewrite it so it walks through every step of "How does it work?" in order,
+  each step starting with that step's bold name, applied to the same single case.
 - Return the full revised lesson, plus one change-log line per failure saying what you changed."""
 
 
