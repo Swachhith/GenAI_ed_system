@@ -1,0 +1,269 @@
+{
+  "attempt": 3,
+  "strategy": "regenerate",
+  "passed": false,
+  "n_passed": 9,
+  "results": [
+    {
+      "check_id": "R1_STRUCTURE",
+      "name": "Required sections present",
+      "dimension": "coherent teaching flow",
+      "kind": "rule",
+      "criterion": "The lesson has an H2 section for each of: the prerequisite idea, what the topic is, why it matters, how it works, a worked example, limits, recap, a self-check quiz, and key words.",
+      "source": "core",
+      "passed": true,
+      "evidence": [],
+      "fix": "",
+      "reasoning": "",
+      "metrics": {
+        "h2_headings": [
+          "what you will learn",
+          "before we start: llm",
+          "what is rag?",
+          "why does it matter?",
+          "how does it work?",
+          "let's follow one example",
+          "what it cannot do",
+          "quick recap",
+          "check yourself",
+          "key words",
+          "learn more"
+        ]
+      }
+    },
+    {
+      "check_id": "R2_SENTENCES",
+      "name": "Short sentences",
+      "dimension": "beginner-friendly language",
+      "kind": "rule",
+      "criterion": "Average sentence length <= 15 words AND no sentence longer than 25 words.",
+      "source": "core",
+      "passed": true,
+      "evidence": [],
+      "fix": "",
+      "reasoning": "",
+      "metrics": {
+        "avg_sentence_words": 12.2,
+        "sentences": 83,
+        "over_cap": 0
+      }
+    },
+    {
+      "check_id": "R3_READABILITY",
+      "name": "Plain-English readability",
+      "dimension": "beginner-friendly language",
+      "kind": "rule",
+      "criterion": "Flesch Reading Ease >= 60 on the lesson prose.",
+      "source": "core",
+      "passed": true,
+      "evidence": [],
+      "fix": "",
+      "reasoning": "",
+      "metrics": {
+        "flesch": 66.5
+      }
+    },
+    {
+      "check_id": "R4_LENGTH",
+      "name": "Right length for one sitting",
+      "dimension": "covers the key points",
+      "kind": "rule",
+      "criterion": "Between 850 and 1800 words (~10-15 minutes of reading for a slow reader).",
+      "source": "core",
+      "passed": true,
+      "evidence": [],
+      "fix": "",
+      "reasoning": "",
+      "metrics": {
+        "word_count": 1062
+      }
+    },
+    {
+      "check_id": "R5_QUIZ",
+      "name": "Self-check with answers",
+      "dimension": "teaches by example",
+      "kind": "rule",
+      "criterion": "The quiz section has at least 3 questions and gives the answers.",
+      "source": "core",
+      "passed": true,
+      "evidence": [],
+      "fix": "",
+      "reasoning": "",
+      "metrics": {
+        "quiz_questions": 4,
+        "quiz_has_answers": true
+      }
+    },
+    {
+      "check_id": "R6_RESOURCES",
+      "name": "Verified links to learn more",
+      "dimension": "teaches by example",
+      "kind": "rule",
+      "criterion": "A 'Learn more' section links 2-4 resources, at least one a video, and EVERY link in the lesson is on the list verified live during research (no invented or broken URLs).",
+      "source": "core",
+      "passed": true,
+      "evidence": [],
+      "fix": "",
+      "reasoning": "",
+      "metrics": {
+        "links": 4,
+        "verified_used": 4,
+        "videos": 2
+      }
+    },
+    {
+      "check_id": "L1_ACCURACY",
+      "name": "No false or misleading claims",
+      "dimension": "accurate & grounded",
+      "kind": "llm",
+      "criterion": "Every technical claim agrees with the reference facts. No listed misconception is stated or implied as true. Simplifications are allowed only if they do not create a wrong belief (a misconception from the reference sheet, even softened, is a FAIL).",
+      "source": "core",
+      "passed": false,
+      "evidence": [
+        "ABSOLUTE CLAIM: \"Retraining means teaching an AI model from the very beginning or changing how it thinks permanently.\" The word 'permanently' makes this an all-or-nothing claim. met=true ONLY if it is literally true with no exceptions according to the reference facts (check the facts about limits). -> \"Retraining means teaching an AI model from the very beginning or changing how it thinks permanently.\"",
+        "Other problem -> \"Retraining means teaching an AI model from the very beginning or changing how it thinks permanently.\""
+      ],
+      "fix": "Change the sentence to: 'Retraining typically involves updating the model's internal parameters (weights) to incorporate new information, whereas RAG keeps this information separate.'",
+      "reasoning": "The lesson is mostly accurate and helpful for the target audience. However, it makes an absolute claim about retraining: \"Retraining means... changing how it thinks permanently.\" Since fine-tuning (a form of retraining) involves updating weights, it isn't strictly 'the beginning', and suggesting it changes how it thinks 'permanently' is an oversimplification that violates the strict criteria for absolute, unqualified claims about model behavior. All other items are met or accurate. I checked every claim against the provided reference sheet and the lesson text. All claims are accurate and properly contextualized for a beginner, with no misleading generalizations or misconceptions presented as fact. I checked the lesson content against the provided reference facts and definitions. All technical claims, including the description of the LLM, the RAG process, and the role of embeddings, accurately reflect the reference material without introducing misconceptions.",
+      "metrics": {
+        "items_checked": 81,
+        "items_unmet": 1,
+        "extra_problems": 1,
+        "ungrounded_dropped": 0,
+        "votes": 1
+      }
+    },
+    {
+      "check_id": "L2_COVERAGE",
+      "name": "All must-cover points taught",
+      "dimension": "covers the key points",
+      "kind": "llm",
+      "criterion": "Every must-cover point in the reference is actually taught (explained, not just named).",
+      "source": "core",
+      "passed": true,
+      "evidence": [],
+      "fix": "",
+      "reasoning": "I checked every requirement against the lesson content and found that all nine criteria were covered with clear explanations and examples suitable for the target audience. The lesson explains the components of RAG, the workflow, the rationale, and the inherent limitations accurately.",
+      "metrics": {
+        "items_checked": 9,
+        "items_unmet": 0,
+        "extra_problems": 0,
+        "ungrounded_dropped": 0,
+        "votes": 1
+      }
+    },
+    {
+      "check_id": "L3_JARGON",
+      "name": "Every technical term explained",
+      "dimension": "clear, no unexplained jargon",
+      "kind": "llm",
+      "criterion": "Every technical or English-uncommon term is explained in simple words at or before its first use in the body (a glossary at the end alone does not count). Acronyms are expanded on first use.",
+      "source": "core",
+      "passed": false,
+      "evidence": [
+        "'AI model' is explained in simple words at or before its FIRST use in the body. AUTOMATIC PRE-CHECK found no explanation in the sentence of first use: \"Retraining means teaching an AI model from the very beginning or changing how it thinks permanently.\". Mark met=true ONLY if you can quote an earlier explanation. -> \"Retraining means teaching an AI model from the very beginning\"",
+        "'retrieve' is explained in simple words at or before its FIRST use in the body. AUTOMATIC PRE-CHECK found no explanation in the sentence of first use: \"It simply retrieved the right page and generated the answer.\". Mark met=true ONLY if you can quote an earlier explanation. -> (not found)",
+        "'augmentation' is explained in simple words at or before its FIRST use in the body -> (not found)",
+        "'chunking' is explained in simple words at or before its FIRST use in the body -> (not found)",
+        "'index' is explained in simple words at or before its FIRST use in the body -> (not found)",
+        "'indexing' is explained in simple words at or before its FIRST use in the body -> (not found)",
+        "'hallucinate' is explained in simple words at or before its FIRST use in the body. AUTOMATIC PRE-CHECK found no explanation in the sentence of first use: \"We call this a hallucination.\". Mark met=true ONLY if you can quote an earlier explanation. -> (not found)",
+        "'knowledge cutoff' is explained in simple words at or before its FIRST use in the body. AUTOMATIC PRE-CHECK found no explanation in the sentence of first use: \"They only know information up to their \"knowledge cutoff\" date.\". Mark met=true ONLY if you can quote an earlier explanation. -> (not found)",
+        "'trained' is explained in simple words at or before its FIRST use in the body. AUTOMATIC PRE-CHECK found no explanation in the sentence of first use: \"An LLM is a computer program trained on massive amounts of text to predict and write human-like language.\". Mark met=true ONLY if you can quote an earlier explanation. -> (not found)",
+        "'database' is explained in simple words at or before its FIRST use in the body. AUTOMATIC PRE-CHECK found no explanation in the sentence of first use: \"You store these in a database for easy searching.\". Mark met=true ONLY if you can quote an earlier explanation. -> (not found)",
+        "Other problem -> \"AI model\"",
+        "Other problem -> \"augmentation\"",
+        "Other problem -> \"indexing\"",
+        "Other problem -> \"hallucinate\"",
+        "Other problem -> \"knowledge cutoff\"",
+        "Other problem -> \"trained\"",
+        "Other problem -> \"database\""
+      ],
+      "fix": "Add a simple sentence defining each missing term before its first use. For example, explain 'knowledge cutoff' as 'a date after which the AI does not know any new events or facts' and 'database' as 'a digital storage system used for keeping information organized so it can be searched quickly'.",
+      "reasoning": "The lesson introduces several technical terms without providing a clear, simple explanation before their first usage in the text. Specifically, terms like 'AI model', 'retrieve', 'augmentation', 'chunking', 'index', 'indexing', 'hallucinate', 'knowledge cutoff', 'trained', and 'database' were not defined before they appeared.",
+      "metrics": {
+        "items_checked": 23,
+        "items_unmet": 10,
+        "extra_problems": 7,
+        "ungrounded_dropped": 3,
+        "votes": 1
+      }
+    },
+    {
+      "check_id": "L4_EXAMPLES",
+      "name": "Concrete analogy and walk-through",
+      "dimension": "teaches by example",
+      "kind": "llm",
+      "criterion": "The lesson has (a) at least one everyday analogy a young Indian learner would recognise, correctly mapped to the topic, AND (b) one concrete worked example that follows a single case through every step the lesson lists under 'How does it work?', in order, to its result.",
+      "source": "core",
+      "passed": true,
+      "evidence": [],
+      "fix": "",
+      "reasoning": "The lesson provides a clear, relatable library student analogy for the LLM limitation. The worked example follows a single, specific student query about calculators through every required step of the RAG process (Indexing, Retrieval, Augmentation, Generation) sequentially, resulting in the correct final answer.",
+      "metrics": {
+        "items_checked": 5,
+        "items_unmet": 0,
+        "extra_problems": 0,
+        "ungrounded_dropped": 0,
+        "votes": 1
+      }
+    },
+    {
+      "check_id": "L5_LEARNER_FIT",
+      "name": "Fits a non-native English beginner",
+      "dimension": "beginner-friendly language",
+      "kind": "llm",
+      "criterion": "Uses common, everyday English words; no idioms, slang, sarcasm or culturally obscure references; assumes no coding, maths beyond class 12, or prior AI knowledge; tone is encouraging and direct.",
+      "source": "core",
+      "passed": true,
+      "evidence": [],
+      "fix": "",
+      "reasoning": "The lesson uses very clear, simple language and avoids complex jargon or idioms. It explains technical concepts like 'embeddings' and 'chunks' in a way that assumes no prior knowledge, making it very accessible for a beginner learner.",
+      "metrics": {
+        "items_checked": 5,
+        "items_unmet": 0,
+        "extra_problems": 0,
+        "ungrounded_dropped": 0,
+        "votes": 1
+      }
+    },
+    {
+      "check_id": "L6_FLOW",
+      "name": "Builds step by step",
+      "dimension": "coherent teaching flow",
+      "kind": "llm",
+      "criterion": "Ideas are introduced before they are used; sections go from what -> why -> how -> example -> limits -> recap; each section links to the previous one; nothing is repeated without purpose.",
+      "source": "core",
+      "passed": false,
+      "evidence": [
+        "'retrieval' is explained 5 times in the body (AUTOMATIC PRE-CHECK). met=true only if every repeat adds something new; re-glossing the same meaning is padding. -> \"1. Retrieval: This means finding the right information from your own documents. ... 2. Retrieval: When you ask a question, the system searches the database. It finds the chunks that have a meaning most similar to your question. ... 2. Retrieval: A student asks, \"Can I use a calculator in the exam?\" The system looks through your digital cabinet. ... If the retrieval step picks the wrong document ... During retrieval, the system finds relevant chunks and adds them to the prompt.\""
+      ],
+      "fix": "Remove the repetitive mentions of 'retrieval' and focus on defining the mechanism once clearly, or if keeping 5 mentions, ensure each one introduces a unique technical nuance (e.g., semantic search vs keyword search, vector similarity, retrieval windows, or performance metrics).",
+      "reasoning": "The lesson is structured logically and introduces concepts sequentially. However, it fails the automatic 'retrieval' repetition check because the term is merely re-defined or used in different steps of the process rather than adding conceptual depth or new information across 5 distinct explanations.",
+      "metrics": {
+        "items_checked": 5,
+        "items_unmet": 1,
+        "extra_problems": 0,
+        "ungrounded_dropped": 1,
+        "votes": 1
+      }
+    }
+  ],
+  "change_log": [
+    {
+      "check_id": "L3_JARGON",
+      "change": "Targeted edits failed twice, so the lesson was rewritten from scratch with this failure given as an explicit constraint."
+    },
+    {
+      "check_id": "L6_FLOW",
+      "change": "Targeted edits failed twice, so the lesson was rewritten from scratch with this failure given as an explicit constraint."
+    },
+    {
+      "check_id": "R4_LENGTH",
+      "change": "Targeted edits failed twice, so the lesson was rewritten from scratch with this failure given as an explicit constraint."
+    }
+  ],
+  "lesson_file": "attempt_3.md",
+  "injected": null,
+  "timestamp": "2026-10-22T03:57:53+00:00"
+}

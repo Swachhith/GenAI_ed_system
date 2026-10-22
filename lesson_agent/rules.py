@@ -220,6 +220,33 @@ def find_jargon(md: str, jargon: list[str]) -> list[str]:
     return [t for t in jargon if _term_re(t).search(body)]
 
 
+def jargon_to_check(md: str, jargon: list[str]) -> list[str]:
+    """One term per word family (chunk / chunks / chunking), in the form the lesson actually uses.
+
+    Asking a judge whether 'chunking' is explained, when the lesson only ever says 'chunk',
+    produces a failure nobody can fix.
+    """
+    body = _teaching_body(md).lower()
+
+    def related(a: str, b: str) -> bool:
+        a, b = a.lower(), b.lower()
+        short, long_ = sorted((a, b), key=len)
+        return bool(_term_re(a).fullmatch(b) or _term_re(b).fullmatch(a)
+                    or (len(short) >= 6 and long_.startswith(short[:-1])))
+
+    found = find_jargon(md, jargon)
+    out, used = [], set()
+    for t in found:
+        if t in used:
+            continue
+        family = [x for x in found if x not in used and related(t, x)]
+        used.update(family)
+        literal = [x for x in family if re.search(rf"(?<![a-z]){re.escape(x.lower())}(?![a-z])", body)]
+        # The most specific form the lesson really uses ("vector database" over "vector").
+        out.append(max(literal, key=len) if literal else min(family, key=len))
+    return out
+
+
 def _explains(term: str, sentence: str) -> bool:
     """Does this sentence explain `term`? Cues must attach to the term itself:
     "chunk (a small piece...)", "called a chunk", "a chunk is a...", "Chunk: a small...".

@@ -23,7 +23,7 @@ from dataclasses import dataclass
 from .llm import LLM, LLMError
 from .prompts import JUDGE_SYSTEM, judge_prompt
 from .rubric import Check
-from .rules import (ABSOLUTE_RE, RULES, RULES_WITH_REFERENCE, find_jargon, grounded, repeated_definitions, technical_claims,
+from .rules import (ABSOLUTE_RE, RULES, RULES_WITH_REFERENCE, find_jargon, jargon_to_check, grounded, repeated_definitions, technical_claims,
                     undefined_at_first_use)
 from .schemas import ItemCheck, JudgeVerdict
 
@@ -112,9 +112,10 @@ def _items_for(check: Check, lesson: str, reference: dict) -> list[Item]:
         return [Item(f"[{m['id']}] is taught (explained, not just named): {m['point']}", True)
                 for m in reference.get("must_cover", [])]
     if check.id == "L3_JARGON":
-        found = find_jargon(lesson, reference.get("jargon", []))
+        found = jargon_to_check(lesson, reference.get("jargon", []))
         suspects = dict(undefined_at_first_use(lesson, found))
-        return ([Item(f"'{t}' is explained in simple words at or before its FIRST use in the body. AUTOMATIC "
+        return ([Item(f"'{t}' (or a form of it, e.g. plural) is explained in simple words at or before its FIRST "
+                      f"use in the body. AUTOMATIC "
                       f"PRE-CHECK found no explanation in the sentence of first use: \"{suspects[t]}\". Mark met=true "
                       f"ONLY if you can quote an earlier explanation." if t in suspects else
                       f"'{t}' is explained in simple words at or before its FIRST use in the body", True) for t in found]

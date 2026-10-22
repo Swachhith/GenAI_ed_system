@@ -1,0 +1,29 @@
+--- attempt_1.md
++++ attempt_2.md
+@@ -26,7 +26,7 @@
+ 
+ Third, **Generation**. Generation means the **LLM** writes the final answer using the added information. 
+ 
+-Think of an open-book exam in your college. You enter the hall with your textbook. You do not memorise every page beforehand. When you read a tough question, you flip to the right page. You read those paragraphs. Then you write your final answer using that page. 
++Think of an open-book exam in your college. You enter the hall with your textbook. You do not memorise every page beforehand. When you read a tough question, you flip to the right page. You read those paragraphs. Then you write your final answer using that page.
+ 
+ **RAG** brings this exact open-book method to artificial intelligence.
+ 
+@@ -44,7 +44,7 @@
+ ## How does it work?
+ Building a **RAG** system happens in two main phases. The first phase prepares the documents. The second phase answers the user question. Here are the steps.
+ 
+-**1. Indexing:** The system collects your documents. It splits large files into small parts. You will meet the term **chunk**. A **chunk** is a small piece of text from a larger document. 
++**1. Indexing:** The system collects your documents. It splits large files into small parts. You will meet the term **chunk**. A **chunk** is a small piece of text split from a larger document. 
+ 
+ Next, the system turns each **chunk** into a list of numbers that capture meaning. You will meet the term **embedding**. An **embedding** is a list of numbers representing the meaning of a text piece. Finally, it stores these **embeddings** in a database so it can search them fast.
+ 
+@@ -57,7 +57,7 @@
+ ## Let's follow one example
+ Let us look at a college helpdesk bot. Suppose a student asks a private question about fee refund dates. 
+ 
+-**1. Indexing:** The college IT team gathers the official rulebook PDF. They chop the PDF into small **chunks** of text. They turn each **chunk** into an **embedding**, which is a list of numbers. They store these numbers in a vector database. You will meet the term **vector database**. A **vector database** is a special storage system made to search numbers that represent meaning. 
++**1. Indexing:** The college IT team gathers the official rulebook PDF. They chop the PDF into small **chunks** of text. A **chunk** is a small piece of text from a larger document. They turn each **chunk** into an **embedding**, which is a list of numbers. They store these numbers in a vector database. You will meet the term **vector database**. A **vector database** is a special storage system made to search numbers that represent meaning. 
+ 
+ **2. Query:** A student opens WhatsApp and types, "What is the last date to claim a hostel fee refund?" The system turns this question into an **embedding**. It searches the vector database. It finds the exact **chunk** from page 42 about hostel fee refunds.
+ 

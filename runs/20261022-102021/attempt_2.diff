@@ -1,0 +1,40 @@
+--- attempt_1.md
++++ attempt_2.md
+@@ -20,7 +20,7 @@
+ 
+ First, **Retrieval** means to find relevant information from a collection of documents. Second, **Augmented** means to add that found information directly to your question. Third, **Generation** means the LLM writes the final answer using the added information. 
+ 
+-Imagine you are sitting for an open-book exam in your college. You do not try to remember every single rule in your head. Instead, when a question arrives, you look up the correct page in your rulebook, place that page on your desk, and write your answer using those facts. RAG is simply that open-book method for artificial intelligence.
++Imagine you are sitting for an open-book exam in your college. You do not try to remember every single rule in your head. Instead, when a question arrives, you look up the correct page in your rulebook. You place that page on your desk. Then you write your answer using those facts. RAG is simply that open-book method for artificial intelligence.
+ 
+ ## Why does it matter?
+ Standard LLMs can easily give wrong answers about new topics or private rules. RAG fixes this big problem in several wonderful ways. 
+@@ -46,19 +46,16 @@
+ ## Let's follow one example
+ Let us look at a realistic use case. Imagine a college helpdesk bot answering questions from students using the official college rulebook. 
+ 
+-First, let us look at the preparation steps before any question is asked. The college collects the 50-page PDF rulebook. The system cuts this large document into small chunks of two paragraphs each. 
++Let us trace all eight steps using this rulebook example.
+ 
+-Next, the system converts every single chunk into an embedding. These embeddings are stored safely in a vector index. 
+-
+-Now, a student comes to the chat window and asks a question. The student types: "What is the fine for returning a library book late?" 
+-
+-Here is how the query flow works step by step:
+-
+-1. The system converts the student's question into an embedding.
+-2. The system searches the vector index for chunks with the most similar embeddings. It finds chunk number 14, which discusses library rules and fines.
+-3. The system takes chunk 14 and places it into the prompt together with the student's question. An instruction tells the model to use only the provided text.
+-4. The LLM reads chunk 14, which states that the fine is ten rupees per day. 
+-5. The LLM generates the final answer: "The fine for returning a library book late is ten rupees per day, according to page 12 of your rulebook."
++1. **Document collection**: The college gathers the 50-page PDF rulebook.
++2. **Chunking**: The system cuts this large document into small chunks of two paragraphs each.
++3. **Embedding creation**: The system converts every single chunk into an embedding.
++4. **Storage**: These embeddings are stored safely in a vector index.
++5. **Query embedding**: A student comes to the chat window and asks a question. The student types: "What is the fine for returning a library book late?" The system converts this question into an embedding.
++6. **Similarity search**: The system searches the vector index for chunks with the most similar embeddings. It finds chunk number 14, which discusses library rules and fines.
++7. **Prompt augmentation**: The system takes chunk 14 and places it into the prompt together with the student's question. An instruction tells the model to use only the provided text.
++8. **Generation**: The LLM reads chunk 14, which states that the fine is ten rupees per day. The LLM generates the final answer: "The fine for returning a library book late is ten rupees per day." It adds that this is according to page 12 of your rulebook.
+ 
+ This process happens in just a few seconds.
+ 

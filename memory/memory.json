@@ -148,66 +148,148 @@
         "L4_EXAMPLES: reinforced existing guideline G2",
         "R2_SENTENCES: reinforced existing guideline G1"
       ]
+    },
+    {
+      "run_id": "20261022-092343",
+      "topic": "Introduction to RAG",
+      "timestamp": "2026-10-22T03:58:27+00:00",
+      "status": "NEEDS_HUMAN_REVIEW",
+      "attempts": 3,
+      "injected": null,
+      "failed_per_attempt": [
+        [
+          "R4_LENGTH",
+          "L3_JARGON",
+          "L6_FLOW"
+        ],
+        [
+          "R1_STRUCTURE",
+          "R4_LENGTH",
+          "L1_ACCURACY",
+          "L2_COVERAGE",
+          "L3_JARGON",
+          "L6_FLOW"
+        ],
+        [
+          "L1_ACCURACY",
+          "L3_JARGON",
+          "L6_FLOW"
+        ]
+      ],
+      "learned": [
+        "L1_ACCURACY: reinforced existing guideline G4",
+        "L2_COVERAGE: reinforced existing guideline G4",
+        "L3_JARGON: reinforced existing guideline G3",
+        "L6_FLOW: new guideline G5 -> Introduce and define a technical concept only once in a dedicated section or paragraph to avoid repetitive padding.",
+        "R4_LENGTH: new guideline G6 -> Ensure the final draft contains between 850 and 1800 words to provide sufficient depth and coverage for a standard lesson."
+      ]
+    },
+    {
+      "run_id": "20261022-102021",
+      "topic": "Introduction to RAG",
+      "timestamp": "2026-10-22T04:52:47+00:00",
+      "status": "NEEDS_HUMAN_REVIEW",
+      "attempts": 3,
+      "injected": null,
+      "failed_per_attempt": [
+        [
+          "R2_SENTENCES",
+          "L4_EXAMPLES"
+        ],
+        [
+          "R2_SENTENCES",
+          "L3_JARGON"
+        ],
+        [
+          "R2_SENTENCES",
+          "L4_EXAMPLES"
+        ]
+      ],
+      "learned": [
+        "L3_JARGON: reinforced existing guideline G3",
+        "L4_EXAMPLES: reinforced existing guideline G2",
+        "R2_SENTENCES: reinforced existing guideline G1"
+      ]
+    },
+    {
+      "run_id": "20261022-102658",
+      "topic": "Introduction to RAG",
+      "timestamp": "2026-10-22T04:58:10+00:00",
+      "status": "PASSED",
+      "attempts": 3,
+      "injected": null,
+      "failed_per_attempt": [
+        [
+          "L3_JARGON"
+        ],
+        [
+          "L3_JARGON"
+        ],
+        []
+      ],
+      "learned": [
+        "L3_JARGON: reinforced existing guideline G3"
+      ]
     }
   ],
   "check_stats": {
     "R1_STRUCTURE": {
-      "evaluated": 20,
-      "failed": 0,
+      "evaluated": 29,
+      "failed": 1,
       "first_draft_failed": 0
     },
     "R2_SENTENCES": {
-      "evaluated": 20,
-      "failed": 8,
-      "first_draft_failed": 4
+      "evaluated": 29,
+      "failed": 11,
+      "first_draft_failed": 5
     },
     "R3_READABILITY": {
-      "evaluated": 20,
+      "evaluated": 29,
       "failed": 0,
       "first_draft_failed": 0
     },
     "R4_LENGTH": {
-      "evaluated": 20,
-      "failed": 0,
-      "first_draft_failed": 0
+      "evaluated": 29,
+      "failed": 2,
+      "first_draft_failed": 1
     },
     "R5_QUIZ": {
-      "evaluated": 20,
+      "evaluated": 29,
       "failed": 0,
       "first_draft_failed": 0
     },
     "L1_ACCURACY": {
-      "evaluated": 20,
-      "failed": 2,
+      "evaluated": 29,
+      "failed": 4,
       "first_draft_failed": 2
     },
     "L2_COVERAGE": {
-      "evaluated": 20,
-      "failed": 1,
+      "evaluated": 29,
+      "failed": 2,
       "first_draft_failed": 1
     },
     "L3_JARGON": {
-      "evaluated": 20,
-      "failed": 5,
-      "first_draft_failed": 4
+      "evaluated": 29,
+      "failed": 11,
+      "first_draft_failed": 6
     },
     "L4_EXAMPLES": {
-      "evaluated": 20,
-      "failed": 5,
-      "first_draft_failed": 4
+      "evaluated": 29,
+      "failed": 7,
+      "first_draft_failed": 5
     },
     "L5_LEARNER_FIT": {
-      "evaluated": 20,
+      "evaluated": 29,
       "failed": 1,
       "first_draft_failed": 0
     },
     "L6_FLOW": {
-      "evaluated": 20,
-      "failed": 1,
-      "first_draft_failed": 1
+      "evaluated": 29,
+      "failed": 4,
+      "first_draft_failed": 2
     },
     "R6_RESOURCES": {
-      "evaluated": 8,
+      "evaluated": 17,
       "failed": 0,
       "first_draft_failed": 0
     }
@@ -233,6 +315,26 @@
           "Other problem -> \"Second, it stops the model from making up wild lies.\""
         ],
         "fix": "Change the sentence under 'Why does RAG matter?' from 'Second, it stops the model from making up wild lies.' to 'Second, it greatly reduces made-up answers from the model.'"
+      },
+      {
+        "run_id": "20261022-092343",
+        "attempt": 2,
+        "evidence": [
+          "ABSOLUTE CLAIM: \"Retraining means teaching the AI model from scratch or changing how it thinks permanently.\" The word 'permanently' makes this an all-or-nothing claim. met=true ONLY if it is literally true with no exceptions according to the reference facts (check the facts about limits). -> \"Retraining means teaching the AI model from scratch or changing how it thinks permanently.\"",
+          "ABSOLUTE CLAIM: \"RAG reduces hallucination, but it does not stop it completely.\" The word 'stop' makes this an all-or-nothing claim. met=true ONLY if it is literally true with no exceptions according to the reference facts (check the facts about limits). -> \"RAG reduces hallucination, but it does not stop it completely.\"",
+          "ABSOLUTE CLAIM: \"Always check the answers because the AI can still make mistakes.\" The word 'Always' makes this an all-or-nothing claim. met=true ONLY if it is literally true with no exceptions according to the reference facts (check the facts about limits). -> \"Always check the answers because the AI can still make mistakes.\"",
+          "Other problem -> \"Retraining means teaching the AI model from scratch or changing how it thinks permanently.\""
+        ],
+        "fix": "Remove the absolute qualifiers to make the statements accurate. For example, change 'permanently' to 'significantly', change 'stop' to 'eliminate', and remove 'Always' or replace it with 'It is recommended to check' to reflect the probabilistic nature of LLMs."
+      },
+      {
+        "run_id": "20261022-092343",
+        "attempt": 3,
+        "evidence": [
+          "ABSOLUTE CLAIM: \"Retraining means teaching an AI model from the very beginning or changing how it thinks permanently.\" The word 'permanently' makes this an all-or-nothing claim. met=true ONLY if it is literally true with no exceptions according to the reference facts (check the facts about limits). -> \"Retraining means teaching an AI model from the very beginning or changing how it thinks permanently.\"",
+          "Other problem -> \"Retraining means teaching an AI model from the very beginning or changing how it thinks permanently.\""
+        ],
+        "fix": "Change the sentence to: 'Retraining typically involves updating the model's internal parameters (weights) to incorporate new information, whereas RAG keeps this information separate.'"
       }
     ],
     "L2_COVERAGE": [
@@ -244,6 +346,15 @@
           "Here is the secret: RAG works by retraining the AI model on your documents. After that, the model remembers them forever, so its answers are always correct."
         ],
         "fix": "Remove the paragraph claiming that RAG retrains the AI model and guarantees always-correct answers, as it contradicts the core definition of RAG taught elsewhere in the lesson."
+      },
+      {
+        "run_id": "20261022-092343",
+        "attempt": 2,
+        "evidence": [
+          "[M2] is taught (explained, not just named): A plain definition of RAG that explains all three words: Retrieval (find relevant information), Augmented (add that information to the question/prompt), Generation (the LLM writes the answer). -> \"(no proof: quote not found in the lesson) 1. Retrieval: Finding the right information from your own documents. 2. Augmented: Adding this found information to your question as a helper. 3. Generation: The AI writes a clear answer using the helper information.\"",
+          "[M4] is taught (explained, not just named): The preparation (indexing) step: documents are collected, split into small pieces (chunks), and stored in a searchable form. At a simple level, chunks are turned into embeddings (numbers that capture meaning) so similar text can be found. -> \"(no proof: quote not found in the lesson) 1. Collect: Gather all your documents, like PDFs or text files. 2. Chunking: Split these documents into small pieces called chunks. 3. Embed: Turn these chunks into embeddings. An embedding is a long list of numbers that represents the meaning of the text. 4. Store: Save these numbers in a search database.\""
+        ],
+        "fix": "Fix each unmet item listed in the evidence."
       }
     ],
     "L3_JARGON": [
@@ -301,6 +412,63 @@
           "Other problem -> \"high-dimensional space\""
         ],
         "fix": "Move the definitions or provide simple explanations for 'high-dimensional space', 'neural network', and 'lossy compression' right before or at their very first appearance in the text."
+      },
+      {
+        "run_id": "20261022-092343",
+        "attempt": 1,
+        "evidence": [
+          "'LLM' is explained in simple words at or before its FIRST use in the body -> (not found)",
+          "'large language model' is explained in simple words at or before its FIRST use in the body -> (not found)",
+          "'language model' is explained in simple words at or before its FIRST use in the body. AUTOMATIC PRE-CHECK found no explanation in the sentence of first use: \"LLM stands for Large Language Model.\". Mark met=true ONLY if you can quote an earlier explanation. -> (not found)",
+          "'prompt' is explained in simple words at or before its FIRST use in the body. AUTOMATIC PRE-CHECK found no explanation in the sentence of first use: \"Augment: The system takes those chunks and puts them into the prompt along with your question.\". Mark met=true ONLY if you can quote an earlier explanation. -> (not found)"
+        ],
+        "fix": "Move the glossary definitions into the main body text so that they appear before or immediately at the first use of the term. For example, define 'LLM' in the very first paragraph where it is mentioned, and explain 'prompt' before the 'Search' or 'Augment' steps."
+      },
+      {
+        "run_id": "20261022-092343",
+        "attempt": 2,
+        "evidence": [
+          "'AI model' is explained in simple words at or before its FIRST use in the body. AUTOMATIC PRE-CHECK found no explanation in the sentence of first use: \"Retraining means teaching the AI model from scratch or changing how it thinks permanently.\". Mark met=true ONLY if you can quote an earlier explanation. -> (not found)",
+          "'language model' is explained in simple words at or before its FIRST use in the body. AUTOMATIC PRE-CHECK found no explanation in the sentence of first use: \"LLM stands for Large Language Model.\". Mark met=true ONLY if you can quote an earlier explanation. -> (not found)",
+          "'index' is explained in simple words at or before its FIRST use in the body -> (not found)",
+          "'hallucinate' is explained in simple words at or before its FIRST use in the body -> (not found)"
+        ],
+        "fix": "Add a simple explanation for 'AI model' in the 'Before we start' section. For 'language model', 'index', and 'hallucinate', provide a brief definition before or at their first occurrence to match the definitions provided for the other terms."
+      },
+      {
+        "run_id": "20261022-092343",
+        "attempt": 3,
+        "evidence": [
+          "'AI model' is explained in simple words at or before its FIRST use in the body. AUTOMATIC PRE-CHECK found no explanation in the sentence of first use: \"Retraining means teaching an AI model from the very beginning or changing how it thinks permanently.\". Mark met=true ONLY if you can quote an earlier explanation. -> \"Retraining means teaching an AI model from the very beginning\"",
+          "'retrieve' is explained in simple words at or before its FIRST use in the body. AUTOMATIC PRE-CHECK found no explanation in the sentence of first use: \"It simply retrieved the right page and generated the answer.\". Mark met=true ONLY if you can quote an earlier explanation. -> (not found)",
+          "'augmentation' is explained in simple words at or before its FIRST use in the body -> (not found)",
+          "'chunking' is explained in simple words at or before its FIRST use in the body -> (not found)"
+        ],
+        "fix": "Add a simple sentence defining each missing term before its first use. For example, explain 'knowledge cutoff' as 'a date after which the AI does not know any new events or facts' and 'database' as 'a digital storage system used for keeping information organized so it can be searched quickly'."
+      },
+      {
+        "run_id": "20261022-102021",
+        "attempt": 2,
+        "evidence": [
+          "'prompt' is explained in simple words at or before its FIRST use in the body. AUTOMATIC PRE-CHECK found no explanation in the sentence of first use: \"Prompt augmentation: The system places the retrieved text pieces into the prompt along with the user's question.\". Mark met=true ONLY if you can quote an earlier explanation. -> \"(no proof: quote not found in the lesson) Seventh, prompt augmentation means placing the retrieved text pieces into the instructions along with the user's question.\""
+        ],
+        "fix": "Fix each unmet item listed in the evidence."
+      },
+      {
+        "run_id": "20261022-102658",
+        "attempt": 1,
+        "evidence": [
+          "'chunking' is explained in simple words at or before its FIRST use in the body -> \"(no proof: quote not found in the lesson)\""
+        ],
+        "fix": "Fix each unmet item listed in the evidence."
+      },
+      {
+        "run_id": "20261022-102658",
+        "attempt": 2,
+        "evidence": [
+          "'chunking' is explained in simple words at or before its FIRST use in the body -> \"(no proof: quote not found in the lesson)\""
+        ],
+        "fix": "Fix each unmet item listed in the evidence."
       }
     ],
     "L6_FLOW": [
@@ -312,6 +480,31 @@
           "Here is the secret: RAG works by retraining the AI model on your documents. After that, the model remembers them forever, so its answers are always correct."
         ],
         "fix": "Remove the incorrect sentence claiming RAG works by retraining the AI model at the beginning of the 'How does RAG work?' section, as it contradicts the correct explanation given a few paragraphs later ('RAG does not change the model's weights. There is no retraining.')."
+      },
+      {
+        "run_id": "20261022-092343",
+        "attempt": 1,
+        "evidence": [
+          "Every idea or term is introduced before it is used (quote any used before being introduced). -> \"The term 'prompt' is used in the 'How does it work?' section without prior definition. It is only defined later in the 'Key words' section.\""
+        ],
+        "fix": "Define the term 'prompt' in the 'What is RAG?' or 'How does it work?' section before it is used for the first time."
+      },
+      {
+        "run_id": "20261022-092343",
+        "attempt": 2,
+        "evidence": [
+          "Sections follow the planned order: what you will learn -> before we start (the prerequisite) -> what is it -> why -> how -> example -> limits -> recap -> check yourself -> key words -> learn more. (This order is required; do not fail it for having the prerequisite before the definition.) -> \"The section 'Key words' is missing from the lesson.\"",
+          "'generation' is explained 4 times in the body (AUTOMATIC PRE-CHECK). met=true only if every repeat adds something new; re-glossing the same meaning is padding. -> \"The term 'generation' is defined in the introduction of RAG (as part of the name), in the RAG breakdown (as a step), and in the process description. It is not defined 4 distinct times with new meaning.\""
+        ],
+        "fix": "Add a 'Key words' section after 'Check yourself' that defines terms like RAG, LLM, Chunking, and Embeddings. For the 'generation' requirement, ensure you explain the term in four distinct contexts (e.g., as part of the acronym, as the final step of the pipeline, as a creative process in LLMs, and as a contrast to retrieval)."
+      },
+      {
+        "run_id": "20261022-092343",
+        "attempt": 3,
+        "evidence": [
+          "'retrieval' is explained 5 times in the body (AUTOMATIC PRE-CHECK). met=true only if every repeat adds something new; re-glossing the same meaning is padding. -> \"1. Retrieval: This means finding the right information from your own documents. ... 2. Retrieval: When you ask a question, the system searches the database. It finds the chunks that have a meaning most similar to your question. ... 2. Retrieval: A student asks, \"Can I use a calculator in the exam?\" The system looks through your digital cabinet. ... If the retrieval step picks the wrong document ... During retrieval, the system finds relevant chunks and adds them to the prompt.\""
+        ],
+        "fix": "Remove the repetitive mentions of 'retrieval' and focus on defining the mechanism once clearly, or if keeping 5 mentions, ensure each one introduces a unique technical nuance (e.g., semantic search vs keyword search, vector similarity, retrieval windows, or performance metrics)."
       }
     ],
     "R2_SENTENCES": [
@@ -385,6 +578,31 @@
           "(28 words) This is a realistic use case of building a semantic search engine or recommendation system that finds documents or products with similar meanings rather than exact keyword matches."
         ],
         "fix": "Split every sentence longer than 25 words into two or three short sentences. One idea per sentence."
+      },
+      {
+        "run_id": "20261022-102021",
+        "attempt": 1,
+        "evidence": [
+          "(27 words) Instead, when a question arrives, you look up the correct page in your rulebook, place that page on your desk, and write your answer using those facts.",
+          "(26 words) The LLM generates the final answer: \"The fine for returning a library book late is ten rupees per day, according to page 12 of your rulebook.\""
+        ],
+        "fix": "Split every sentence longer than 25 words into two or three short sentences. One idea per sentence."
+      },
+      {
+        "run_id": "20261022-102021",
+        "attempt": 2,
+        "evidence": [
+          "(31 words) The LLM generates the final answer: \"The fine for returning a library book late is ten rupees per day.\" It adds that this is according to page 12 of your rulebook."
+        ],
+        "fix": "Split every sentence longer than 25 words into two or three short sentences. One idea per sentence."
+      },
+      {
+        "run_id": "20261022-102021",
+        "attempt": 3,
+        "evidence": [
+          "(36 words) Finally, the LLM reads chunk twelve and generates the final answer: \"The fine for returning a library book late is ten rupees per day.\" The answer is accurate because the model read the real rulebook page."
+        ],
+        "fix": "Split every sentence longer than 25 words into two or three short sentences. One idea per sentence."
       }
     ],
     "L4_EXAMPLES": [
@@ -433,6 +651,22 @@
           "Other problem -> \"Worked example step 2: 'Second, you feed these paragraphs into a neural network model. The model reads the text and checks how words appear next to each other.'\""
         ],
         "fix": "Revise the 'Let's follow one example' section so that it explicitly maps the concrete case (e.g., the Delhi street food book) through the exact three steps listed under 'How does it work?' in the exact order given, using those exact phases."
+      },
+      {
+        "run_id": "20261022-102021",
+        "attempt": 1,
+        "evidence": [
+          "The worked example goes through EVERY step listed in the 'How does it work?' section, in the same order, applied to that one case (name any step it skips). -> \"1. The system converts the student's question into an embedding. 2. The system searches the vector index for chunks with the most similar embeddings. It finds chunk number 14, which discusses library rules and fines. 3. The system takes chunk 14 and places it into the prompt together with the student's question. An instruction tells the model to use only the provided text. 4. The LLM reads chunk 14, which states that the fine is ten rupees per day. 5. The LLM generates the final answer...\""
+        ],
+        "fix": "Update the 'Let's follow one example' section so that it explicitly mentions how the chosen example document (e.g., the library rule page) goes through document collection, chunking, embedding creation, and storage before the student asks the question, matching all 8 steps from the 'How does it work?' section in order."
+      },
+      {
+        "run_id": "20261022-102021",
+        "attempt": 3,
+        "evidence": [
+          "The worked example goes through EVERY step listed in the 'How does it work?' section, in the same order, applied to that one case (name any step it skips). -> \"First, the college collects the rulebook PDF. The system splits the PDF into small chunks. It turns every chunk into a list of numbers representing meaning and stores them. This setup happens before any student asks a question. Next, a student types a question... It finds chunk number twelve... Then, the system copies chunk twelve into a prompt... Finally, the LLM reads chunk twelve and generates the final answer\""
+        ],
+        "fix": "In the 'Let's follow one example' section, explicitly label or write out sentences corresponding to storage and querying as numbers/embeddings so that every single one of the 7 steps from 'How does it work?' is tracked sequentially for the student's question."
       }
     ],
     "L5_LEARNER_FIT": [
@@ -445,6 +679,34 @@
         ],
         "fix": "Change the subheading 'What is Embeddings?' to 'What are embeddings?' or 'What is an embedding?' to fix the grammar error."
       }
+    ],
+    "R4_LENGTH": [
+      {
+        "run_id": "20261022-092343",
+        "attempt": 1,
+        "evidence": [
+          "Word count is 801 (allowed 850-1800)."
+        ],
+        "fix": "Expand to at least 850 words by adding explanation and examples."
+      },
+      {
+        "run_id": "20261022-092343",
+        "attempt": 2,
+        "evidence": [
+          "Word count is 849 (allowed 850-1800)."
+        ],
+        "fix": "Expand to at least 850 words by adding explanation and examples."
+      }
+    ],
+    "R1_STRUCTURE": [
+      {
+        "run_id": "20261022-092343",
+        "attempt": 2,
+        "evidence": [
+          "Missing section: glossary"
+        ],
+        "fix": "Add an H2 section for: glossary"
+      }
     ]
   },
   "guidelines": [
@@ -454,7 +716,7 @@
       "source": "learned",
       "check_id": "R2_SENTENCES",
       "created": "2026-10-21T07:21:26+00:00",
-      "hits": 5,
+      "hits": 6,
       "active": true
     },
     {
@@ -463,7 +725,7 @@
       "source": "learned",
       "check_id": "L4_EXAMPLES",
       "created": "2026-10-21T07:22:14+00:00",
-      "hits": 3,
+      "hits": 4,
       "active": true
     },
     {
@@ -472,7 +734,7 @@
       "source": "learned",
       "check_id": "L3_JARGON",
       "created": "2026-10-21T07:25:58+00:00",
-      "hits": 3,
+      "hits": 6,
       "active": true
     },
     {
@@ -481,6 +743,24 @@
       "source": "learned",
       "check_id": "L1_ACCURACY",
       "created": "2026-10-22T03:02:24+00:00",
+      "hits": 3,
+      "active": true
+    },
+    {
+      "id": "G5",
+      "text": "Introduce and define a technical concept only once in a dedicated section or paragraph to avoid repetitive padding.",
+      "source": "learned",
+      "check_id": "L6_FLOW",
+      "created": "2026-10-22T03:58:21+00:00",
+      "hits": 1,
+      "active": true
+    },
+    {
+      "id": "G6",
+      "text": "Ensure the final draft contains between 850 and 1800 words to provide sufficient depth and coverage for a standard lesson.",
+      "source": "learned",
+      "check_id": "R4_LENGTH",
+      "created": "2026-10-22T03:58:27+00:00",
       "hits": 1,
       "active": true
     }
