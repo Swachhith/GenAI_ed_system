@@ -4,24 +4,72 @@ An agentic system that **researches the topic on the web, writes a beginner less
 
 - **Topic for submission:** Introduction to RAG (Retrieval-Augmented Generation). The system itself is **topic-general**: `--topic` takes any topic, and nothing in the template, rubric or tests is specific to RAG (see decision 0).
 - **Learner:** a class-12 graduate in India from a non-English-medium school, with limited English vocabulary and no coding background, who wants to start an AI career.
-- **Stack:** Python, LangGraph (orchestration), Pydantic structured outputs, JSON-file memory. **Works with any chat model**: Claude, Gemini/Gemma, or anything behind an OpenAI-compatible API (OpenAI, OpenRouter, Groq, Together, DeepSeek, Ollama, LM Studio, vLLM). The writer and the judge can come from different providers. The submission runs used `gemini-3.5-flash-lite` (free tier).
+- **Stack:** Python, LangGraph (orchestration), Pydantic structured outputs, JSON-file memory. **Works with any chat model**: Claude, Gemini/Gemma, or anything behind an OpenAI-compatible API (OpenAI, OpenRouter, Groq, Together, DeepSeek, Ollama, LM Studio, vLLM). The writer and the judge can come from different providers. Current config: `gemini-3.1-flash-lite` (Gemini free tier); earlier runs in `runs/` used `gemini-3.5-flash-lite`.
+- **Internet access:** Tavily web search for fresh facts and learning resources; every link is verified live before it can appear in a lesson.
 
 ---
 
-## Quick start
+## Setup (about 5 minutes)
+
+**You need:** Python 3.10 or newer, git, and two free API keys:
+- a **Gemini API key** from [Google AI Studio](https://aistudio.google.com/apikey) (free tier is enough), and
+- a **Tavily API key** from [tavily.com](https://tavily.com) (free tier; optional, but needed for web research and verified links).
+
+Any other provider works too (Claude, OpenAI, OpenRouter, Groq, Ollama...); see *Choosing models* below.
+
+**1. Clone and install**
 
 ```bash
+git clone https://github.com/Swachhith/GenAI_ed_system.git
+cd GenAI_ed_system
 python -m venv .venv
 .venv\Scripts\activate            # macOS/Linux: source .venv/bin/activate
 pip install -r requirements.txt
-copy .env.example .env            # macOS/Linux: cp .env.example .env   -> add your API key
-
-python -m lesson_agent run                      # full loop on "Introduction to RAG"
-python -m lesson_agent run --inject factual     # plant a deliberate error and watch it get caught
-python -m lesson_agent research                 # web step only: fresh facts + live-verified videos/articles
-python -m lesson_agent calibrate                # test the evaluator itself: plant known defects, measure what it catches
-python -m pytest -q                             # offline tests (no API key needed)
 ```
+
+**2. Add your keys**
+
+```bash
+copy .env.example .env            # macOS/Linux: cp .env.example .env
+```
+
+Open `.env` and set (replace the example lines at the top):
+
+```ini
+LLM_PROVIDER=gemini
+GEMINI_API_KEY=your-gemini-key
+GENERATOR_MODEL=gemini-3.1-flash-lite
+EVALUATOR_MODEL=gemini-3.1-flash-lite
+EVAL_CONCURRENCY=2                 # free tier allows ~15 requests/minute
+TAVILY_API_KEY=your-tavily-key     # optional: web research + verified videos/articles
+```
+
+`.env` is gitignored, so your keys never get committed.
+
+**3. Check the install (no API calls, ~5 seconds)**
+
+```bash
+python -m pytest -q                # expect: 45 passed
+```
+
+**4. Run it**
+
+```bash
+python -m lesson_agent run --topic "Introduction to RAG"          # the full loop (3-6 min on the free tier)
+python -m lesson_agent run --topic "Introduction to RAG" --inject factual   # plant a deliberate error, watch it get caught
+python -m lesson_agent run --topic "Introduction to Embeddings"   # any topic works (reference sheet drafted from the web)
+python -m lesson_agent evaluate output/final_lesson.md            # grade any lesson file, no regeneration
+python -m lesson_agent research --topic "Introduction to RAG"     # web step only: fresh facts + live-verified links
+python -m lesson_agent memory show                                # what the system has learned so far
+```
+
+On the free tier you will see lines like `(Gemini 429: waiting 20s before retrying)`. That is the rate limit, handled automatically; the run continues.
+
+**Troubleshooting**
+- `LLM_PROVIDER must be one of ...`: check the spelling in `.env`.
+- `Set GENERATOR_MODEL ...`: the `openai` provider has no default model; set both model names.
+- Many 429 waits: lower `EVAL_CONCURRENCY` to 1, or use a paid key.
+- No `Learn more` links in the lesson: `TAVILY_API_KEY` is missing or the network is blocked; the system falls back to the curated links for curated topics, and leaves links out otherwise.
 
 Outputs land in `runs/<run_id>/` (every draft, every evaluation, diffs). Stable copies of the latest result go in `output/`:
 
@@ -43,6 +91,9 @@ Outputs land in `runs/<run_id>/` (every draft, every evaluation, diffs). Stable 
 | `20261021-125344` | Final lesson (`output/final_lesson.md`); G1/G2 reinforced, G3 learned |
 | `calibration-20261021-153301` | Rubric calibration **before** the hardening below: 5/7 planted defects caught, 1 false alarm, 8 spillover |
 | `calibration-20261021-154802` | Rubric calibration **after**: 7/7 caught, 0 false alarms, 2 spillover (also in `output/calibration.md`) |
+| `20261022-082834` | Web research + verified links added. Sentence-length and jargon fixes undid each other; retry budget used, **correctly not shipped**. Led to the "explain a term in its own short sentence" rule |
+| `20261022-083015` | **Current final lesson** (`output/final_lesson.md`): accuracy + sentence failures fixed in one targeted revision, 12/12; verified IBM video, articles and a Hindi video in *Learn more*; guideline **G4** learned |
+| `20261022-085459` | **Any topic:** "Introduction to Embeddings", no curated sheet, so the reference sheet was drafted from web search; 8 verified videos; full write, evaluate, revise loop; retry budget used, so held for human review |
 
 ### Choosing models (any provider)
 
@@ -51,8 +102,8 @@ Set the provider and models in `.env`. A `provider:` prefix sends one role to a 
 ```ini
 # one provider for both roles
 LLM_PROVIDER=gemini
-GENERATOR_MODEL=gemini-3.5-flash-lite
-EVALUATOR_MODEL=gemini-3.5-flash-lite
+GENERATOR_MODEL=gemini-3.1-flash-lite
+EVALUATOR_MODEL=gemini-3.1-flash-lite
 
 # any OpenAI-compatible endpoint (OpenAI, OpenRouter, Groq, Ollama, vLLM, ...)
 LLM_PROVIDER=openai
@@ -62,7 +113,7 @@ GENERATOR_MODEL=llama3.1:8b
 EVALUATOR_MODEL=qwen2.5:14b
 
 # mix: a cheap model writes, a stronger one from another provider judges
-GENERATOR_MODEL=gemini:gemini-3.5-flash-lite
+GENERATOR_MODEL=gemini:gemini-3.1-flash-lite
 EVALUATOR_MODEL=anthropic:claude-opus-5-5
 JUDGE_VOTES=3        # optional: 3 independent judge samples, majority per item (steadies small judges)
 ```
@@ -74,7 +125,8 @@ Models without native structured output (or that reject JSON mode or system prom
 ```bash
 python -m lesson_agent run [--topic "..."] [--inject MODE] [--max-retries N]
 python -m lesson_agent evaluate path/to/lesson.md      # grade any lesson file, no regeneration
-python -m lesson_agent calibrate [--lesson FILE] [--modes factual,idiom]   # recall / false alarms of the rubric
+python -m lesson_agent research [--topic "..."]          # web research only
+python -m lesson_agent calibrate [--topic "..."] [--lesson FILE] [--modes factual,idiom]   # recall / false alarms of the rubric
 python -m lesson_agent feedback "Learners didn't know the word 'leverage'"             # adds a writing guideline
 python -m lesson_agent feedback "Every analogy must say where it breaks" --as-check    # adds a rubric check
 python -m lesson_agent memory show | reset
@@ -108,10 +160,10 @@ graph TD
 | `lesson_agent/rules.py` | Deterministic checks (readability, sentence length, structure, length, quiz) |
 | `lesson_agent/evaluator.py` | Runs the rubric: rule checks locally, LLM judges in parallel |
 | `lesson_agent/prompts.py` | All prompts: writer, reviser, judge, learner |
-| `lesson_agent/knowledge.py` + `knowledge/rag.json` | The grounding reference sheet (facts, must-cover points, misconceptions) |
+| `lesson_agent/knowledge.py` + `knowledge/*.json` | Reference sheets, the only place topic knowledge lives: curated (`rag.json`) or drafted from web search for any other topic |
 | `lesson_agent/memory.py` | Persistent memory: run history, per-check stats, failure evidence, guidelines, learned checks |
 | `lesson_agent/learner.py` | Self-evolution: failures become guidelines, feedback becomes checks |
-| `lesson_agent/inject.py` | Deliberate error injection: 7 known defects (factual, overclaim, wrong-actor, jargon, idiom, long-sentence, missing-limits) |
+| `lesson_agent/inject.py` | Deliberate error injection: 8 defect types, each built from the topic's reference sheet (factual, subtle, overclaim, jargon, idiom, long-sentence, fake-link, missing-limits) |
 | `lesson_agent/calibrate.py` | Tests the evaluator: plants each defect into a known-good lesson, reports recall, false alarms and spillover |
 | `lesson_agent/report.py` | Writes the lesson and the rejection log |
 | `lesson_agent/llm.py` | Provider layer (Claude, Gemini, any OpenAI-compatible API, per-role routing) with two methods: `text()` and `structured()` |
@@ -124,16 +176,16 @@ The lesson ships only if **every** check passes. There is no weighted score. A w
 
 | ID | Dimension | Kind | PASS means |
 |---|---|---|---|
-| R1_STRUCTURE | coherent flow | rule | H2 sections for what, why, how, example, limits, recap, quiz, key words |
+| R1_STRUCTURE | coherent flow | rule | H2 sections for the prerequisite, what, why, how, example, limits, recap, quiz, key words |
 | R2_SENTENCES | beginner language | rule | average ≤ 15 words per sentence and no sentence > 25 words |
 | R3_READABILITY | beginner language | rule | Flesch Reading Ease ≥ 60 (plain English) |
 | R4_LENGTH | covers key points | rule | 850–1800 words (one sitting for a slow reader) |
 | R5_QUIZ | teaches by example | rule | ≥ 3 self-check questions with answers |
 | R6_RESOURCES | teaches by example | rule | a 'Learn more' section with 2–4 links, at least one video, and **every** URL in the lesson is on the list verified live during research (no invented links) |
 | L1_ACCURACY | accurate & grounded | LLM | **every** claim sentence (extracted by code, checked one by one) agrees with the reference sheet; no overclaim; no listed misconception stated or implied |
-| L2_COVERAGE | covers key points | LLM | every must-cover point (M1–M9) is actually taught |
+| L2_COVERAGE | covers key points | LLM | every must-cover point on the topic's reference sheet is actually taught |
 | L3_JARGON | no unexplained jargon | LLM | every technical term explained at or before its first use (a glossary alone doesn't count) |
-| L4_EXAMPLES | teaches by example | LLM | an Indian everyday analogy mapped correctly, plus one question walked through every RAG step |
+| L4_EXAMPLES | teaches by example | LLM | an Indian everyday analogy mapped correctly, plus one concrete case walked through every step of "How does it work?" |
 | L5_LEARNER_FIT | beginner language | LLM | common words, no idioms or slang, no assumed coding or AI knowledge, encouraging tone |
 | L6_FLOW | coherent flow | LLM | ideas introduced before use; what → why → how → example → limits → recap; no re-glossing the same term over and over |
 | H*_… | (learned) | LLM | added at run time from human feedback via `feedback --as-check` |
@@ -212,7 +264,7 @@ The submission runs used `gemini-3.5-flash-lite` (Gemini free tier) as both writ
 
 ### Known limitations
 
-- **After the topic-general refactor, live re-calibration is incomplete.** The calibration numbers above (7/7) are from before the refactor. A partial re-run on RAG with the new topic-built defects caught 5/5 planted defects before I stopped it, but raised one false alarm (L3_JARGON) on the clean lesson. A live run on an uncurated topic (`runs/20261022-085459`, "Introduction to Embeddings") worked end to end: reference sheet drafted from the web, 8 verified videos, write → evaluate → revise. It ended in NEEDS_HUMAN_REVIEW after the retry budget, so it was correctly not shipped.
+- **Calibration status.** Full calibration: 7/7 planted defects caught with 0 false alarms (`gemini-3.5-flash-lite`). After the topic-general refactor, a partial re-run with the new topic-built defects caught every defect it reached (5/5); one false alarm on the clean lesson (a jargon flag) remains open. Re-running `calibrate` after any model or prompt change is part of the workflow.
 
 - LLM judges can still be wrong. Evidence quoting makes that visible in the log, and `calibrate` measures it, but it doesn't make the judges infallible. With `gemini-3.5-flash-lite` as the judge, the hardened rubric now rejects the old shipped lesson's overclaim, but still misses its grammar slip ("is called **hallucinate**") and "AI models usually forget private or new facts". A stronger judge (one line in `.env`, any provider) or `JUDGE_VOTES=3` is the fix.
 - Judges vary from run to run: the same lesson failed L2 on one evaluation and passed it on another. `JUDGE_VOTES=3` (majority per item) reduces this at 3x the judge cost.
