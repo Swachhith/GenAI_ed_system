@@ -92,8 +92,9 @@ Outputs land in `runs/<run_id>/` (every draft, every evaluation, diffs). Stable 
 | `calibration-20261021-153301` | Rubric calibration **before** the hardening below: 5/7 planted defects caught, 1 false alarm, 8 spillover |
 | `calibration-20261021-154802` | Rubric calibration **after**: 7/7 caught, 0 false alarms, 2 spillover (also in `output/calibration.md`) |
 | `20261022-082834` | Web research + verified links added. Sentence-length and jargon fixes undid each other; retry budget used, **correctly not shipped**. Led to the "explain a term in its own short sentence" rule |
-| `20261022-083015` | **Current final lesson** (`output/final_lesson.md`): accuracy + sentence failures fixed in one targeted revision, 12/12; verified IBM video, articles and a Hindi video in *Learn more*; guideline **G4** learned |
+| `20261022-083015` | Earlier passing lesson: accuracy + sentence failures fixed in one targeted revision, 12/12; verified IBM video, articles and a Hindi video in *Learn more*; guideline **G4** learned |
 | `20261022-085459` | **Any topic:** "Introduction to Embeddings", no curated sheet, so the reference sheet was drafted from web search; 8 verified videos; full write, evaluate, revise loop; retry budget used, so held for human review |
+| `20261022-102658` | **Current final lesson** (`output/final_lesson.md`): draft → targeted revision → fresh rewrite after L3 failed twice → **12/12**. Run after fixing three false failures in the evaluator (quote-ending sentences, label-based step matching, 'chunking' vs 'chunk') |
 
 ### Choosing models (any provider)
 

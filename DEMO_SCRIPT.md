@@ -103,28 +103,45 @@ python -m lesson_agent run --topic "Introduction to RAG"
 - `[generate] attempt 1`: "The first draft."
 - `[evaluate] attempt 1: ... FAILED: ...`: "Twelve checks. This draft failed these, so it's rejected."
 - `[revise] attempt 2: fixing [...]`: "The failure reasons and quotes go back to the writer for a targeted fix."
-- `[evaluate] attempt 2: 12/12 passed`: "Now everything passes."
-- `[finalize] PASSED`: "Only now would a human see it."
-- `[learn] ...`: "And it learned from this run."
+- `[route] [...] failed twice in a row -> fresh rewrite` *(if it appears)*: "The same check failed twice, so small edits aren't working. The router switches strategy and rewrites from scratch, with that failure as an explicit constraint."
+- `[evaluate] attempt N: 12/12 passed`: "Now every check passes."
+- `[finalize] PASSED ... final_lesson.md`: "Only now is the lesson saved as final and shown to a human."
+- `[learn] ...`: "And it updated its memory from this run."
 
-> *If the run is still going:* "It's waiting on the free-tier rate limit; that's the 429 message, handled automatically. Let me show a finished run in the meantime." Then open `runs/20261022-083015/rejection_log.md`.
+> *Your live run may pass on attempt 1, 2 or 3; any of these is fine. The reference run below took all three steps.*
 >
-> *If it ends in NEEDS_HUMAN_REVIEW:* "This is the system refusing to ship. It used its retries, so it saved the best attempt for a human instead of pretending it's good." Open its rejection log.
+> *If the run is still going:* "It's waiting on the free-tier rate limit; that's the 429 message, handled automatically. Let me show a finished run in the meantime." Then open `runs/20261022-102658/rejection_log.md`.
+>
+> *If it ends in NEEDS_HUMAN_REVIEW:* "This is the system refusing to ship. It used its retries, so it saved the best attempt for a human instead of pretending it's good." Open its rejection log, then show the finished run `runs/20261022-102658/`.
 
-**Do:** Open `output/final_lesson.md`. Scroll slowly. Stop at the example section and at **Learn more**; click the Hindi video.
+**The reference run, `runs/20261022-102658`** (use it if your live run is slow, or to show the full loop):
+
+| Attempt | How it was made | Result |
+|---|---|---|
+| 1 | first draft | 11/12, L3 (jargon) failed |
+| 2 | targeted revision | 11/12, L3 failed again |
+| 3 | fresh rewrite (same check failed twice) | **12/12, PASSED**, saved as `final_lesson.md` |
 
 **Say:**
-> "Short sentences, every technical word explained the first time it appears, an everyday Indian example, a quiz, and verified links, including a Hindi video."
+> "In this run you can see all three strategies: a first draft, a targeted fix, and when the same check failed twice, a fresh rewrite. The third attempt passed all twelve checks and was saved as the final lesson."
+
+**Do:** Open `output/final_lesson.md`. Scroll slowly. Stop at the exam-hall analogy, the college-helpdesk example (each step labelled with its name), and **Learn more**; click the Hindi video.
+
+**Say:**
+> "Short sentences, every technical word explained the first time it appears, an everyday Indian analogy, one worked example that walks through every step by name, a quiz, and verified links, including a Hindi video."
 
 **Do:** Open `output/rejection_log.md`.
 
 **Say:**
-> "This is the rejection log: what failed, the exact quote, and what changed on each retry."
+> "This is the rejection log: what failed on each attempt, the exact evidence, what changed on each retry, and what the system learned."
 
-**Do:** Open `attempt_2.diff` in the run's folder under `runs/`.
+**Do:** Open `runs/20261022-102658/attempt_2.diff`.
 
 **Say:**
-> "And this is the actual edit the system made, so the revision is real, not just claimed."
+> "And this is the actual edit the revision made, so the fix is real, not just claimed."
+
+**Say (optional, 20 seconds, shows you own the evaluator):**
+> "While testing, I also found false failures in my own evaluator: a sentence ending in a quote mark was counted together with the next sentence, and the jargon check asked about 'chunking' when the lesson only said 'chunk'. I fixed both and added regression tests. A self-evaluating system is only as good as its checks, so the checks get tested too."
 
 ---
 
@@ -218,5 +235,5 @@ python -m pytest -q
 |---|---|
 | Run is slow (many `429` lines) | "That's the free-tier rate limit; it waits and retries automatically." Show a finished run from `runs/` meanwhile. |
 | Run ends `NEEDS_HUMAN_REVIEW` | Don't cut it. "It refused to ship. Here's why." Open its `rejection_log.md`. |
-| API error or no internet | Walk through `runs/20261022-083015/` instead: every draft, evaluation and diff is saved there. |
+| API error or no internet | Walk through `runs/20261022-102658/` instead: every draft, evaluation, diff and the final lesson are saved there. |
 | `evaluate demo.md` passes L1 | Make the sentence more obviously wrong, save, and run it again. |
